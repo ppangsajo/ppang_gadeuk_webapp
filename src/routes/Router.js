@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import MainScreen from './MainScreen';
-import KakaoMap from './KakaoMap';
+import MainScreen from '../MainScreen';
+import KakaoMap from '../KakaoMap';
 //import Recipe from './Recipe';
-import ClickerGame from './ClickerGame';
-import NotFound from "./NotFound";
+import ClickerGame from '../ClickerGame';
+import NotFound from "../NotFound";
 
 
 //Router: 애플리케이션의 라우팅을 관리하며, 정의된 경로에 따라 적절한 컴포넌트를 렌더링해주는 컴포넌트 
