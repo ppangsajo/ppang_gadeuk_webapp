@@ -1,0 +1,32 @@
+h1 {
+  color: #d6851a; /* 원하는 색상으로 설정 */
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+.MainScreen body {
+  font-family: Arial, sans-serif;
+  background-color: #f1e0c7;
+  margin-top: 4.5em;
+}
+
+.button-container {
+  display: flex; /* Flexbox 레이아웃 사용하여 간단한 정렬 */
+  justify-content: space-between; /* 버튼 사이의 공간을 균등하게 정렬 */
+  width: 100%;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0 50px; /* 좌우 여백으로 간격 좁히기 */
+
+  background-color: #e36313;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}

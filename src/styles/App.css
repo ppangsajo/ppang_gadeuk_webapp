@@ -41,8 +41,26 @@
 /* App.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
   margin-top: 4.5em;
+}
+.body-MainScreen {
+  background-color: #f1e0c7;
+}
+
+.body-map {
+  background-color: #f0f0f0;
+}
+
+.body-ClickerGame {
+  background-color: rgb(152, 103, 158);
+}
+
+.body-bakingClass {
+  background-color: rgb(207, 64, 124);
+}
+
+.body-NotFound {
+  background-color: rgb(218, 131, 131);
 }
 
 h1 {
