@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import MainScreen from '../MainScreen';
 import KakaoMap from '../KakaoMap';
-//import Recipe from './Recipe';
+import BakingClass from '../BakingClass';
 import ClickerGame from '../ClickerGame';
 import NotFound from "../NotFound";
+
 
 
 //Router: 애플리케이션의 라우팅을 관리하며, 정의된 경로에 따라 적절한 컴포넌트를 렌더링해주는 컴포넌트 
@@ -23,6 +24,7 @@ function Router() {
                 <Route path="/" element={<MainScreen />} />
                 <Route path="/map" element={<KakaoMap />} />
                 <Route path="/ClickerGame" element={<ClickerGame />} />
+                <Route path="/BakingClass" element={<BakingClass />} />
                 {/*<Route path="/Recipe" component={Recipe} />} */}
                 <Route path="*" element={<NotFound />} />
                 {/*정의되지 않은 경로로 접근하려는 경우 보여줄 컴포넌트*/}
@@ -52,8 +54,8 @@ const BodyStyleUpdater = () => {
             case '/ClickerGame':
                 document.body.classList.add('body-ClickerGame');
                 break;
-            case '/bakingClass':
-                document.body.classList.add('body-bakingClass');
+            case '/BakingClass':
+                document.body.classList.add('body-BakingClass');
                 break;
             default:
                 document.body.classList.add('body-NotFound');

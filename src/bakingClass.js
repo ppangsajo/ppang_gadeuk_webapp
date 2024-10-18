@@ -1,10 +1,13 @@
 import React from "react";
+import './styles/BakingClass.css';
 
-function Recipe() {
-  return (
-    <div>
-      <h1>baking Page</h1>
-      <p>This is the baking page!</p>
-    </div>
-  );
+function BakingClass() {
+    return (
+        <div className='div-BakingClass'>
+            <h1>baking Page</h1>
+            <p>This is the baking page!</p>
+        </div>
+    );
 }
+
+export default BakingClass;
