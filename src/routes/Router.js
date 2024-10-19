@@ -22,7 +22,7 @@ function Router() {
             <BodyStyleUpdater />
             <Routes>
                 <Route path="/" element={<MainScreen />} />
-                <Route path="/map" element={<KakaoMap />} />
+                <Route path="/Map" element={<KakaoMap />} />
                 <Route path="/ClickerGame" element={<ClickerGame />} />
                 <Route path="/BakingClass" element={<BakingClass />} />
                 {/*<Route path="/Recipe" component={Recipe} />} */}
@@ -48,8 +48,8 @@ const BodyStyleUpdater = () => {
             case '/':
                 document.body.classList.add('body-MainScreen');
                 break;
-            case '/map':
-                document.body.classList.add('body-map');
+            case '/Map':
+                document.body.classList.add('body-Map');
                 break;
             case '/ClickerGame':
                 document.body.classList.add('body-ClickerGame');
