@@ -6,11 +6,11 @@ h1 {
   font-size: 40px;
 }
 
-.MainScreen body {
+/* .MainScreen body {
   font-family: Arial, sans-serif;
   background-color: #f1e0c7;
   margin-top: 4.5em;
-}
+} */
 
 .button-container {
   display: flex; /* Flexbox 레이아웃 사용하여 간단한 정렬 */
@@ -31,7 +31,7 @@ h1 {
   font-size: 16px;
 }
 
-.div-MainScreen {
+.MainScreen-header {
   max-width: 1200px; /* 최대 너비 설정 */
   margin: 0 auto; /* 중앙 정렬 */
   padding: 30px;
