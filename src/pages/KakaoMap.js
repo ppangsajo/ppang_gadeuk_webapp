@@ -8,6 +8,14 @@ import React, { useEffect } from "react";
 const { kakao } = window;
 
 function KakaoMap() {
+    //body 색상설정
+    useEffect(() => {
+        document.body.className = 'body-Map';
+        return () => {
+            document.body.className = '';
+        };
+    }, []);
+
     useEffect(() => {
         const container = document.getElementById('kakaoMap'); // 지도를 담을 영역의 DOM 객체 레퍼런스
 
