@@ -1,13 +1,38 @@
-import React from "react";
+import React from 'react';
 import './styles/BakingClass.css';
+import Card from './components/Card.js';
 
 function BakingClass() {
-    return (
-        <div className='div-BakingClass'>
-            <h1>Baking Page</h1>
-            <p>This is the baking page!</p>
-        </div>
-    );
+  return (
+    <div className="div-BakingClass">
+      <div className="table-container">
+        <table>
+          <tr>
+            <td>
+              <Card />
+            </td>
+            <td>
+              <Card />
+            </td>
+            <td>
+              <Card />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Card />
+            </td>
+            <td>
+              <Card />
+            </td>
+            <td>
+              <Card />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  );
 }
 
 export default BakingClass;
