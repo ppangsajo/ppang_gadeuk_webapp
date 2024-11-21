@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainScreen from '../pages/MainScreen';
 import BakeryMap from '../pages/BakeryMap';
 import BakingClass from '../pages/BakingClass';

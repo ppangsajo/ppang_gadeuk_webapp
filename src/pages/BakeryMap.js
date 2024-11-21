@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Map from '../components/KakaoMap/Map';
+import Map from '../components/BakeryMap/Map';
 
 function BakeryMap() {
     useEffect(() => {
@@ -11,7 +11,6 @@ function BakeryMap() {
 
     return (
         <div>
-            <h1>Bakery Map</h1>
             <Map />
         </div>
     );

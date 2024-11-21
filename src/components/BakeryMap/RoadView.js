@@ -1,7 +1,7 @@
 import React from 'react';
 import { Roadview } from 'react-kakao-maps-sdk';
 import styled from 'styled-components';
-import PulseButton from '../../styles/button';
+import PulseButton from '../../styles/BakeryMap/button';
 
 const RoadViewContainer = styled.div`
   position: relative;
@@ -21,15 +21,15 @@ const CloseButton = styled(PulseButton)`
 
 
 const RoadView = ({ position, onClose }) => {
-    return (
-        <RoadViewContainer>
-            <CloseButton onClick={onClose}>닫기</CloseButton>
-            <Roadview
-                position={{ lat: position.lat, lng: position.lng, radius: 50, }}
-                style={{ width: '100%', height: '100%' }}
-            />
-        </RoadViewContainer>
-    );
+  return (
+    <RoadViewContainer>
+      <CloseButton onClick={onClose}>닫기</CloseButton>
+      <Roadview
+        position={{ lat: position.lat, lng: position.lng, radius: 50, }}
+        style={{ width: '100%', height: '100%' }}
+      />
+    </RoadViewContainer>
+  );
 };
 
 export default RoadView;
