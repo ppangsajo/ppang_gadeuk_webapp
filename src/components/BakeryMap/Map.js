@@ -68,6 +68,7 @@ const Map = () => {
         }
     }, []);
 
+    //지도 렌더링
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
             <div id="kakaoMap" style={{ width: '100%', height: '100%' }}></div>

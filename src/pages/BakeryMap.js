@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Map from '../components/BakeryMap/Map';
+import SideBar from '../components/BakeryMap/SideBar';
 
 function BakeryMap() {
     useEffect(() => {
@@ -11,6 +12,7 @@ function BakeryMap() {
 
     return (
         <div>
+            <SideBar width={350} />
             <Map />
         </div>
     );

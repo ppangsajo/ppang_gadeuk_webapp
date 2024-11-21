@@ -1,7 +1,7 @@
 import React from 'react';
 import { Roadview } from 'react-kakao-maps-sdk';
 import styled from 'styled-components';
-import PulseButton from '../../styles/BakeryMap/button';
+import PulseButton from '../../styles/BakeryMap/buttonStyles';
 
 const RoadViewContainer = styled.div`
   position: relative;
@@ -11,7 +11,7 @@ const RoadViewContainer = styled.div`
   overflow: hidden; /* 컨테이너 내부 요소가 밖으로 나가지 않도록 */
 `;
 
-// //styled(~): ~의 기본 스타일을 유지 + 필요한 추가 스타일 적용
+// //styled(~): ~의 기본 스타일을 유지 + 필요한 추가 스타일 적용. styled-components를 이용한 재활용.
 const CloseButton = styled(PulseButton)`
   position: absolute;
   top: 10px;

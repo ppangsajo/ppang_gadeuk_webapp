@@ -5,7 +5,9 @@ const pulse = keyframes`
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 `;
-
+//<button> HTML 엘리먼트에 원하는 스타일을 적용한 후 PulseButton 변수에 저장
+//styled 함수가 리턴하는 것은 React 컴포넌트
+//즉, PulseButton은 React 컴포넌트가 된다.
 const PulseButton = styled.button`
   background-color: #2196F3; // 깔끔한 파란색 배경
   color: #fff; // 버튼 텍스트 색상 -> 흰색
