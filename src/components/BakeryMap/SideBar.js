@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, OpenButton, Content, ButtonImg } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/sideBarBtn.png";
+import closeBtn from "../../assets/images/closeBtn.png";
 
 //children prop = 사이드바 내부에 표시될 콘텐츠
 const SideBar = ({ width = 280, children }) => {
@@ -55,11 +56,11 @@ const SideBar = ({ width = 280, children }) => {
             <SideBarComponent ref={side} width={width} xPosition={-xPosition}>
 
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
-                <OpenButton onClick={() => toggleMenu()}>
+                <SideBarButton onClick={() => toggleMenu()}>
                     {isOpen ?
-                        <span>X</span> : <ButtonImg src={sideBarBtn} alt="btn" />
+                        <ButtonImg src={closeBtn} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
                     }
-                </OpenButton>
+                </SideBarButton>
 
                 {/* 사이드바 내부에는 children을 렌더링하여 사이드바의 콘텐츠를 표시 */}
                 <Content>{children}</Content>

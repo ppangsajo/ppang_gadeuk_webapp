@@ -19,7 +19,7 @@ export const SideBarComponent = styled.div`
   transform: ${({ xPosition }) => `translatex(${xPosition}px)`}; 
 `;
 
-export const OpenButton = styled.button`
+export const SideBarButton = styled.button`
   position: relative;
   z-index: 20;
   border: 2px solid #202020;
