@@ -37,6 +37,7 @@ ${reset}
   }
   .body-Map {
     background-color: #f0f0f0;
+    margin-top: 4.5em;
   }
   .body-ClickerGame {
     background-color: rgb(230, 196, 235);
