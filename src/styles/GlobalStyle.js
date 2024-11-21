@@ -1,14 +1,39 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import reset from "styled-reset";
+import font1 from '../assets/fonts/CookieRun_Black.ttf';
+import font2 from '../assets/fonts/CookieRun_Bold.ttf';
+import font3 from '../assets/fonts/CookieRun_Regular.ttf';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
+
+@font-face {
+    font-family: 'OurFont1';
+    src: url(${font1}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+@font-face {
+    font-family: 'OurFont2';
+    src: url(${font2}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
+@font-face {
+    font-family: 'OurFont3';
+    src: url(${font3}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   body {
-    font-family: Arial, sans-serif;
-    margin-top: 4.5em;
+    font-family: Font1;
   }
   .body-MainScreen {
-    background-color: #f1e0c7;
+    background-color: #d1c3b6;
   }
   .body-Map {
     background-color: #f0f0f0;
@@ -25,9 +50,7 @@ ${reset}
 `;
 
 export const DIV = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px;
+
   background-color: #ffffff;
-  border-radius: 45px;
+
 `;
