@@ -10,9 +10,9 @@ export const SideBarComponent = styled.div`
   background-color: #E3ECF1;
   color: #202020;
   top: 0;
-  right: 0;
+  left: 0;
   bottom: 0;
-  border-left: 4px solid #202020;
+  border-right: 4px solid #202020;
   transition: 0.4s ease;
   height: 100%;
   width: ${({ width }) => `${width}px`}; 
@@ -27,7 +27,7 @@ export const OpenButton = styled.button`
   height: 40px;
   width: 40px;
   top: 10px;
-  left: -50px;
+  left: 360px;
   transition: 0.8s ease;
   overflow: hidden;
   cursor: pointer;

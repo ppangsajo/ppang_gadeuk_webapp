@@ -5,17 +5,17 @@ import sideBarBtn from "../../assets/images/sideBarBtn.png";
 //children prop = 사이드바 내부에 표시될 콘텐츠
 const SideBar = ({ width = 280, children }) => {
     const [isOpen, setOpen] = useState(false); // 사이드바의 열림/닫힘 여부를 나타내는 상태
-    const [xPosition, setX] = useState(-width); // 사이드바의 x축 위치를 나타내는 상태 
+    const [xPosition, setX] = useState(width); // 사이드바의 x축 위치를 나타내는 상태 
     const side = useRef(); // 사이드바 DOM 엘리먼트에 대한 참조를 저장하는 side 참조(ref) 객체 
 
     // button 클릭 시 토글
     //사이드바의 열림/닫힘 상태를 전환하는 함수
     const toggleMenu = () => {
-        if (xPosition < 0) { //사이드바가 닫혀있을 경우
+        if (xPosition > 0) { //사이드바가 닫혀있을 경우
             setX(0); //xPosition을 0으로 설정(사이드바를 연다)
             setOpen(true);
         } else {
-            setX(-width); //사이드바를 닫는다
+            setX(width); //사이드바를 닫는다
             setOpen(false);
         }
     };
@@ -29,7 +29,7 @@ const SideBar = ({ width = 280, children }) => {
         //사이드바가 열려있고 && 사이드바 외부를 클릭했을 경우, 사이드바를 닫는다 
         if (isOpen && (!sideArea || !sideCildren)) {
             //사이드바를 닫는 작업이 순차적으로(동기적으로) 일어나도록 await 사용.
-            await setX(-width); //setX()로 사이드바 x축 위치를 변경작업이 완료될 때까지
+            await setX(width); //setX()로 사이드바 x축 위치를 변경작업이 완료될 때까지
             await setOpen(false); // setOpen()으로 사이드바 열림/닫힘 상태 변경작업을 대기.
             // 즉, 사이드바의 위치를 먼저 설정한 후, 사이드바의 열림/닫힘 상태를 설정하여 정확한 상태 관리를 보장하고자 async/await 사용.
         }
