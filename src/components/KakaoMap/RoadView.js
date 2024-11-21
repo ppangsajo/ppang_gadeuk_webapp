@@ -1,23 +1,24 @@
 import React from 'react';
 import { Roadview } from 'react-kakao-maps-sdk';
 import styled from 'styled-components';
+import PulseButton from '../../styles/button';
 
 const RoadViewContainer = styled.div`
   position: relative;
   width: 100%;
   height: 450px;
+  border-radius: 8px; /* 컨테이너에 둥근 모서리 추가 */
+  overflow: hidden; /* 컨테이너 내부 요소가 밖으로 나가지 않도록 */
 `;
 
-const CloseButton = styled.button`
+// //styled(~): ~의 기본 스타일을 유지 + 필요한 추가 스타일 적용
+const CloseButton = styled(PulseButton)`
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  cursor: pointer;
   z-index: 10;
 `;
+
 
 const RoadView = ({ position, onClose }) => {
     return (
