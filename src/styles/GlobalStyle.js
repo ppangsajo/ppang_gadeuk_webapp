@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import reset from "styled-reset";
 import font1 from '../assets/fonts/CookieRun_Black.ttf';
 import font2 from '../assets/fonts/CookieRun_Bold.ttf';
@@ -37,6 +37,7 @@ ${reset}
   }
   .body-Map {
     background-color: #f0f0f0;
+    margin-top: 4.5em;
   }
   .body-ClickerGame {
     background-color: rgb(230, 196, 235);
@@ -49,8 +50,8 @@ ${reset}
   }
 `;
 
-export const DIV = styled.div`
+// export const DIV = styled.div`
 
-  background-color: #ffffff;
+//   background-color: #ffffff;
 
-`;
+// `;
