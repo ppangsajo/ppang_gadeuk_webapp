@@ -3,7 +3,7 @@ import Map from '../components/BakeryMap/Map';
 import SideBar from '../components/BakeryMap/SideBar';
 import styled from 'styled-components';
 
-const MapDiv = styled.div`
+const DIV = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 30px;
@@ -20,10 +20,10 @@ function BakeryMap() {
     }, []);
 
     return (
-        <MapDiv>
+        <DIV>
             <SideBar width={350} />
             <Map />
-        </MapDiv>
+        </DIV>
     );
 }
 
