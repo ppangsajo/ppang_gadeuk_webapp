@@ -34,7 +34,7 @@ const CustomMap = ({ setPlaces }) => {
         navigator.geolocation.getCurrentPosition((position) => {
             const currentLat = position.coords.latitude;
             const currentLng = position.coords.longitude;
-            const currentCoordinate = new kakao.maps.LatLng(lat, lng); // 현재 위치 좌표 객체 생성
+            const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng); // 현재 위치 좌표 객체 생성
 
             // 현재 위치에 마커 표시
             new kakao.maps.Marker({
