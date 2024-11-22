@@ -27,7 +27,8 @@ export const SideBarButton = styled.button`
   border-radius: 40px;
   height: 40px;
   width: 40px;
-  top: 10px;
+  //top: 10px;
+  top: 50%;
   left: 360px;
   transition: 0.8s ease;
 `;

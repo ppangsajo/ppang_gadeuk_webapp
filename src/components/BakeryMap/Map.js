@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import RoadView from "./RoadView";
 import markerImg from "../../assets/images/BakeryMap/marker2.png";
+import CustomOverlayContent from "./CustomOverlayContent";
+import ReactDOMServer from 'react-dom/server';
 
 const { kakao } = window;
 
@@ -47,7 +49,7 @@ const Map = ({ setPlaces }) => {
             }
         }
 
-        function displayMarker(place) { //한 빵집의 장소정보를 받음
+        function displayMarker(place) {
             const imageSrc = markerImg; // 마커 이미지 path
             const imageSize = new kakao.maps.Size(34, 45); // 마커 이미지 크기
             const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 객체
@@ -57,19 +59,39 @@ const Map = ({ setPlaces }) => {
                 image: markerImage // 마커 이미지 설정
             });
 
-            const infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>',
-                zIndex: 1
+
+            // ReactDOMServer.renderToString을 사용하는 이유: Kakao Maps API의 CustomOverlay는 HTML 문자열을 content로 받기 때문에,
+            // React 컴포넌트, 즉 JSX문법을 -> 문자열로 변환하여 전달해야 하기때문. ReactDOMServer.renderToString가 JSX문법을 문자열로 변환해줌.
+            const content = ReactDOMServer.renderToString(
+                <CustomOverlayContent place={place} closeOverlay={closeOverlay} />
+            );
+
+            // 마커 위에 커스텀오버레이 표시
+            var overlay = new kakao.maps.CustomOverlay({
+                content: content,
+                map: map,
+                position: marker.getPosition()
             });
 
-            kakao.maps.event.addListener(marker, "mouseover", function () {
-                infowindow.open(map, marker);
+            // 초기에는 커스텀 오버레이 숨김
+            closeOverlay();
+
+            // 마커에 마우스를 올렸을 때 커스텀 오버레이를 표시
+            kakao.maps.event.addListener(marker, 'mouseover', function () {
+                overlay.setMap(map);
             });
 
-            kakao.maps.event.addListener(marker, "mouseout", function () {
-                infowindow.close();
+            // 마커에서 마우스를 뗐을 때 커스텀 오버레이를 숨김
+            kakao.maps.event.addListener(marker, 'mouseout', function () {
+                overlay.setMap(null);
             });
-            //마커 클릭시 로드뷰.
+
+            // 커스텀 오버레이 닫아주는 함수
+            function closeOverlay() {
+                overlay.setMap(null);
+            }
+
+            // 마커 클릭시 로드뷰.
             kakao.maps.event.addListener(marker, "click", function () {
                 setRoadViewPosition({
                     lat: place.y, //위도
