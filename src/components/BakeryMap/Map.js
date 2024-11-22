@@ -3,14 +3,14 @@ import RoadView from "./RoadView";
 
 const { kakao } = window;
 
-const Map = () => {
+const Map = ({ setPlaces }) => {
 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
 
     useEffect(() => {
         const container = document.getElementById('kakaoMap'); // 지도를 담을 영역의 DOM 객체 레퍼런스
-        const lat = 37.58284829999999; // 위도
-        const lng = 127.0105811; // 경도
+        const lat = 37.5443878; // 위도
+        const lng = 127.0374424; // 경도
         const options = {
             center: new kakao.maps.LatLng(lat, lng), // 설정해둔 위도와 경도를 중심점으로 map 위치설정됨.
             level: 4 // map 확대 수준(high=wide)
@@ -19,21 +19,28 @@ const Map = () => {
         const map = new kakao.maps.Map(container, options); //지도 객체 생성.
         //kakao.maps.Map: 지도 객체를 생성해주는 메서드. 매개변수로, 지도를 표시할 컨테이너와 중심 좌표, 확대 수준 등을 설정가능.
 
-        const ps = new kakao.maps.services.Places();
-        // 장소 검색 객체 ps 생성. 카카오 맵 API의 Places 서비스 객체로, 장소 검색과 관련된 여러 기능을 제공해줌. 
 
         //new kakao.maps.LatLng(lat, lng) 해당 좌표값으로 좌표객체 생성.
-        const currentPosition = new kakao.maps.LatLng(lat, lng);
-        ps.keywordSearch("베이커리", placesSearchCB, {
-            location: currentPosition,
-            radius: 1000
-        });
+        async function searchPlaces() {
+            var keyword = "베이커리"; //검색할 키워드
+            const currentCoordinate = new kakao.maps.LatLng(lat, lng);
+            console.log(currentCoordinate);
+            var options = {
+                location: currentCoordinate,
+                radius: 1000,
+                sort: kakao.maps.services.SortBy.DISTANCE,
+            };
 
-        // let currentInfowindow = null;
+            const ps = new kakao.maps.services.Places();
+            ps.keywordSearch(keyword, placesSearchCB, options);
+        }
+        // 장소 검색 객체 ps 생성. 카카오 맵 API의 Places 서비스 객체로, 장소 검색과 관련된 여러 기능을 제공해줌. 
+        //ps.keywordSearch: 키워드 검색을 요청하는 메서드. 매개변수로 검색할 키워드, 검색결과를 인자값으로받고 실행되는 콜백함수, 추가 옵션을 전달받음.
 
-        //data 
+
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
+                setPlaces(data);
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]); //베이커리 카테고리에 해당하는 1000반경 이내에서 검색된 장소 데이터를 마커표시 함수에 전달.
                 }
@@ -66,7 +73,9 @@ const Map = () => {
                 });
             });
         }
-    }, []);
+
+        searchPlaces();
+    }, [setPlaces]);
 
     //지도 렌더링
     return (

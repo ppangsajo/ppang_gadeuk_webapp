@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Map from '../components/BakeryMap/Map';
 import SideBar from '../components/BakeryMap/SideBar';
 import styled from 'styled-components';
@@ -12,6 +12,8 @@ const DIV = styled.div`
 `;
 
 function BakeryMap() {
+    const [places, setPlaces] = useState([]);
+
     useEffect(() => {
         document.body.className = 'body-Map';
         return () => {
@@ -21,8 +23,8 @@ function BakeryMap() {
 
     return (
         <DIV>
-            <SideBar width={350} />
-            <Map />
+            <SideBar width={350} places={places} />
+            <Map setPlaces={setPlaces} />
         </DIV>
     );
 }

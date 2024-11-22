@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, ListItem, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/sideBarBtn.png";
 import closeBtn from "../../assets/images/closeBtn.png";
 
-//children prop = 사이드바 내부에 표시될 콘텐츠
-const SideBar = ({ width = 280, children }) => {
+//places prop = 사이드바 내부에 표시될 콘텐츠
+const SideBar = ({ width = 280, places }) => {
     const [isOpen, setOpen] = useState(false); // 사이드바의 열림/닫힘 여부를 나타내는 상태
     const [xPosition, setX] = useState(width); // 사이드바의 x축 위치를 나타내는 상태 
     const side = useRef(); // 사이드바 DOM 엘리먼트에 대한 참조를 저장하는 side 참조(ref) 객체 
@@ -53,7 +53,7 @@ const SideBar = ({ width = 280, children }) => {
 
             {/* side ref 객체는 바로 이 사이드바 엘리먼트를 참조중 */}
             {/* transform 속성을 이용하여  사이드바의 x축을 변경 즉 이동시킴으로써 사이드바를 열고 닫음 */}
-            <SideBarComponent ref={side} width={width} xPosition={-xPosition}>
+            <SideBarComponent ref={side} width={width} $xPosition={-xPosition}>
 
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
                 <SideBarButton onClick={() => toggleMenu()}>
@@ -62,8 +62,20 @@ const SideBar = ({ width = 280, children }) => {
                     }
                 </SideBarButton>
 
-                {/* 사이드바 내부에는 children을 렌더링하여 사이드바의 콘텐츠를 표시 */}
-                <Content>{children}</Content>
+                {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
+                <Content>
+                    <ul>
+                        {places.map((place, index) => (
+                            <ListItem key={index}>
+                                <ListItemInfo>
+                                    <ListItemTitle>{place.place_name}</ListItemTitle>
+                                    <ListItemAddress>{place.address_name}</ListItemAddress>
+                                    <ListItemDistance>{place.distance}m</ListItemDistance>
+                                </ListItemInfo>
+                            </ListItem>
+                        ))}
+                    </ul>
+                </Content>
 
             </SideBarComponent>
         </Container>
