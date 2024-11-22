@@ -1,7 +1,9 @@
+// src/components/BakeryMap/SideBar.js
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, ListItem, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
 import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
+import listItemImg from "../../assets/images/BakeryMap/marker2.png";
 
 //places prop = 사이드바 내부에 표시될 콘텐츠
 const SideBar = ({ width = 280, places }) => {
@@ -48,25 +50,24 @@ const SideBar = ({ width = 280, places }) => {
     })
 
     // 사이드바와 버튼, 그리고 사이드바 내부 콘텐츠 jsx를 반환. 즉 사이드바 구조를 정의&반환 -> 화면에 사이드바 렌더링
+
     return (
         <Container>
-
             {/* side ref 객체는 바로 이 사이드바 엘리먼트를 참조중 */}
             {/* transform 속성을 이용하여  사이드바의 x축을 변경 즉 이동시킴으로써 사이드바를 열고 닫음 */}
             <SideBarComponent ref={side} width={width} $xPosition={-xPosition}>
-
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
-                <SideBarButton onClick={() => toggleMenu()} width={width + 10}>
+                <SideBarButton onClick={toggleMenu} width={width + 10}>
                     {isOpen ?
                         <ButtonImg src={closeBtn} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
                     }
                 </SideBarButton>
-
                 {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
                 <Content>
                     <ul>
                         {places.map((place, index) => (
                             <ListItem key={index}>
+                                <ListItemImg src={listItemImg} alt={place.place_name} />
                                 <ListItemInfo>
                                     <ListItemTitle>{place.place_name}</ListItemTitle>
                                     <ListItemAddress>{place.address_name}</ListItemAddress>
@@ -76,7 +77,6 @@ const SideBar = ({ width = 280, places }) => {
                         ))}
                     </ul>
                 </Content>
-
             </SideBarComponent>
         </Container>
     );

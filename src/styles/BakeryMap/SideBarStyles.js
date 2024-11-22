@@ -1,3 +1,4 @@
+// src/styles/BakeryMap/SideBarStyles.js
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -16,12 +17,17 @@ export const SideBarComponent = styled.div`
   transition: 0.4s ease;
   height: 100%;
   width: ${({ width }) => `${width}px`}; 
-  transform: ${({ $xPosition }) => `translatex(${$xPosition}px)`}; 
-  //React가 인식할 수 있는 props가 아니면 custom props로 인식을 하고, custom props는 소문자로만 작성을 해야하는 Propery 검증 로직이 있음. so, 콘솔로그창 에러제거를 위해 $를 앞에사용
+  transform: ${({ $xPosition }) => `translatex(${$xPosition}px)`};  
 `;
+//React가 인식할 수 있는 props가 아니면 custom props로 인식을 하고, custom props는 소문자로만 작성을 해야하는 Propery 검증 로직이 있음. so, 콘솔로그창 에러제거를 위해 $를 앞에사용
 
+
+/*
+position: relative는 요소를 문서 흐름 내에 유지하면서 자신의 원래 위치를 기준으로 위치를 조정함. 반면  absolute는 문서 흐름에서 독립적인 위치를 가짐. 
+즉, SideBarButton이 relative로 설정되면, Content 역시 마찬가지로 relative 이기때문에 둘은 절대적이 아닌 상대적인 위치 관게를 갖게되어 -> SideBarButton의 높이만큼 아래로 밀려 표시되게됨.
+so, SideBarButton의 position을 absolute로 변경. 이렇게 하면 SideBarButton이 문서 흐름에서 제외되어 Content를 밀어내지 않음. 독립적인 위치.*/
 export const SideBarButton = styled.button`
-  position: relative;
+  position: absolute; 
   z-index: 20;
   border: 4px solid #202020;
   border-radius: 40px;
@@ -56,7 +62,16 @@ export const ListItem = styled.li`
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 95%; /* ListItem의 너비를 100%로 설정 */
+  display: flex;
+  align-items: center;
+`;
+
+export const ListItemImg = styled.img`
+  width: 60px;
+  height: 60px;
+  //border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
 `;
 
 export const ListItemInfo = styled.div`
@@ -68,11 +83,12 @@ export const ListItemTitle = styled.h5`
   margin: 0;
   font-size: 16px;
   font-weight: bold;
+  color: #333;
 `;
 
 export const ListItemAddress = styled.span`
   font-size: 14px;
-  color: #555;
+  color: #777;
 `;
 
 export const ListItemDistance = styled.span`
