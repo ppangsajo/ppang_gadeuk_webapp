@@ -23,13 +23,14 @@ export const SideBarComponent = styled.div`
 export const SideBarButton = styled.button`
   position: relative;
   z-index: 20;
-  border: 2px solid #202020;
+  border: 4px solid #202020;
   border-radius: 40px;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   //top: 10px;
-  top: 50%;
-  left: 360px;
+  top: 50%; // 수직중앙에 위치하도록 설정
+  //left: 360px;
+  left: ${({ width }) => `${width}px`}; // 사이드바의 크기 + 10을 사용하여 버튼 위치 설정. left는 사이드바의 왼쪽사이드 기준으로 설정되기 때문에 사이드바의 너비를 더해줌.
   transition: 0.8s ease;
 `;
 
@@ -38,7 +39,7 @@ export const ButtonImg = styled.img`
   height: 100%;
   pointer-events: none;
 `;
-
+//사이드바의 콘텐츠를 담는 컨테이너 컴포넌트
 export const Content = styled.div`
   position: relative;
   width: calc(100% - 40px);

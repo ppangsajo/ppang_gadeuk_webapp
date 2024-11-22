@@ -56,7 +56,7 @@ const SideBar = ({ width = 280, places }) => {
             <SideBarComponent ref={side} width={width} $xPosition={-xPosition}>
 
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
-                <SideBarButton onClick={() => toggleMenu()}>
+                <SideBarButton onClick={() => toggleMenu()} width={width + 10}>
                     {isOpen ?
                         <ButtonImg src={closeBtn} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
                     }
