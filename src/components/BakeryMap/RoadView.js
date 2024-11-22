@@ -25,26 +25,27 @@ const { kakao } = window;
 
 
 const RoadView = ({ position, onClose }) => {
-  const roadviewRef = useRef(null);
+  const roadviewRef = useRef(null); // Roadview를 렌더링할 DOM 요소를 참조하기 위한 useRef 훅
 
   useEffect(() => {
-    if (roadviewRef.current) {
-      const roadview = new kakao.maps.Roadview(roadviewRef.current);
-      const roadviewClient = new kakao.maps.RoadviewClient();
+    if (roadviewRef.current) {  // roadviewRef가 현재 DOM 요소를 참조하고 있는지 확인
+      const roadview = new kakao.maps.Roadview(roadviewRef.current); // Roadview 객체 생성
+      const roadviewClient = new kakao.maps.RoadviewClient(); // //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
+      // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄움
       roadviewClient.getNearestPanoId(
         new kakao.maps.LatLng(position.lat, position.lng),
-        50,
+        50, // 반경 50미터 내에서 가장 가까운 파노라마 ID를 검색
         (panoId) => {
           if (panoId) {
-            roadview.setPanoId(panoId, new kakao.maps.LatLng(position.lat, position.lng));
+            roadview.setPanoId(panoId, new kakao.maps.LatLng(position.lat, position.lng)); // 해당 파노라마 ID와 위치로 로드뷰를 실행
           } else {
             console.error('로드뷰를 사용할 수 없는 위치입니다.');
           }
         }
       );
     }
-  }, [position]);
+  }, [position]); // 위치 변경될 때마다 useEffect 훅 실행
 
   return (
     <RoadViewContainer>

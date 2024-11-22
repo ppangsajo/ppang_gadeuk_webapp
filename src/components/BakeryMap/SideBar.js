@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, ListItem, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
-import sideBarBtn from "../../assets/images/sideBarBtn.png";
-import closeBtn from "../../assets/images/closeBtn.png";
+import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
+import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 
 //places prop = 사이드바 내부에 표시될 콘텐츠
 const SideBar = ({ width = 280, places }) => {

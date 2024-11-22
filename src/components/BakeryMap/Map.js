@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RoadView from "./RoadView";
+import markerImg from "../../assets/images/BakeryMap/marker2.png";
 
 const { kakao } = window;
 
@@ -24,7 +25,6 @@ const Map = ({ setPlaces }) => {
         async function searchPlaces() {
             var keyword = "베이커리"; //검색할 키워드
             const currentCoordinate = new kakao.maps.LatLng(lat, lng);
-            console.log(currentCoordinate);
             var options = {
                 location: currentCoordinate,
                 radius: 1000,
@@ -48,9 +48,13 @@ const Map = ({ setPlaces }) => {
         }
 
         function displayMarker(place) { //한 빵집의 장소정보를 받음
+            const imageSrc = markerImg; // 마커 이미지 path
+            const imageSize = new kakao.maps.Size(34, 45); // 마커 이미지 크기
+            const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 객체
             const marker = new kakao.maps.Marker({ // 마커 객체 생성.
                 map: map, //현재 지도에 표시할 것.
                 position: new kakao.maps.LatLng(place.y, place.x), //파라미터로 받은 빵집의 위도와 경도로 -> 마커의 위치를 설정.
+                image: markerImage // 마커 이미지 설정
             });
 
             const infowindow = new kakao.maps.InfoWindow({
