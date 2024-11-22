@@ -9,30 +9,32 @@ const { kakao } = window;
 const Map = ({ setPlaces }) => {
 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
-    const [pagination, setPagination] = useState(null);
+    const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
+    const [currentPosition, setCurrentPosition] = useState(null);
 
     useEffect(() => {
         const container = document.getElementById('kakaoMap'); // 지도를 담을 영역의 DOM 객체 레퍼런스
-        //const lat = 37.58284829999999; // 위도 한성대 좌표
+        //const lat = 37.58284829999999; // 위도 <한성대 좌표>
         //const lng = 127.0105811; // 경도
-        const lat = 37.5443878; // 위도  서울숲 좌표
+        const lat = 37.5443878; // 위도  <서울숲 좌표>
         const lng = 127.0374424; // 경도
         const options = {
             center: new kakao.maps.LatLng(lat, lng), // 설정해둔 위도와 경도를 중심점으로 map 위치설정됨.
-            level: 4 // map 확대 수준(high=wide)
+            level: 3 // map 확대 수준(high=wide)
         };
 
         const map = new kakao.maps.Map(container, options); //지도 객체 생성.
         //kakao.maps.Map: 지도 객체를 생성해주는 메서드. 매개변수로, 지도를 표시할 컨테이너와 중심 좌표, 확대 수준 등을 설정가능.
 
 
-        //new kakao.maps.LatLng(lat, lng) 해당 좌표값으로 좌표객체 생성.
+        // searchPlaces: 키워드, 현재좌표, 탐색 옵션과 같은 검색조건을 설정하고, 장소검색을 요청하는 함수. 
         async function searchPlaces() {
             var keyword = "베이커리"; //검색할 키워드
             const currentCoordinate = new kakao.maps.LatLng(lat, lng);
+            //new kakao.maps.LatLng(lat, lng) 해당 좌표값으로 좌표객체 생성.
             var options = {
                 location: currentCoordinate, //현재 좌표를 기준으로 키워드검색
-                radius: 500, //미터(m) 단위. 중심 좌표로부터의 거리(반경) 필터링 값. 1000m(1km) 반경내에서 검색
+                radius: 1000, //미터(m) 단위. 중심 좌표로부터의 거리(반경) 필터링 값. 1000m(1km) 반경내에서 검색
                 sort: kakao.maps.services.SortBy.DISTANCE, //거리순 정렬
             };
 
@@ -41,14 +43,14 @@ const Map = ({ setPlaces }) => {
             ps.keywordSearch(keyword, placesSearchCB, options);
         }
         // 장소 검색 객체 ps 생성. 카카오 맵 API의 Places 서비스 객체로, 장소 검색과 관련된 여러 기능을 제공해줌. 
-        //ps.keywordSearch: 키워드 검색을 요청하는 메서드. 매개변수로 검색할 키워드, 검색결과를 인자값으로받고 실행되는 콜백함수, 추가 옵션을 전달받음.
+        //ps.keywordSearch: 키워드 검색을 요청하는 함수. 매개변수로 검색할 키워드, 검색결과를 인자값으로받고 실행되는 콜백함수, 추가 옵션을 달받음.
 
-
+        //placesSearchCB: 검색 결과를 받을 콜백함수. 검색결과데이터, 검색 상태, 페이지네이션 객체를 인자값으로 받음.
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
                 console.log(`검색 결과 개수: ${data.length}`);
-                setPlaces(prevPlaces => [...prevPlaces, ...data]); //페이지네이션을 이용하여 검색결과를 더 불러올 수 있도록 setPlaces함수를 호출하여 검색결과를 저장. 키워드 검색 결과는 15로 제한되어 있기 때문에 pagination을 이용하여 페이지추가하여 추가 검색결과를 불러올 수 있도록 함.
-                setPagination(pagination);
+                setPlaces(prevPlaces => [...prevPlaces, ...data]); //페이지네이션을 이용하여 검색결과를 더 불러올 수 있도록 setPlaces함수를 호출하여 검색결과를 저장. 키워드 검색 결과는 15개로 제한되어 있기 때문에 pagination을 이용하여 이전페이지에서의 장소데이터에 + 이번 페이지의 추가 검색결과를 추가해줌.
+                setPagination(pagination); //페이지네이션 객체를 상태값으로 저장.
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]); //베이커리 카테고리에 해당하는 1000반경 이내에서 검색된 장소 데이터를 마커표시 함수에 전달.
                 }
@@ -109,12 +111,13 @@ const Map = ({ setPlaces }) => {
         }
 
         searchPlaces();
-    }, [setPlaces]);
+    }, [setPlaces]); // setPlaces가 변경될 때마다 장소검색을 다시 요청. setPlaces는 BakeryMap컴포넌트에서 전달받은 함수이므로, 장소데이터가 변경될 때마다 재렌더링 -> searchPlaces()-> keywordSearch() -> 장소검색을 다시 요청함.
+
 
     //페이지네이션을 사용하여 검색 결과를 계속해서 요청. pagination.nextPage() 메서드를 사용하여 다음 페이지의 결과를 요청하고, setPlaces를 사용하여 기존 결과에 스프레드 연산자로 추가해나감. 이렇게 하면 검색 결과가 15개로 제한되지 않고, +15 +15 ....더 많은 결과를 얻을 수 있음. pagination.hasNextPage가 true인 동안 계속해서 다음 페이지의 결과를 요청.
     useEffect(() => {
         if (pagination && pagination.hasNextPage) {
-            pagination.nextPage();
+            pagination.nextPage(); //다음 페이지의 결과를 요청.
         }
     }, [pagination]);
 
