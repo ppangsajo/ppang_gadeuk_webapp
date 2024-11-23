@@ -2,13 +2,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #E3ECF1;
+  background-color: white;
 `;
 
 export const SideBarComponent = styled.div`
   position: fixed;
   z-index: 20;
-  background-color: #E3ECF1;
+  background-color: white;
   color: #202020;
   top: 0;
   left: 0;
@@ -45,6 +45,19 @@ export const ButtonImg = styled.img`
   height: 100%;
   pointer-events: none;
 `;
+
+// 사이드바 제목에 <h2> 사용
+export const SideBarTitle = styled.h2`
+    text-align: center;
+    padding: 50px 0;
+    font-family: 'OurFont1', sans-serif; /* 원하는 폰트 */
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    background-color: #F4A460;
+    border-bottom: 2px solid #ddd;
+`;
+
 //사이드바의 콘텐츠를 담는 컨테이너 컴포넌트
 export const Content = styled.div`
   position: relative;
