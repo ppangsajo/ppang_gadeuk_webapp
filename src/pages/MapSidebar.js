@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Container, H1 } from '../styles/MapSideBarStyles';
+import { Container, H1, H2 } from '../styles/MapSideBarStyles';
 
-const Sidebar = () => {
+const MapSidebar = () => {
   const [bakery, setBakery] = useState([]);
 
   useEffect(() => {
     // Simulate fetching bakery data with a delay (e.g., from an API)
-    const fetchBakeryData = () => {
-      const bakeryData = [
+    const fetchBakeryData = () => { //api로 빵집 데이터 불러오기 
+      const bakeryData = [//베이커리 데이터 ~~~
         {
           name: "Bakery A",
           distance: "200m",
@@ -33,12 +33,13 @@ const Sidebar = () => {
   }, []); // Empty dependency array ensures this runs only once after the component mounts
 
   return (
-    <div className="sidebar">
-      <h1>내 주변 빵집 찾기</h1>
+    <div className="Mapsidebar">
+      <H1>내 주변 빵집 찾기</H1>
+      <H2>서울특별시 성북구 ~~~주변 빵집 목록</H2> //찾고싶은 빵집 위치
       <div>
-        <button>거리순</button>
-        <button>프랜차이즈</button>
-        <button>개인 빵집</button>
+        <button>주변 빵집 보기</button>
+        <button>거리순으로 보기</button>
+
       </div>
       <ul className="bakery-list">
         {bakery.length === 0 ? (
@@ -56,9 +57,10 @@ const Sidebar = () => {
           ))
         )}
       </ul>
-      <ul>Designed by 빵사조 in South Korea.</ul>
+      
     </div>
+
   );
 };
 
-export default Sidebar;
+export default MapSidebar;
