@@ -7,6 +7,7 @@ import ReactDOMServer from 'react-dom/server';
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
 
 const CustomMap = ({ setPlaces }) => {
+    const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
     const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
     const [currentPosition, setCurrentPosition] = useState(null);
@@ -41,7 +42,7 @@ const CustomMap = ({ setPlaces }) => {
         const watchId = navigator.geolocation.watchPosition((position) => {
             const currentLat = position.coords.latitude;
             const currentLng = position.coords.longitude;
-            const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng); // 현재 위치 좌표 객체 생성
+            const currentCoordinate = new kakao.maps.LatLng(37.621341, 127.020507); // 현재 위치 좌표 객체 생성
 
             // 현재 위치에 마커 표시
             new kakao.maps.Marker({
@@ -62,6 +63,7 @@ const CustomMap = ({ setPlaces }) => {
             timeout: 27000
         });
 
+        // cleanup 함수
         return () => {
             navigator.geolocation.clearWatch(watchId); // 컴포넌트 언마운트 시 watchPosition 정리
         };
@@ -149,6 +151,7 @@ const CustomMap = ({ setPlaces }) => {
                     lat: place.y,
                     lng: place.x,
                 });
+                setRoadViewPlace(place); // 로드뷰에 커스텀 오버레이에 표시해줄 장소 정보값 업데이트
             });
 
             markersRef.current.push(marker); // 마커 배열에 추가
@@ -178,6 +181,7 @@ const CustomMap = ({ setPlaces }) => {
                 }}>
                     <RoadView
                         position={roadViewPosition}
+                        place={roadViewPlace} // 로드뷰의 커스텀 오버레이에 표시해줄 장소들 정보 전달
                         onClose={() => setRoadViewPosition(null)}
                     />
                 </div>
