@@ -1,0 +1,18 @@
+.div-BakingClass {
+  /* max-width: 1200px; 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 30px;
+  background-image: url('../../assets/images/baking-class-background.png');
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.table-container {
+  margin-top: 30px;
+  display: table; /* 테이블 레이아웃 사용 */
+}
+
+table {
+  border-collapse: separate; /* 테이블 셀 간격 설정 */
+  border-spacing: 50px; /* 셀 간격 */
+}
