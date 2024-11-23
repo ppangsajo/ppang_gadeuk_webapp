@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const DIV = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 10.5em; //지도의 상단 여백
+  margin-top: 5.5em; //지도의 상단 여백
   padding: 30px;
   background-color: #ffffff;
   border-radius: 45px;
