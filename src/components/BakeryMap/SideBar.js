@@ -1,6 +1,6 @@
 // src/components/BakeryMap/SideBar.js
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
 import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
@@ -63,6 +63,13 @@ const SideBar = ({ width = 280, places }) => {
                     }
                 </SideBarButton>
                 {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
+                {/*사이드바 상단 제목 */}
+                {isOpen && (
+                    <SideBarTitle>
+                        내 주변 빵집 찾기
+                        </SideBarTitle> 
+                )}
+
                 <Content>
                     <ul>
                         {places.map((place, index) => (

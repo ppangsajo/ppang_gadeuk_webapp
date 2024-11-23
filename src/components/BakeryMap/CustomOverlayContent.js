@@ -16,6 +16,7 @@ const CustomOverlayContent = ({ place, closeOverlay }) => {
                     </Img>
                     <Desc>
                         <Ellipsis>{place.address_name}</Ellipsis>
+                        <Jibun>전화번호: {place.phone}</Jibun>
                         <Jibun>{place.distance}m</Jibun>
                         <Link href="https://www.kakaocorp.com/main" target="_blank">홈페이지</Link>
                     </Desc>
