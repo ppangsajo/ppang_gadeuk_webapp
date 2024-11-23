@@ -39,10 +39,10 @@ const CustomMap = ({ setPlaces }) => {
     useEffect(() => {
         if (!mapRef.current) return;
 
-        const watchId = navigator.geolocation.watchPosition((position) => {
+        navigator.geolocation.getCurrentPosition((position) => {
             const currentLat = position.coords.latitude;
             const currentLng = position.coords.longitude;
-            const currentCoordinate = new kakao.maps.LatLng(37.621341, 127.020507); // 현재 위치 좌표 객체 생성
+            const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng); // 현재 위치 좌표 객체 생성
 
             // 현재 위치에 마커 표시
             new kakao.maps.Marker({
@@ -58,15 +58,11 @@ const CustomMap = ({ setPlaces }) => {
             // 현재 위치 상태 업데이트
             setCurrentPosition(currentCoordinate);
         }, showErrorMsg, {
-            enableHighAccuracy: true,
-            maximumAge: 30000,
-            timeout: 27000
+            enableHighAccuracy: true, // 위치 정확도 향상 요청
+            maximumAge: 30000, // 30초 이내의 캐시된 위치 정보 사용
+            timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
         });
 
-        // cleanup 함수
-        return () => {
-            navigator.geolocation.clearWatch(watchId); // 컴포넌트 언마운트 시 watchPosition 정리
-        };
     }, [mapRef.current]);
 
     function showErrorMsg(error) {
