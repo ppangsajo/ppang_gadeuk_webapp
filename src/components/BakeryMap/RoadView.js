@@ -21,10 +21,13 @@
 
 import React, { useEffect, useRef } from 'react';
 import { RoadViewContainer, CloseButton } from "../../styles/BakeryMap/RoadViewStyles";
+import ReactDOMServer from 'react-dom/server';
+import RoadViewOverlayContent from "./RoadViewOverlayContent";
+
 const { kakao } = window;
 
 
-const RoadView = ({ position, onClose }) => {
+const RoadView = ({ position, onClose, place }) => {
   const roadviewRef = useRef(null); // Roadview를 렌더링할 DOM 요소를 참조하기 위한 useRef 훅
 
   useEffect(() => {
@@ -44,8 +47,31 @@ const RoadView = ({ position, onClose }) => {
           }
         }
       );
+
+      kakao.maps.event.addListener(roadview, 'init', function () {
+        const content = ReactDOMServer.renderToString(
+          <RoadViewOverlayContent place={place} />
+        );
+
+        // 커스텀 오버레이 생성
+        const rvCustomOverlay = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(position.lat, position.lng),
+          content: content,
+          xAnchor: 0.5, // 커스텀 오버레이의 x축 위치. 1에 가까울수록 왼쪽에 위치. default=0.5
+          yAnchor: 0.5 // 커스텀 오버레이의 y축 위치. 1에 가까울수록 위쪽에 위치. default=0.5
+        });
+
+        rvCustomOverlay.setMap(roadview);
+
+        const projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체
+
+        // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출.
+        const viewpoint = projection.viewpointFromCoords(rvCustomOverlay.getPosition(), rvCustomOverlay.getAltitude());
+
+        roadview.setViewpoint(viewpoint); //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시키기
+      });
     }
-  }, [position]); // 위치 변경될 때마다 useEffect 훅 실행
+  }, [position, place]); // 위치 변경될 때마다 useEffect 훅 실행
 
   return (
     <RoadViewContainer>
