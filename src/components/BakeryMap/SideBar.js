@@ -1,10 +1,12 @@
+// src/components/BakeryMap/SideBar.js
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg } from "../../styles/BakeryMap/SideBarStyles";
-import sideBarBtn from "../../assets/images/sideBarBtn.png";
-import closeBtn from "../../assets/images/closeBtn.png";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle,CurrentLocation, ButtonContainer, Button1,Button2,ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
+import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
+import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
+import listItemImg from "../../assets/images/BakeryMap/marker2.png";
 
-//children prop = 사이드바 내부에 표시될 콘텐츠
-const SideBar = ({ width = 280, children }) => {
+//places prop = 사이드바 내부에 표시될 콘텐츠
+const SideBar = ({ width = 280, places }) => {
     const [isOpen, setOpen] = useState(false); // 사이드바의 열림/닫힘 여부를 나타내는 상태
     const [xPosition, setX] = useState(width); // 사이드바의 x축 위치를 나타내는 상태 
     const side = useRef(); // 사이드바 DOM 엘리먼트에 대한 참조를 저장하는 side 참조(ref) 객체 
@@ -48,23 +50,45 @@ const SideBar = ({ width = 280, children }) => {
     })
 
     // 사이드바와 버튼, 그리고 사이드바 내부 콘텐츠 jsx를 반환. 즉 사이드바 구조를 정의&반환 -> 화면에 사이드바 렌더링
+
     return (
         <Container>
-
             {/* side ref 객체는 바로 이 사이드바 엘리먼트를 참조중 */}
             {/* transform 속성을 이용하여  사이드바의 x축을 변경 즉 이동시킴으로써 사이드바를 열고 닫음 */}
-            <SideBarComponent ref={side} width={width} xPosition={-xPosition}>
-
+            <SideBarComponent ref={side} width={width} $xPosition={-xPosition}>
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
-                <SideBarButton onClick={() => toggleMenu()}>
+                <SideBarButton onClick={toggleMenu} width={width + 10}>
                     {isOpen ?
                         <ButtonImg src={closeBtn} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
                     }
                 </SideBarButton>
-
-                {/* 사이드바 내부에는 children을 렌더링하여 사이드바의 콘텐츠를 표시 */}
-                <Content>{children}</Content>
-
+                {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
+                {/*사이드바 상단 제목 */}
+                    <SideBarTitle>
+                        내 주변 빵집 찾기
+                        </SideBarTitle> 
+                {/* 현재 위치 표시 ,현재 위치 api로 불러오기. 가능하다면. */}
+                <CurrentLocation>서울특별시 성북구~~~ 
+                주변 빵집 목록</CurrentLocation>
+                {/* ButtonContainer 추가 */}
+                <ButtonContainer>
+                    <Button1>주변 빵집 보기</Button1>
+                    <Button2>거리순으로 보기</Button2>
+                </ButtonContainer>
+                <Content>
+                    <ul>
+                        {places.map((place, index) => (
+                            <ListItem key={index}>
+                                <ListItemImg src={listItemImg} alt={place.place_name} />
+                                <ListItemInfo>
+                                    <ListItemTitle>{place.place_name}</ListItemTitle>
+                                    <ListItemAddress>{place.address_name}</ListItemAddress>
+                                    <ListItemDistance>{place.distance}m</ListItemDistance>
+                                </ListItemInfo>
+                            </ListItem>
+                        ))}
+                    </ul>
+                </Content>
             </SideBarComponent>
         </Container>
     );

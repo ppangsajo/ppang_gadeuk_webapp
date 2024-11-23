@@ -8,10 +8,12 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   //div.루트 엘리먼트에 렌더링
-  <React.StrictMode>
+  //<React.StrictMode>
+  <>
     <GlobalStyle />
     <App />
-  </React.StrictMode>
+  </>
+  //</React.StrictMode>
 );
 
 reportWebVitals();
