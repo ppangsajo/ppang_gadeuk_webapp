@@ -40,7 +40,8 @@ const CustomMap = ({ setPlaces }) => {
             new kakao.maps.Marker({
                 map: map,
                 position: currentCoordinate,
-                title: "현재 위치"
+                title: "현재 위치",
+                zIndex: 10 //다른 마커보다 위에 표시
             });
 
             // 현재 위치를 중심으로 지도를 이동
