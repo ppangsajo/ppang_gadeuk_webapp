@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const DIV = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 5.5em; //지도의 상단 여백
+  margin-top: 2.5em; //지도의 상단 여백
   padding: 30px;
   background-color: #ffffff;
   border-radius: 45px;
@@ -36,7 +36,7 @@ function BakeryMap() {
     return (
         <DIV> {/* DIV는 주변빵집찾기 페이지의 최상위 엘리먼트.body바로 다음 */}
             <SideBar width={450} places={places} />
-                  {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
+            {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
             <StyledH1>가까운 빵집을 만나보세요!</StyledH1>
             <Map setPlaces={setPlaces} />
         </DIV>
