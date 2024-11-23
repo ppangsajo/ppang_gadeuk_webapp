@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Map from '../components/BakeryMap/Map';
 import SideBar from '../components/BakeryMap/SideBar';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const DIV = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 5.5em; //지도의 상단 여백
   padding: 30px;
   background-color: #ffffff;
   border-radius: 45px;
@@ -21,7 +22,10 @@ const StyledH1 = styled.h1`
   font-size: 30px;
 `;
 
+// BakeryMap 페이지는 메인 메뉴에서 BakeryMap으로 라우팅된 후에 화면에 렌더링되는,그려지는 컴포넌트
 function BakeryMap() {
+    const [places, setPlaces] = useState([]); //장소데이터 상태를 최상단인BakeryMap컴포넌트에서 관리. Map컴포넌트에게는 장소데이터를 전달해주고 Map 컴포넌트에게는 장소테이터 상태변경함수를 전달해줌으로써 장소데이터를 다룰 수 있게 함.
+
     useEffect(() => {
         document.body.className = 'body-Map';
         return () => {
@@ -30,11 +34,11 @@ function BakeryMap() {
     }, []);
 
     return (
-        <DIV>
-            <SideBar width={350} />
-            {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
+        <DIV> {/* DIV는 주변빵집찾기 페이지의 최상위 엘리먼트.body바로 다음 */}
+            <SideBar width={450} places={places} />
+                  {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
             <StyledH1>가까운 빵집을 만나보세요!</StyledH1>
-            <Map />
+            <Map setPlaces={setPlaces} />
         </DIV>
     );
 }
