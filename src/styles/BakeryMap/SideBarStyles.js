@@ -54,8 +54,51 @@ export const SideBarTitle = styled.h2`
     font-size: 30px;
     font-weight: bold;
     color: black;
+    background-color: #F4A460;   
+`;
+//{/*position: fixed; //top: 0; left: 0; width: 100%;
+//z-index: 100; /* 다른 요소들이 제목 아래로 가도록 설정 */
+//margin: 0; box-sizing: border-box; */}
+
+export const CurrentLocation = styled.p`
+    text-align: center;
+    padding: 15px 0;
+    font-size: 9px;
+    color: black;
+    background-color: #white;
+    border-bottom: 6px double #ddd;
+`;
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center; /* 버튼들을 가로로 중앙 정렬 */
+  gap: 105px; /* 두 버튼 사이의 간격을 15px로 설정 */
+  margin-top: 5px; /* 버튼들 위에 약간의 여백 추가 */
+`;
+
+export const Button1 = styled.button`
+    text-align: center;
+    padding: 15px 0;
+    font-color: black;
+    font-size: 11px;
+    font-weight: bold;
+    height: 45px;
+    width: 100px;
     background-color: #F4A460;
-    border-bottom: 2px solid #ddd;
+    border-radius:15px;
+    border: none;
+`;
+
+export const Button2 = styled.button`
+    text-align: center;
+    padding: 15px 0;
+    font-color: black;
+    font-size: 11px;
+    font-weight: bold;
+    height: 45px;
+    width: 100px;
+    background-color: #F4A460;
+    border-radius: 15px;
+    border: none;    
 `;
 
 //사이드바의 콘텐츠를 담는 컨테이너 컴포넌트
