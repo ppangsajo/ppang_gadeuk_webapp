@@ -11,6 +11,7 @@ export const Center = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover; /* 이미지가 영역을 채우도록 설정 */
   background-position: center; /* 중앙에 위치 */
+  padding-top: 80px; /* PageHeader의 높이에 맞는 여백 추가 */
 `;
 
 export const Main = styled.main`
@@ -24,6 +25,9 @@ export const Header = styled.header`
   display: flex; /* Flexbox 활성화 */
   justify-content: center; /* 가로 정렬: 중앙 */
   align-items: center; /* 세로 정렬: 중앙 */
+  position: fixed; /* 상단에 고정 */
+  top: 0; /* 화면 상단에 위치 */
+  left: 0; /* 화면 왼쪽에 위치 */
 `;
 
 export const P = styled.h1`
