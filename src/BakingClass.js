@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/BakingRecipe/BakingClass.css';
 import Card from './components/Card.js';
 import PageHeader from './components/PageHeader';
-import dataSet from './static/bread_recipes.json';
+import dataSet from './static/translated_recipe.json';
 
 function BakingClass() {
   const renderTableContent = () => {
@@ -12,7 +12,7 @@ function BakingClass() {
     dataSet.forEach((item, index) => {
       currentRow.push(
         <td key={`cell-${index}`}>
-          <Card title={item.Title} imgName={item.Image_Name} />
+          <Card props={item} />
         </td>
       );
 

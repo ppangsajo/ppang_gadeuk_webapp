@@ -14,18 +14,20 @@ export const CardStyle = styled.div`
 
 export const RecipeTitle = styled.div`
   text-align: center;
+  height: 20px;
+  margin-bottom: 5px;
   font-family: 'CookieRun-Bold';
 `;
 
 export const RecipeThumbNail = styled.img`
   margin-top: 10px;
-  width: 210px;
-  height: 150px;
+  width: 230px;
+  height: 160px;
 `;
 
 export const CardBottom = styled.div`
   width: 95%;
-  margin-top: 8px;
+  margin-top: 10px;
   height: 32px;
   display: flex;
   justify-content: space-between;
