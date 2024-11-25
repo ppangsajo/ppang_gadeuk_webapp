@@ -7,13 +7,13 @@ import {
   CookingTime,
 } from '../styles/BakingRecipe/CardStyle.js';
 
-function Card({ props }) {
+function Card({ props, onClick }) {
   const { Title, Ingredients, Instructions, Image_Name } = props;
   const imgPath = require(`../assets/images/BakingRecipeImages/${Image_Name}`);
 
   return (
     <>
-      <CardStyle>
+      <CardStyle onClick={onClick}>
         <RecipeTitle>{Title}</RecipeTitle>
         <RecipeThumbNail src={imgPath} />
         <CardBottom>
