@@ -12,7 +12,10 @@ import {
   ModalOverlay,
   ModalTitle,
   RecipeImage,
+  RecipeSubTitle,
   RecipeTitle,
+  CloseButton,
+  HorizontalLine,
 } from './styles/BakingRecipe/ModalStyle.js';
 
 Modal.setAppElement('#root');
@@ -20,6 +23,16 @@ Modal.setAppElement('#root');
 function BakingClass() {
   const [isOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  const openModal = () => {
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden'; // 모달 열릴 때 스크롤 비활성화
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = 'unset'; // 모달 닫힐 때 스크롤 활성화
+  };
 
   const renderTableContent = () => {
     const rows = [];
@@ -56,7 +69,9 @@ function BakingClass() {
       </BakingClassContainer>
       <Modal
         isOpen={isOpen}
-        onRequestClose={() => setModalOpen(false)}
+        onRequestClose={closeModal}
+        overlayClassName="ReactModal__Overlay"
+        className="ReactModal__Content"
         contentLabel="Recipe Modal"
       >
         <ModalOverlay>
@@ -68,13 +83,25 @@ function BakingClass() {
                   src={require(`./assets/images/BakingRecipeImages/${selectedRecipe.Image_Name}`)}
                   alt={selectedRecipe.Title}
                 />
-
                 <RecipeTitle>{selectedRecipe.Title}</RecipeTitle>
-                <p>재료: {selectedRecipe.Ingredients}</p>
-                <p>조리법: {selectedRecipe.Instructions}</p>
+                <HorizontalLine />
+                <RecipeSubTitle>재료</RecipeSubTitle>
+                <ol>
+                  {selectedRecipe.Ingredients.map((ingredient, index) => (
+                    <li key={index}>{ingredient}</li> // 각 재료를 리스트 항목으로 출력
+                  ))}
+                </ol>
+                <RecipeSubTitle>조리법</RecipeSubTitle>
+                <ol>
+                  {selectedRecipe.Instructions.split('\n').map(
+                    (instruction, index) => (
+                      <li key={index}>{instruction}</li> // 각 조리법을 리스트 항목으로 출력
+                    )
+                  )}
+                </ol>
               </div>
             )}
-            <button onClick={() => setModalOpen(false)}>닫기</button>
+            <CloseButton onClick={closeModal}>X</CloseButton>
           </ModalContent>
         </ModalOverlay>
       </Modal>

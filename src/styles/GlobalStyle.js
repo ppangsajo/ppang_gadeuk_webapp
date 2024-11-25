@@ -3,6 +3,9 @@ import reset from 'styled-reset';
 import font1 from '../assets/fonts/CookieRun_Black.ttf';
 import font2 from '../assets/fonts/CookieRun_Bold.ttf';
 import font3 from '../assets/fonts/CookieRun_Regular.ttf';
+import font4 from '../assets/fonts/GmarketSansTTFBold.ttf';
+import font5 from '../assets/fonts/GmarketSansTTFMedium.ttf';
+import font6 from '../assets/fonts/GmarketSansTTFLight.ttf';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -29,6 +32,29 @@ ${reset}
     font-weight: normal;
     font-style: normal;
   }
+
+@font-face {
+    font-family: 'OurFont4';
+    src: url(${font4}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+@font-face {
+    font-family: 'OurFont5';
+    src: url(${font5}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+@font-face {
+    font-family: 'OurFont6';
+    src: url(${font6}) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
   body {
     font-family: Font1;
   }
