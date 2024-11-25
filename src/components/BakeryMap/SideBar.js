@@ -1,6 +1,6 @@
 // src/components/BakeryMap/SideBar.js
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle,CurrentLocation, ButtonContainer, Button1,Button2,ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle,CurrentLocation, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
 import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
@@ -71,10 +71,6 @@ const SideBar = ({ width = 280, places }) => {
                 <CurrentLocation>서울특별시 성북구~~~ 
                 주변 빵집 목록</CurrentLocation>
                 {/* ButtonContainer 추가 */}
-                <ButtonContainer>
-                    <Button1>주변 빵집 보기</Button1>
-                    <Button2>거리순으로 보기</Button2>
-                </ButtonContainer>
                 <Content>
                     <ul>
                         {places.map((place, index) => (
