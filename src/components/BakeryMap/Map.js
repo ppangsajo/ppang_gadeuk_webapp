@@ -90,6 +90,13 @@ const CustomMap = ({ setPlaces }) => {
             timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
         });
 
+        // 카카오에서 기본으로 제공하는 지도타입 컨트롤 추가
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+        mapRef.current.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+        // 카카오에서 기본으로 제공하는 지도 확대 축소 컨트롤 추가
+        const zoomControl = new kakao.maps.ZoomControl();
+        mapRef.current.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
     }, []);
 
     function showErrorMsg(error) {
@@ -218,8 +225,8 @@ const CustomMap = ({ setPlaces }) => {
                 onClick={handleCurrentLocation}
                 style={{
                     position: 'absolute',
-                    top: '30px',
-                    right: '10.5px',
+                    top: '2px',
+                    right: '125px',
                     zIndex: 20,
                     padding: '10px',
                     backgroundColor: 'transparent',
@@ -236,10 +243,10 @@ const CustomMap = ({ setPlaces }) => {
             </button>
 
             {/* 지도타입 컨트롤 */}
-            <MapTypeControlBtn setMapType={setMapType} />
+            {/*<MapTypeControlBtn setMapType={setMapType} />*/}
 
             {/* 확대/축소 버튼 */}
-            <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
+            {/* <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />*/}
 
             {roadViewPosition && (
                 <div style={{
