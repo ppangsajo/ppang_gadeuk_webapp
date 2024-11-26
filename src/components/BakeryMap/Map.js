@@ -9,7 +9,7 @@ const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 wi
 const CustomMap = ({ setPlaces }) => {
     const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
-    const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
+    //const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
     const [currentPosition, setCurrentPosition] = useState(null);
     const mapRef = useRef(null); // map 객체를 참조하기 위한 useRef 훅
     const markersRef = useRef([]); // 마커를 관리하기 위한 useRef 훅
@@ -70,11 +70,11 @@ const CustomMap = ({ setPlaces }) => {
     }
 
     useEffect(() => {
-        async function searchPlaces() {
+        let placesData = []; // 페이지네이션된 모든 장소 데이터를 저장할 배열
+
+        const searchPlaces = () => {
             if (!currentPosition) return;
 
-            // 새로운 위치 좌표에 대한 장소 데이터를 추가하기 전에 이전 장소 데이터를 초기화
-            setPlaces([]);
             markersRef.current.forEach(marker => marker.setMap(null)); // 이전 마커 제거
             markersRef.current = []; // 마커 배열 초기화
 
@@ -91,17 +91,20 @@ const CustomMap = ({ setPlaces }) => {
 
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
+                placesData = [...placesData, ...data]; // 새로운 데이터를 누적
                 console.log(`주변 빵집 검색결과 개수: ${data.length}`);
-                const newPlaces = data.map(place => ({
+                setPlaces(placesData.map(place => ({  // placesData를 사용하여 setPlaces 호출
                     place_name: place.place_name,
                     address_name: place.address_name,
                     distance: place.distance
-                }));
-                setPlaces(prevPlaces => [...prevPlaces, ...newPlaces]); // 페이지네이션- 여러 페이지들 + 되도록, 기존 데이터에 새로운 데이터 추가
+                })));
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]);
                 }
-                setPagination(pagination);
+                if (pagination && pagination.hasNextPage) {
+                    pagination.nextPage();
+                }
+
             } else {
                 console.error('주변 빵집이 없습니다.');
             }
@@ -154,13 +157,13 @@ const CustomMap = ({ setPlaces }) => {
         }
 
         searchPlaces();
-    }, [currentPosition]);
+    }, [currentPosition, setPlaces]);
 
-    useEffect(() => {
-        if (pagination && pagination.hasNextPage) {
-            pagination.nextPage();
-        }
-    }, [pagination]);
+    // useEffect(() => {
+    //     if (pagination && pagination.hasNextPage) {
+    //         pagination.nextPage();
+    //     }
+    // }, [pagination]);
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
