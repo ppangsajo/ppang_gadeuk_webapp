@@ -5,6 +5,7 @@ import CustomOverlayContent from "./CustomOverlayContent";
 import ReactDOMServer from 'react-dom/server';
 import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
 import ZoomControlBtn from './ZoomControlBtn';
+import MapTypeControlBtn from './MapTypeControlBtn';
 
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
 
@@ -185,6 +186,8 @@ const CustomMap = ({ setPlaces }) => {
         searchPlaces();
     }, [currentPosition, setPlaces]);
 
+
+    // 확대/축소 버튼 이벤트 핸들러
     const handleZoomIn = () => {
         mapRef.current.setLevel(mapRef.current.getLevel() - 1);
     };
@@ -193,7 +196,15 @@ const CustomMap = ({ setPlaces }) => {
         mapRef.current.setLevel(mapRef.current.getLevel() + 1);
     };
 
-
+    // 지도 타입 변경 버튼 이벤트 핸들러
+    const setMapType = (maptype) => {
+        if (maptype === 'roadmap') {
+            //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
+            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+        } else if (maptype === 'skyview') {
+            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+        }
+    };
 
 
     return (
@@ -204,8 +215,8 @@ const CustomMap = ({ setPlaces }) => {
                 onClick={handleCurrentLocation}
                 style={{
                     position: 'absolute',
-                    top: '10px',
-                    right: '10px',
+                    top: '30px',
+                    right: '10.5px',
                     zIndex: 20,
                     padding: '10px',
                     backgroundColor: 'transparent',
@@ -220,6 +231,9 @@ const CustomMap = ({ setPlaces }) => {
             >
                 <span style={{ display: 'none' }}>현재 위치로 이동</span>
             </button>
+
+            {/* 지도타입 컨트롤 */}
+            <MapTypeControlBtn setMapType={setMapType} />
 
             {/* 확대/축소 버튼 */}
             <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />

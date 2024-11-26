@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const ZoomControlContainer = styled.div`
   position: absolute;
-  top: 50px;
-  right: 10px;
+  top: 80px;
+  right: 11.2px;
   width: 36px;
   height: 80px;
   overflow: hidden;
