@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import MainScreen from '../pages/MainScreen';
 import KakaoMap from '../pages/KakaoMap';
 import BakingClass from '../pages/BakingClass';
-import ClickerGame from '../pages/ClickerGame';
+import ClickerGame from '../pages/ClickerGameMain';
 import NotFound from "../pages/NotFound";
 import { GlobalStyle } from '../styles/GlobalStyle';
 
@@ -28,7 +28,7 @@ function Router() {
             <Routes>
                 <Route path="/" element={<MainScreen />} />
                 <Route path="/Map" element={<KakaoMap />} />
-                <Route path="/ClickerGame" element={<ClickerGame />} />
+                <Route path="/ClickerGameMain" element={<ClickerGame />} />
                 <Route path="/BakingClass" element={<BakingClass />} />
                 {/*<Route path="/Recipe" component={Recipe} />} */}
                 <Route path="*" element={<NotFound />} />
