@@ -1,6 +1,6 @@
 // src/components/BakeryMap/SideBar.js
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle,CurrentLocation, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
+import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle, CurrentLocation, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
 import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
@@ -64,12 +64,12 @@ const SideBar = ({ width = 280, places }) => {
                 </SideBarButton>
                 {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
                 {/*사이드바 상단 제목 */}
-                    <SideBarTitle>
-                        내 주변 빵집 찾기
-                        </SideBarTitle> 
+                <SideBarTitle>
+                    내 주변 빵집 찾기
+                </SideBarTitle>
                 {/* 현재 위치 표시 ,현재 위치 api로 불러오기. 가능하다면. */}
-                <CurrentLocation>서울특별시 성북구~~~ 
-                주변 빵집 목록</CurrentLocation>
+                <CurrentLocation>서울특별시 성북구~~~
+                    주변 빵집 목록</CurrentLocation>
                 {/* ButtonContainer 추가 */}
                 <Content>
                     <ul>

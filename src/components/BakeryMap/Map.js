@@ -1,10 +1,13 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import RoadView from "./RoadView";
 import markerImg from "../../assets/images/BakeryMap/marker2.png";
 import CustomOverlayContent from "./CustomOverlayContent";
 import ReactDOMServer from 'react-dom/server';
+import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
+import ZoomControlBtn from './ZoomControlBtn';
 
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
+
 
 const CustomMap = ({ setPlaces }) => {
     const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
@@ -13,15 +16,38 @@ const CustomMap = ({ setPlaces }) => {
     const [currentPosition, setCurrentPosition] = useState(null);
     const mapRef = useRef(null); // map 객체를 참조하기 위한 useRef 훅
     const markersRef = useRef([]); // 마커를 관리하기 위한 useRef 훅
+    const currentMarker = useRef(null); // 현재 위치 마커
 
-    // const updatePlaces = useCallback(() => {
-    //     const newPlaces = markersRef.current.map(marker => ({
-    //         place_name: marker.getTitle(),
-    //         address_name: marker.getPosition().toString(),
-    //         distance: "unknown", // 거리 정보
-    //     }));
-    //     setPlaces(newPlaces);
-    // }, [setPlaces]);
+    // 현위치버튼의 클릭 이벤트 핸들러. 현재 위치로 이동&현재 위치에 마커 표시
+    const handleCurrentLocation = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const currentLat = position.coords.latitude;
+            const currentLng = position.coords.longitude;
+            const currentCoordinate = new kakao.maps.LatLng(37.58284829999999, 127.0105811);
+            // 이전 마커 제거
+            if (currentMarker.current) {
+                currentMarker.current.setMap(null);
+            }
+            // 현재 위치에 마커 표시
+            currentMarker.current = new kakao.maps.Marker({
+                map: mapRef.current,
+                position: currentCoordinate,
+                title: "현재 위치",
+                zIndex: 10
+            });
+
+            // 현재 위치를 중심으로 부드럽게 지도 이동
+            mapRef.current.panTo(currentCoordinate);
+
+            // 현재 위치 상태 업데이트
+            setCurrentPosition(currentCoordinate);
+        }, showErrorMsg, {
+            enableHighAccuracy: true, // 위치 정확도 향상 요청
+            maximumAge: 30000, // 30초 이내의 캐시된 위치 정보 사용
+            timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
+        });
+    };
+
 
     useEffect(() => {
         const container = document.getElementById('customMap'); // 지도를 담을 영역의 DOM 객체 레퍼런스
@@ -45,7 +71,7 @@ const CustomMap = ({ setPlaces }) => {
             const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng); // 현재 위치 좌표 객체 생성
 
             // 현재 위치에 마커 표시
-            new kakao.maps.Marker({
+            currentMarker.current = new kakao.maps.Marker({
                 map: mapRef.current,
                 position: currentCoordinate,
                 title: "현재 위치",
@@ -63,7 +89,7 @@ const CustomMap = ({ setPlaces }) => {
             timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
         });
 
-    }, [mapRef.current]);
+    }, []);
 
     function showErrorMsg(error) {
         console.error(error.message);
@@ -159,15 +185,45 @@ const CustomMap = ({ setPlaces }) => {
         searchPlaces();
     }, [currentPosition, setPlaces]);
 
-    // useEffect(() => {
-    //     if (pagination && pagination.hasNextPage) {
-    //         pagination.nextPage();
-    //     }
-    // }, [pagination]);
+    const handleZoomIn = () => {
+        mapRef.current.setLevel(mapRef.current.getLevel() - 1);
+    };
+
+    const handleZoomOut = () => {
+        mapRef.current.setLevel(mapRef.current.getLevel() + 1);
+    };
+
+
+
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
             <div id="customMap" style={{ width: '100%', height: '100%' }}></div>
+
+            <button
+                onClick={handleCurrentLocation}
+                style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    zIndex: 20,
+                    padding: '10px',
+                    backgroundColor: 'transparent',
+                    border: '1px solid rgb(211, 211, 211)',
+                    backgroundImage: `url(${currentLocationImg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    width: '40px',
+                    height: '40px',
+                    cursor: 'pointer'
+                }}
+            >
+                <span style={{ display: 'none' }}>현재 위치로 이동</span>
+            </button>
+
+            {/* 확대/축소 버튼 */}
+            <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
+
             {roadViewPosition && (
                 <div style={{
                     position: 'absolute',
@@ -180,7 +236,7 @@ const CustomMap = ({ setPlaces }) => {
                 }}>
                     <RoadView
                         position={roadViewPosition}
-                        place={roadViewPlace} // 로드뷰의 커스텀 오버레이에 표시해줄 장소들 정보 전달
+                        place={roadViewPlace}
                         onClose={() => setRoadViewPosition(null)}
                     />
                 </div>
