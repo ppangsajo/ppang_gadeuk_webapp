@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Nav, Button } from '../styles/MainScreenStyles';
+import { Header, Nav,NavCenter, Button,ImageButton } from '../styles/PageHeader1Styles';
 import { Link } from 'react-router-dom';
 
 function PageHeader1() {
@@ -32,7 +32,15 @@ function PageHeader1() {
       transition: 'top 0.3s ease-in-out', // 애니메이션 효과
       zIndex: 1000, // 다른 콘텐츠들 위에 위치
     }}>
-      <Nav>
+      
+      <Nav> {/* 좌측 정렬 */}
+        <Link to="/">
+        <ImageButton> {/* 버튼을 이미지 버튼으로 대체 */}
+            <img src={require('../assets/images/homebutton.jpg')} alt=" " />
+          </ImageButton>
+        </Link>
+        
+        <NavCenter>
         <Link to="/BakeryMap">
           <Button>근처 빵집 찾기</Button>
         </Link>
@@ -42,7 +50,8 @@ function PageHeader1() {
         <Link to="/BakingClass">
           <Button>홈베이킹 클래스</Button>
         </Link>
-      </Nav>
+        </NavCenter>
+        </Nav>
     </Header>
   );
 }
