@@ -200,8 +200,11 @@ const CustomMap = ({ setPlaces }) => {
     const setMapType = (maptype) => {
         if (maptype === 'roadmap') {
             //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
+            //MapTypeId.ROADMAP: 현재 카카오맵 타입을 일반지도 형태로 표현
             mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-        } else if (maptype === 'skyview') {
+        }
+        //MapTypeId.SKYVIEW: 현재 카카오맵 타입을 스카이뷰 형태로 표현
+        if (maptype === 'skyview') {
             mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
         }
     };
