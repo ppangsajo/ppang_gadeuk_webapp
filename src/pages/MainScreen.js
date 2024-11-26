@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Main, Header, Center, P, Nav, Button } from '../styles/MainScreenStyles';
-import Card from '../components/MainScreenCards';
+import { Main, Center, P } from '../styles/MainScreenStyles';
+import Card from '../components/mainScreen/MainScreenCards';
+import PageHeaderStandard from '../components/PageHeaderStandard';
 
 function MainScreen() {
     useEffect(() => {
@@ -13,19 +13,7 @@ function MainScreen() {
 
     return (
         <Main>
-            <Header>
-                <Nav>
-                    <Link to="/Map">
-                        <Button>근처 빵집 찾기</Button>
-                    </Link>
-                    <Link to="/ClickerGame">
-                        <Button>클리커 게임</Button>
-                    </Link>
-                    <Link to="/BakingClass">
-                        <Button>홈베이킹 클래스</Button>
-                    </Link>
-                </Nav>
-            </Header>
+            <PageHeaderStandard />
             <Center>
                 <P>ppang gadeuk</P>
                 <Card />
