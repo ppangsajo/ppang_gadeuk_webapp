@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 import backgroundImage from '../assets/images/ClickerGameMainScreen.png';
-import tutorial1 from '../assets/images/ClickerGameTutorialBGI1.png';
-import tutorial2 from '../assets/images/ClickerGameTutorialBGI2.png';
-import tutorial3 from '../assets/images/ClickerGameTutorialBGI3.png';
-import tutorial4 from '../assets/images/ClickerGameTutorialBGI4.png';
 import tutorial from '../assets/images/ClickerGameTutorialButton.png';
 
 export const Center = styled.div`
@@ -71,58 +67,19 @@ export const ChapterItem = styled.img`
   }
 `;
 
-export const TutorialStep1Center = styled.div`
+export const TutorialBackground = styled.div`
   width: 100%;
   height: 100vh;
   display: flex; /* Flexbox 활성화 */
   flex-direction: row; /* 가로 정렬 */
   justify-content: center; /* 가로 정렬: 중앙 */
   align-items: flex-end; /* 세로 정렬: 하단 정렬 */
-  background-image: url(${tutorial1});
+  background-image: ${(props) => `url(${props.bgImage})`};
   background-size: cover; /* 이미지가 영역을 채우도록 설정 */
   background-position: center; /* 중앙에 위치 */
   position: relative; /* 자식 요소의 절대 위치 기준 설정 */
   gap: 20px; /* 두 요소 간격 */
 
-`;
-
-export const TutorialStep2Center = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex; /* Flexbox 활성화 */
-  flex-direction: column; /* 세로 정렬 */
-  justify-content: center; /* 가로 정렬: 중앙 */
-  align-items: center; /* 세로 정렬: 중앙 */
-  background-image: url(${tutorial2});
-  background-size: cover; /* 이미지가 영역을 채우도록 설정 */
-  background-position: center; /* 중앙에 위치 */
-  position: relative; /* 자식 요소의 절대 위치 기준 설정 */
-`;
-
-export const TutorialStep3Center = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex; /* Flexbox 활성화 */
-  flex-direction: column; /* 세로 정렬 */
-  justify-content: center; /* 가로 정렬: 중앙 */
-  align-items: center; /* 세로 정렬: 중앙 */
-  background-image: url(${tutorial3});
-  background-size: cover; /* 이미지가 영역을 채우도록 설정 */
-  background-position: center; /* 중앙에 위치 */
-  position: relative; /* 자식 요소의 절대 위치 기준 설정 */
-`;
-
-export const TutorialStep4Center = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex; /* Flexbox 활성화 */
-  flex-direction: column; /* 세로 정렬 */
-  justify-content: center; /* 가로 정렬: 중앙 */
-  align-items: center; /* 세로 정렬: 중앙 */
-  background-image: url(${tutorial4});
-  background-size: cover; /* 이미지가 영역을 채우도록 설정 */
-  background-position: center; /* 중앙에 위치 */
-  position: relative; /* 자식 요소의 절대 위치 기준 설정 */
 `;
 
 export const TutorialMessage = styled.div`
