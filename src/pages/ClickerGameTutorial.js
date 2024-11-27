@@ -4,6 +4,9 @@ import PageHeader1 from '../components/PageHeader1';
 import { Main } from '../styles/ClickerGameMainStyles';
 import TutorialStep1 from './ClickerGameTutorialStep1';
 import TutorialStep2 from './ClickerGameTutorialStep2';
+import TutorialStep3 from './ClickerGameTutorialStep3';
+import TutorialStep4 from './ClickerGameTutorialStep4';
+import TutorialStep5 from './ClickerGameTutorialStep5';
 
 
 const ClickerGameTutorial = () => {
@@ -13,7 +16,7 @@ const ClickerGameTutorial = () => {
     const handleNextClick = () => {
         const nextId = parseInt(id, 10) + 1;
 
-        if (nextId <= 12) {
+        if (nextId <= 5) {
             navigate(`/ClickerGameTutorial/${nextId}`); // 다음 페이지로 이동
         } else {
             navigate('/ClickerGameMain'); // 튜토리얼 종료 후 메인 페이지로 이동
@@ -23,6 +26,10 @@ const ClickerGameTutorial = () => {
     const renderContent = () => {
         if (id === '1') return <TutorialStep1 onNext={handleNextClick} />;
         if (id === '2') return <TutorialStep2 onNext={handleNextClick} />;
+        if (id === '3') return <TutorialStep3 onNext={handleNextClick} />;
+        if (id === '4') return <TutorialStep4 onNext={handleNextClick} />;
+        if (id === '5') return <TutorialStep5 onNext={handleNextClick} />;
+
     };
 
     return (

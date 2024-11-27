@@ -4,7 +4,7 @@ import cardBlack from "../../assets/images/ClickerGameChapterIconBlack.png";
 import cardColor from "../../assets/images/ClickerGameChapterIconColor.png";
 
 const Chapters = ({ isTutorialClicked }) => {
-    const handleChapterClick = (index) => {
+    const handleChapterClick = () => {
         if (isTutorialClicked) {
 
         } else {

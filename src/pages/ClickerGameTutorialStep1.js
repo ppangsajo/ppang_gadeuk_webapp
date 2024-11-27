@@ -1,12 +1,12 @@
 import React from 'react';
 import { ReactTyped } from "react-typed";
-import { TutorialStep1Center, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
-
+import { TutorialBackground, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
+import Background from '../assets/images/ClickerGameTutorialBGI1.png';
 
 const TutorialStep1 = ({ onNext }) => {
 
     return (
-        <TutorialStep1Center>
+        <TutorialBackground bgImage={Background}>
 
             <TutorialMessage>
                 <ReactTyped
@@ -19,7 +19,7 @@ const TutorialStep1 = ({ onNext }) => {
                 />
             </TutorialMessage>
             <NextButton onClick={onNext}>다음으로</NextButton >
-        </TutorialStep1Center>
+        </TutorialBackground>
     );
 
 }
