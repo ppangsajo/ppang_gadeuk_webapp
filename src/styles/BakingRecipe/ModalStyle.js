@@ -17,38 +17,48 @@ export const ModalContent = styled.div`
   position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 설정 */
   padding: 20px;
   border-radius: 10px;
-  background-color: #fff; /* 모달 배경색 */
+  background-color: #efe3d4; /* 모달 배경색 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-  max-width: 600px; /* 최대 너비 설정 */
+  max-width: 700px; /* 최대 너비 설정 */
   width: 100%; /* 너비 100% */
+  max-height: 680px;
 `;
 
-export const ModalTitle = styled.h2`
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 10px;
-  font-family: 'OurFont4';
+export const ModalSubContent = styled.div`
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 5px 0 5px 10px;
+
+  border-radius: 10px;
+  background-color: #ffffff;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const RecipeTitle = styled.h3`
-  font-size: 26px;
-  font-family: 'OurFont5';
-  margin: 10px 0;
+  font-size: 32px;
+  text-align: center;
+  font-family: 'OurFont4';
+  margin: 0 0 10px 0;
 `;
 export const RecipeSubTitle = styled.h4`
-  font-size: 20px;
+  font-size: 22px;
   font-family: 'OurFont5';
-  margin: 10px 0;
+  margin: 10px 0 13px 3px;
 `;
 
 export const RecipeImage = styled.img`
-  margin-left: 163px;
+  display: block;
+  margin: 5px auto 15px auto;
+  width: calc(274px * 1.3);
+  height: calc(169px * 1.3);
 `;
 
 export const CloseButton = styled.button`
   position: absolute; /* 절대 위치 설정 */
-  top: 10px; /* 상단에서 10px */
-  right: 10px; /* 오른쪽에서 10px */
+  top: 18px;
+  right: 18px;
   background: none; /* 배경 없음 */
   border: none; /* 테두리 없음 */
   font-size: 24px; /* 글자 크기 */
@@ -60,6 +70,6 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const HorizontalLine = styled.hr`
-  border: 0.7px solid black;
+export const RecipeLine = styled.li`
+  margin: 0 0 10px 7px;
 `;
