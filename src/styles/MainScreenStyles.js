@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import backgroundImage from '../assets/images/mainScreen.png';
 
+
 export const Center = styled.div`
   width: 100%;
   height: 75vh; /* 높이를 명시적으로 설정 */
@@ -42,7 +43,7 @@ export const P = styled.h1`
 export const Nav = styled.nav`
   width: 70%;
   display: flex; /* Flexbox 활성화 */
-  justify-content: space-evenly; /* 자식 요소 간 균등한 간격 설정 */
+  justify-content: space-evenly;/*좌측 정렬*/
   align-items: center; /* 세로 방향으로 중앙 정렬 */
 `;
 
@@ -57,6 +58,7 @@ export const Button = styled.button`
   cursor: pointer;
   border: none;
 `;
+
 
 export const ImageContainer = styled.div`
   position: relative; /* 자식 요소의 절대 위치 기준 */

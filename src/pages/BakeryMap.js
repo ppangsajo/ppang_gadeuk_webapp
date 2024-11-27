@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Map from '../components/BakeryMap/Map';
 import SideBar from '../components/BakeryMap/SideBar';
 import styled from 'styled-components';
-import PageHeader from '../components/PageHeader';
+import PageHeader1 from '../components/PageHeader1.js';
 
 const DIV = styled.div`
   max-width: 1200px;
@@ -38,7 +38,7 @@ function BakeryMap() {
     return (
         
         <DIV> {/* DIV는 주변빵집찾기 페이지의 최상위 엘리먼트.body바로 다음 */}
-        <PageHeader />
+        <PageHeader1 />
             <SideBar width={450} places={places} />
             {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
             <StyledH1>가까운 빵집을 만나보세요!</StyledH1>

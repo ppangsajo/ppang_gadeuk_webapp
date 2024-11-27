@@ -1,27 +1,54 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import RoadView from "./RoadView";
 import markerImg from "../../assets/images/BakeryMap/marker2.png";
 import CustomOverlayContent from "./CustomOverlayContent";
 import ReactDOMServer from 'react-dom/server';
+import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
+import ZoomControlBtn from './ZoomControlBtn';
+import MapTypeControlBtn from './MapTypeControlBtn';
 
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
+
 
 const CustomMap = ({ setPlaces }) => {
     const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
-    const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
+    //const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
     const [currentPosition, setCurrentPosition] = useState(null);
     const mapRef = useRef(null); // map 객체를 참조하기 위한 useRef 훅
     const markersRef = useRef([]); // 마커를 관리하기 위한 useRef 훅
+    const currentMarker = useRef(null); // 현재 위치 마커
 
-    // const updatePlaces = useCallback(() => {
-    //     const newPlaces = markersRef.current.map(marker => ({
-    //         place_name: marker.getTitle(),
-    //         address_name: marker.getPosition().toString(),
-    //         distance: "unknown", // 거리 정보
-    //     }));
-    //     setPlaces(newPlaces);
-    // }, [setPlaces]);
+    // 현위치버튼의 클릭 이벤트 핸들러. 현재 위치로 이동&현재 위치에 마커 표시
+    const handleCurrentLocation = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const currentLat = position.coords.latitude;
+            const currentLng = position.coords.longitude;
+            const currentCoordinate = new kakao.maps.LatLng(37.58284829999999, 127.0105811);
+            // 이전 마커 제거
+            if (currentMarker.current) {
+                currentMarker.current.setMap(null);
+            }
+            // 현재 위치에 마커 표시
+            currentMarker.current = new kakao.maps.Marker({
+                map: mapRef.current,
+                position: currentCoordinate,
+                title: "현재 위치",
+                zIndex: 10
+            });
+
+            // 현재 위치를 중심으로 부드럽게 지도 이동
+            mapRef.current.panTo(currentCoordinate);
+
+            // 현재 위치 상태 업데이트
+            setCurrentPosition(currentCoordinate);
+        }, showErrorMsg, {
+            enableHighAccuracy: true, // 위치 정확도 향상 요청
+            maximumAge: 30000, // 30초 이내의 캐시된 위치 정보 사용
+            timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
+        });
+    };
+
 
     useEffect(() => {
         const container = document.getElementById('customMap'); // 지도를 담을 영역의 DOM 객체 레퍼런스
@@ -45,7 +72,7 @@ const CustomMap = ({ setPlaces }) => {
             const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng); // 현재 위치 좌표 객체 생성
 
             // 현재 위치에 마커 표시
-            new kakao.maps.Marker({
+            currentMarker.current = new kakao.maps.Marker({
                 map: mapRef.current,
                 position: currentCoordinate,
                 title: "현재 위치",
@@ -63,18 +90,25 @@ const CustomMap = ({ setPlaces }) => {
             timeout: 27000 // 27초 이내에 위치 정보를 가져오지 못하면 에러 반환
         });
 
-    }, [mapRef.current]);
+        // 카카오에서 기본으로 제공하는 지도타입 컨트롤 추가
+        const mapTypeControl = new kakao.maps.MapTypeControl();
+        mapRef.current.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+        // 카카오에서 기본으로 제공하는 지도 확대 축소 컨트롤 추가
+        const zoomControl = new kakao.maps.ZoomControl();
+        mapRef.current.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    }, []);
 
     function showErrorMsg(error) {
         console.error(error.message);
     }
 
     useEffect(() => {
-        async function searchPlaces() {
+        let placesData = []; // 페이지네이션된 모든 장소 데이터를 저장할 배열
+
+        const searchPlaces = () => {
             if (!currentPosition) return;
 
-            // 새로운 위치 좌표에 대한 장소 데이터를 추가하기 전에 이전 장소 데이터를 초기화
-            setPlaces([]);
             markersRef.current.forEach(marker => marker.setMap(null)); // 이전 마커 제거
             markersRef.current = []; // 마커 배열 초기화
 
@@ -91,17 +125,20 @@ const CustomMap = ({ setPlaces }) => {
 
         function placesSearchCB(data, status, pagination) {
             if (status === kakao.maps.services.Status.OK) {
+                placesData = [...placesData, ...data]; // 새로운 데이터를 누적
                 console.log(`주변 빵집 검색결과 개수: ${data.length}`);
-                const newPlaces = data.map(place => ({
+                setPlaces(placesData.map(place => ({  // placesData를 사용하여 setPlaces 호출
                     place_name: place.place_name,
                     address_name: place.address_name,
                     distance: place.distance
-                }));
-                setPlaces(prevPlaces => [...prevPlaces, ...newPlaces]); // 페이지네이션- 여러 페이지들 + 되도록, 기존 데이터에 새로운 데이터 추가
+                })));
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]);
                 }
-                setPagination(pagination);
+                if (pagination && pagination.hasNextPage) {
+                    pagination.nextPage();
+                }
+
             } else {
                 console.error('주변 빵집이 없습니다.');
             }
@@ -154,17 +191,63 @@ const CustomMap = ({ setPlaces }) => {
         }
 
         searchPlaces();
-    }, [currentPosition]);
+    }, [currentPosition, setPlaces]);
 
-    useEffect(() => {
-        if (pagination && pagination.hasNextPage) {
-            pagination.nextPage();
+
+    // 확대/축소 버튼 이벤트 핸들러
+    const handleZoomIn = () => {
+        mapRef.current.setLevel(mapRef.current.getLevel() - 1);
+    };
+
+    const handleZoomOut = () => {
+        mapRef.current.setLevel(mapRef.current.getLevel() + 1);
+    };
+
+    // 지도 타입 변경 버튼 이벤트 핸들러
+    const setMapType = (maptype) => {
+        if (maptype === 'roadmap') {
+            //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
+            //MapTypeId.ROADMAP: 현재 카카오맵 타입을 일반지도 형태로 표현
+            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
         }
-    }, [pagination]);
+        //MapTypeId.SKYVIEW: 현재 카카오맵 타입을 스카이뷰 형태로 표현
+        if (maptype === 'skyview') {
+            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+        }
+    };
+
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
             <div id="customMap" style={{ width: '100%', height: '100%' }}></div>
+
+            <button
+                onClick={handleCurrentLocation}
+                style={{
+                    position: 'absolute',
+                    top: '2px',
+                    right: '125px',
+                    zIndex: 20,
+                    padding: '10px',
+                    backgroundColor: 'transparent',
+                    border: '1px solid rgb(211, 211, 211)',
+                    backgroundImage: `url(${currentLocationImg})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    width: '40px',
+                    height: '40px',
+                    cursor: 'pointer'
+                }}
+            >
+                <span style={{ display: 'none' }}>현재 위치로 이동</span>
+            </button>
+
+            {/* 지도타입 컨트롤 */}
+            {/*<MapTypeControlBtn setMapType={setMapType} />*/}
+
+            {/* 확대/축소 버튼 */}
+            {/* <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />*/}
+
             {roadViewPosition && (
                 <div style={{
                     position: 'absolute',
@@ -177,7 +260,7 @@ const CustomMap = ({ setPlaces }) => {
                 }}>
                     <RoadView
                         position={roadViewPosition}
-                        place={roadViewPlace} // 로드뷰의 커스텀 오버레이에 표시해줄 장소들 정보 전달
+                        place={roadViewPlace}
                         onClose={() => setRoadViewPosition(null)}
                     />
                 </div>
