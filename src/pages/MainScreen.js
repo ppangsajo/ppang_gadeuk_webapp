@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Main, Center, P } from '../styles/MainScreenStyles';
 import Card from '../components/mainScreen/MainScreenCards';
-import PageHeaderStandard from '../components/PageHeaderStandard';
+import PageHeader from '../components/PageHeader';
 
 function MainScreen() {
     useEffect(() => {
@@ -13,7 +13,7 @@ function MainScreen() {
 
     return (
         <Main>
-            <PageHeaderStandard />
+            <PageHeader />
             <Center>
                 <P>ppang gadeuk</P>
                 <Card />

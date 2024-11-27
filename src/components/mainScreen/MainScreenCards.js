@@ -6,7 +6,7 @@ import img3 from "../../assets/images/mainScreenCard3.png";
 import img4 from "../../assets/images/mainScreenCard4.png";
 import img5 from "../../assets/images/mainScreenCard5.png";
 
-const Card = () => {
+const MainScreenCard = () => {
   const images = [img1, img2, img3, img4, img5];
   return (
     <ImageContainer>
@@ -17,4 +17,4 @@ const Card = () => {
   );
 }
 
-export default Card;
+export default MainScreenCard;
