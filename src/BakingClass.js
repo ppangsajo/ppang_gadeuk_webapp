@@ -5,7 +5,7 @@ import {
   StyledTable,
 } from './styles/BakingRecipe/BakingClassStyle.js';
 import Card from './components/Card.js';
-import PageHeader from './components/PageHeader';
+import PageHeader1 from './components/PageHeader1';
 import dataSet from './static/translated_recipe.json';
 import {
   ModalContent,
@@ -65,7 +65,7 @@ function BakingClass() {
 
   return (
     <div>
-      <PageHeader />
+      <PageHeader1 />
       <BakingClassContainer>
         <StyledTable>
           <tbody>{renderTableContent()}</tbody>
