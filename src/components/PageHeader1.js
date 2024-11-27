@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Header, Nav, Button } from '../styles/MainScreenStyles';
 import { Link } from 'react-router-dom';
 
-function PageHeader1() {
-    const [isVisible, setIsVisible] = useState(true); // 헤더의 가시성 상태 관리
+function PageHeader1({ initialVisibility = true }) { // 초기값을 props로 받도록 수정
+    const [isVisible, setIsVisible] = useState(initialVisibility); // 초기값을 props로 설정
 
     // 마우스 움직임을 추적하는 함수
     const handleMouseMove = (e) => {
