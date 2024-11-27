@@ -10,12 +10,12 @@ import dataSet from './static/translated_recipe.json';
 import {
   ModalContent,
   ModalOverlay,
-  ModalTitle,
   RecipeImage,
   RecipeSubTitle,
   RecipeTitle,
   CloseButton,
-  HorizontalLine,
+  RecipeLine,
+  ModalSubContent,
 } from './styles/BakingRecipe/ModalStyle.js';
 
 Modal.setAppElement('#root');
@@ -24,14 +24,17 @@ function BakingClass() {
   const [isOpen, setModalOpen] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  const openModal = () => {
-    setModalOpen(true);
-    document.body.style.overflow = 'hidden'; // 모달 열릴 때 스크롤 비활성화
-  };
-
   const closeModal = () => {
     setModalOpen(false);
-    document.body.style.overflow = 'unset'; // 모달 닫힐 때 스크롤 활성화
+    enableScroll(); // 스크롤 활성화
+  };
+
+  const disableScroll = () => {
+    document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+  };
+
+  const enableScroll = () => {
+    document.body.style.overflow = 'unset'; // 스크롤 복원
   };
 
   const renderTableContent = () => {
@@ -46,6 +49,7 @@ function BakingClass() {
             onClick={() => {
               setSelectedRecipe(item);
               setModalOpen(true);
+              disableScroll();
             }}
           />
         </td>
@@ -76,29 +80,32 @@ function BakingClass() {
       >
         <ModalOverlay>
           <ModalContent>
-            <ModalTitle>레시피 상세</ModalTitle>
             {selectedRecipe && (
               <div>
+                <RecipeTitle>{selectedRecipe.Title}</RecipeTitle>
                 <RecipeImage
                   src={require(`./assets/images/BakingRecipeImages/${selectedRecipe.Image_Name}`)}
                   alt={selectedRecipe.Title}
                 />
-                <RecipeTitle>{selectedRecipe.Title}</RecipeTitle>
-                <HorizontalLine />
-                <RecipeSubTitle>재료</RecipeSubTitle>
-                <ol>
-                  {selectedRecipe.Ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li> // 각 재료를 리스트 항목으로 출력
-                  ))}
-                </ol>
-                <RecipeSubTitle>조리법</RecipeSubTitle>
-                <ol>
-                  {selectedRecipe.Instructions.split('\n').map(
-                    (instruction, index) => (
-                      <li key={index}>{instruction}</li> // 각 조리법을 리스트 항목으로 출력
-                    )
-                  )}
-                </ol>
+                <ModalSubContent>
+                  <RecipeSubTitle>재료</RecipeSubTitle>
+                  <ol>
+                    {selectedRecipe.Ingredients.map((ingredient, index) => (
+                      <RecipeLine key={index}>
+                        {index + 1}. {ingredient}
+                      </RecipeLine> // 각 재료를 리스트 항목으로 출력
+                    ))}
+                  </ol>
+
+                  <RecipeSubTitle>조리법</RecipeSubTitle>
+                  <ol>
+                    {selectedRecipe.Instructions.split('\n').map(
+                      (instruction, index) => (
+                        <RecipeLine key={index}>{instruction}</RecipeLine> // 각 조리법을 리스트 항목으로 출력
+                      )
+                    )}
+                  </ol>
+                </ModalSubContent>
               </div>
             )}
             <CloseButton onClick={closeModal}>X</CloseButton>
