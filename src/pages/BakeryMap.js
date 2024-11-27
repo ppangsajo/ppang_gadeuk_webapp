@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Map from '../components/BakeryMap/Map';
 import SideBar from '../components/BakeryMap/SideBar';
 import styled from 'styled-components';
+import PageHeader1 from '../components/PageHeader1.js';
 
 const DIV = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 2.5em; //지도의 상단 여백
+  padding-top: 80px; /* PageHeader의 높이에 맞는 여백 추가 */
   padding: 30px;
   background-color: #ffffff;
   border-radius: 45px;
@@ -34,7 +36,9 @@ function BakeryMap() {
     }, []);
 
     return (
+        
         <DIV> {/* DIV는 주변빵집찾기 페이지의 최상위 엘리먼트.body바로 다음 */}
+        <PageHeader1 />
             <SideBar width={450} places={places} />
             {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
             <StyledH1>가까운 빵집을 만나보세요!</StyledH1>

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import backgroundImage from '../assets/images/mainScreen.png';
 
+
 export const Center = styled.div`
   width: 100%;
   height: 75vh; /* 높이를 명시적으로 설정 */
@@ -11,6 +12,7 @@ export const Center = styled.div`
   background-image: url(${backgroundImage});
   background-size: cover; /* 이미지가 영역을 채우도록 설정 */
   background-position: center; /* 중앙에 위치 */
+  padding-top: 80px; /* PageHeader의 높이에 맞는 여백 추가 */
 `;
 
 export const Main = styled.main`
@@ -24,6 +26,9 @@ export const Header = styled.header`
   display: flex; /* Flexbox 활성화 */
   justify-content: center; /* 가로 정렬: 중앙 */
   align-items: center; /* 세로 정렬: 중앙 */
+  position: fixed; /* 상단에 고정 */
+  top: 0; /* 화면 상단에 위치 */
+  left: 0; /* 화면 왼쪽에 위치 */
 `;
 
 export const P = styled.h1`
@@ -38,7 +43,7 @@ export const P = styled.h1`
 export const Nav = styled.nav`
   width: 70%;
   display: flex; /* Flexbox 활성화 */
-  justify-content: space-evenly; /* 자식 요소 간 균등한 간격 설정 */
+  justify-content: space-evenly;/*좌측 정렬*/
   align-items: center; /* 세로 방향으로 중앙 정렬 */
 `;
 
@@ -53,6 +58,7 @@ export const Button = styled.button`
   cursor: pointer;
   border: none;
 `;
+
 
 export const ImageContainer = styled.div`
   position: relative; /* 자식 요소의 절대 위치 기준 */

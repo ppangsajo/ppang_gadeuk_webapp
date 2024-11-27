@@ -8,7 +8,7 @@ function PageHeader() {
         <Link to="/BakeryMap">
           <Button>근처 빵집 찾기</Button>
         </Link>
-        <Link to="/ClickerGame">
+        <Link to="/ClickerGameMain">
           <Button>클리커 게임</Button>
         </Link>
         <Link to="/BakingClass">
