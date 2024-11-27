@@ -4,6 +4,7 @@ import MainScreen from '../pages/MainScreen';
 import KakaoMap from '../pages/KakaoMap';
 import BakingClass from '../pages/BakingClass';
 import ClickerGame from '../pages/ClickerGameMain';
+import ClickerGameTutorial from '../pages/ClickerGameTutorial';
 import NotFound from "../pages/NotFound";
 import { GlobalStyle } from '../styles/GlobalStyle';
 
@@ -29,6 +30,7 @@ function Router() {
                 <Route path="/" element={<MainScreen />} />
                 <Route path="/Map" element={<KakaoMap />} />
                 <Route path="/ClickerGameMain" element={<ClickerGame />} />
+                <Route path="/ClickerGameTutorial/:id" element={<ClickerGameTutorial />} />
                 <Route path="/BakingClass" element={<BakingClass />} />
                 {/*<Route path="/Recipe" component={Recipe} />} */}
                 <Route path="*" element={<NotFound />} />
