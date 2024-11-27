@@ -9,11 +9,11 @@ export const SideBarComponent = styled.div`
   position: fixed;
   z-index: 20;
   background-color: white;
+  border-right: 2.6px solid #202020;
   color: #202020;
   top: 0;
   left: 0;
   bottom: 0;
-  border-right: 4px solid #202020;
   transition: 0.4s ease;
   height: 100%;
   width: ${({ width }) => `${width}px`}; 
@@ -29,7 +29,7 @@ so, SideBarButton의 position을 absolute로 변경. 이렇게 하면 SideBarBut
 export const SideBarButton = styled.button`
   position: absolute; 
   z-index: 20;
-  border: 4px solid #202020;
+  border: 3px solid #202020;
   border-radius: 40px;
   height: 50px;
   width: 50px;
