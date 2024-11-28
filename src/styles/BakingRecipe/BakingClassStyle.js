@@ -5,6 +5,8 @@ export const BakingClassContainer = styled.div`
   margin: 0 auto;
   padding: 90px 30px;
   background-image: url('/baking-class-background.png');
+  background-attachment: fixed;
+
   display: flex;
   justify-content: center;
   box-sizing: border-box;
