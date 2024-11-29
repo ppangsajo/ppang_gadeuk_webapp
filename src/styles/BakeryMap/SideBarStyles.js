@@ -2,13 +2,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: white;
+  background-color: #E3ECF1;
 `;
 
 export const SideBarComponent = styled.div`
   position: fixed;
   z-index: 20;
-  background-color: white;
+  background-color: #E3ECF1; //사이드바 배경색
   color: #202020;
   top: 0;
   left: 0;
@@ -73,10 +73,12 @@ export const CurrentLocation = styled.p`
 //사이드바의 콘텐츠를 담는 컨테이너 컴포넌트
 export const Content = styled.div`
   position: relative;
-  width: calc(100% - 40px);
-  height: calc(100% - 60px); 
-  padding: 40px 20px 0 20px;
+  width: 100%;
+  height: calc(100% - 150px); //컨테이너 높이 조절. 기존에는 -60px이었으나, -150px로 컨테이너의 높이를 축소하여 -> 사이드바 밖으로 넘치지않도록해줌. 화면 하단에 위치한 버튼이 화면에 가려지는 문제 해결
+  padding: 20px 20px 20px 20px; //top, right, bottom, left
+  //padding: 20px; //상하좌우 20px. 위 속성값과 동일.
   overflow-y: auto; /*스크롤바*/
+  box-sizing: border-box; /*padding값을 포함한 전체 너비를 설정*/
 `;
 
 export const ListItem = styled.li`
