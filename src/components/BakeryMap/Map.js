@@ -4,13 +4,13 @@ import markerImg from "../../assets/images/BakeryMap/marker2.png";
 import CustomOverlayContent from "./CustomOverlayContent";
 import ReactDOMServer from 'react-dom/server';
 import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
-import ZoomControlBtn from './ZoomControlBtn';
-import MapTypeControlBtn from './MapTypeControlBtn';
+//import ZoomControlBtn from './ZoomControlBtn';
+//import MapTypeControlBtn from './MapTypeControlBtn';
 
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
 
 
-const CustomMap = ({ setPlaces }) => {
+const CustomMap = ({ setPlaces, setCurrentAddress }) => {
     const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
     //const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
@@ -19,12 +19,29 @@ const CustomMap = ({ setPlaces }) => {
     const markersRef = useRef([]); // 마커를 관리하기 위한 useRef 훅
     const currentMarker = useRef(null); // 현재 위치 마커
 
+    //  geocoder객체의 coord2Address 메서드를통해 현재 좌표값을 상세주소로 변환
+    const updateAddress = (currentLat, currentLng) => {
+        const geocoder = new kakao.maps.services.Geocoder();
+        geocoder.coord2Address(currentLng, currentLat, (result, status) => {
+            if (status === kakao.maps.services.Status.OK) {
+                const address = result[0].address.address_name;
+                setCurrentAddress(address);
+            }
+        });
+    };
+
     // 현위치버튼의 클릭 이벤트 핸들러. 현재 위치로 이동&현재 위치에 마커 표시
-    const handleCurrentLocation = () => {
+    const currentLocationHandler = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             const currentLat = position.coords.latitude;
             const currentLng = position.coords.longitude;
+
+            //현 위치 버튼 클릭시 현재 위치로 이동, 이지만 현재 위치를 한성대로 설정해둠(이동되는지 테스트용)!!! 시연시, 변경 필수
             const currentCoordinate = new kakao.maps.LatLng(37.58284829999999, 127.0105811);
+
+            //현 위치 버튼 클릭시 현재 위치로 이동
+            //const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng);
+
             // 이전 마커 제거
             if (currentMarker.current) {
                 currentMarker.current.setMap(null);
@@ -42,6 +59,12 @@ const CustomMap = ({ setPlaces }) => {
 
             // 현재 위치 상태 업데이트
             setCurrentPosition(currentCoordinate);
+
+            // 현재 위치에 대한 주소값 update이지만, 한성대로 설정해둠(테스트용)
+            //!!! 시연시, 변경 필수
+            updateAddress(37.58284829999999, 127.0105811);
+            //updateAddress(currentLat, currentLng);
+
         }, showErrorMsg, {
             enableHighAccuracy: true, // 위치 정확도 향상 요청
             maximumAge: 30000, // 30초 이내의 캐시된 위치 정보 사용
@@ -84,6 +107,10 @@ const CustomMap = ({ setPlaces }) => {
 
             // 현재 위치 상태 업데이트
             setCurrentPosition(currentCoordinate);
+
+            // 현재 위치의 주소를 가져와서 업데이트
+            updateAddress(currentLat, currentLng);
+
         }, showErrorMsg, {
             enableHighAccuracy: true, // 위치 정확도 향상 요청
             maximumAge: 30000, // 30초 이내의 캐시된 위치 정보 사용
@@ -193,36 +220,36 @@ const CustomMap = ({ setPlaces }) => {
         searchPlaces();
     }, [currentPosition, setPlaces]);
 
-
-    // 확대/축소 버튼 이벤트 핸들러
-    const handleZoomIn = () => {
-        mapRef.current.setLevel(mapRef.current.getLevel() - 1);
-    };
-
-    const handleZoomOut = () => {
-        mapRef.current.setLevel(mapRef.current.getLevel() + 1);
-    };
-
-    // 지도 타입 변경 버튼 이벤트 핸들러
-    const setMapType = (maptype) => {
-        if (maptype === 'roadmap') {
-            //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
-            //MapTypeId.ROADMAP: 현재 카카오맵 타입을 일반지도 형태로 표현
-            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-        }
-        //MapTypeId.SKYVIEW: 현재 카카오맵 타입을 스카이뷰 형태로 표현
-        if (maptype === 'skyview') {
-            mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
-        }
-    };
-
+    /*
+        // 확대/축소 버튼 이벤트 핸들러
+        const handleZoomIn = () => {
+            mapRef.current.setLevel(mapRef.current.getLevel() - 1);
+        };
+    
+        const handleZoomOut = () => {
+            mapRef.current.setLevel(mapRef.current.getLevel() + 1);
+        };
+    
+        // 지도 타입 변경 버튼 이벤트 핸들러
+        const setMapType = (maptype) => {
+            if (maptype === 'roadmap') {
+                //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
+                //MapTypeId.ROADMAP: 현재 카카오맵 타입을 일반지도 형태로 표현
+                mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
+            }
+            //MapTypeId.SKYVIEW: 현재 카카오맵 타입을 스카이뷰 형태로 표현
+            if (maptype === 'skyview') {
+                mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
+            }
+        };
+    */
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
             <div id="customMap" style={{ width: '100%', height: '100%' }}></div>
 
             <button
-                onClick={handleCurrentLocation}
+                onClick={currentLocationHandler}
                 style={{
                     position: 'absolute',
                     top: '2px',

@@ -6,10 +6,20 @@ import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
 
 //places prop = 사이드바 내부에 표시될 콘텐츠
-const SideBar = ({ width = 280, places }) => {
+const SideBar = ({ width = 280, places, currentAddress }) => {
     const [isOpen, setOpen] = useState(false); // 사이드바의 열림/닫힘 여부를 나타내는 상태
     const [xPosition, setX] = useState(width); // 사이드바의 x축 위치를 나타내는 상태 
     const side = useRef(); // 사이드바 DOM 엘리먼트에 대한 참조를 저장하는 side 참조(ref) 객체 
+
+
+
+    // useEffect(() => {
+    //     // 현재 위치 주소값 확인용
+    //     console.log("currentAddress updated:", currentAddress);
+    // }, [currentAddress]);
+
+
+
 
     // button 클릭 시 토글
     //사이드바의 열림/닫힘 상태를 전환하는 함수
@@ -68,8 +78,7 @@ const SideBar = ({ width = 280, places }) => {
                     내 주변 빵집 찾기
                 </SideBarTitle>
                 {/* 현재 위치 표시 ,현재 위치 api로 불러오기. 가능하다면. */}
-                <CurrentLocation>서울특별시 성북구~~~
-                    주변 빵집 목록</CurrentLocation>
+                <CurrentLocation>{currentAddress} 주변 빵집 목록</CurrentLocation>
                 {/* ButtonContainer 추가 */}
                 <Content>
                     <ul>
