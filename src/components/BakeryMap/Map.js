@@ -178,7 +178,11 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
                 map: mapRef.current,
                 position: new kakao.maps.LatLng(place.y, place.x),
                 image: markerImage,
-                title: place.place_name
+                title: place.place_name,
+                userData: {
+                    ...place,  // place 객체의 모든 속성을 userData에 저장
+                    id: place.id  // 장소 ID 추가
+                }
             });
 
             function handleCloseOverlay() {
@@ -199,7 +203,7 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
 
             const overlayContent = document.createElement('div');
             const root = ReactDOM.createRoot(overlayContent);
-            root.render(<CustomOverlayContent place={place} closeOverlay={handleCloseOverlay} openRoadView={openRoadView} />);
+            root.render(<CustomOverlayContent place={place} closeOverlay={handleCloseOverlay} openRoadView={openRoadView} currentPosition={{ lat: currentPosition.getLat(), lng: currentPosition.getLng() }} />);
 
             const overlay = new kakao.maps.CustomOverlay({
                 content: overlayContent,
