@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundImage from '../assets/images/mainScreen.png';
+import backgroundImage from '../assets/images/MainScreenImages/mainScreen.png';
 
 
 export const Center = styled.div`

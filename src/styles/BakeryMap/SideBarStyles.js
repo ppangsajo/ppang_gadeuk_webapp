@@ -2,13 +2,40 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: white;
+  background-color: #FFFDD0;
 `;
+
+// 사이드바 제목에 <h2> 사용
+export const SideBarTitle = styled.h2`
+    text-align: center;
+    padding: 50px 0;
+    font-family: 'OurFont1', sans-serif; /* 원하는 폰트 */
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    background-color: #ECAB81;  //F4A460
+`;
+
+
+export const CurrentLocation = styled.p`
+    text-align: center;
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    
+    color: black;
+    background-color: #F5F5DC;
+    border-bottom: 6px double #ddd;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+
+`;
+
 
 export const SideBarComponent = styled.div`
   position: fixed;
   z-index: 20;
-  background-color: white;
+  background-color: #FFFDD0; {/* //사이드바 배경색 #베이지 색상: #F5F5DC 크림색상: #FFFDD0 라이트 브라운 색상: #D2B48C 페일 옐로우 색상: #FAFAD2*/}
   color: #202020;
   top: 0;
   left: 0;
@@ -38,6 +65,15 @@ export const SideBarButton = styled.button`
   //left: 360px;
   left: ${({ width }) => `${width}px`}; // 사이드바의 크기 + 10을 사용하여 버튼 위치 설정. left는 사이드바의 왼쪽사이드 기준으로 설정되기 때문에 사이드바의 너비를 더해줌.
   transition: 0.8s ease;
+  cursor: pointer;
+  //background-color: #f4a460; /* 주황색 배경 */
+
+ &:hover {
+  transform: scale(0.9) rotateY(20deg); // rotateY 값 증가
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4); // box-shadow 값 조정 */
+  transition: 0.5s ease; // 축소되는 빠르기 조정
+  
+}
 `;
 
 export const ButtonImg = styled.img`
@@ -46,49 +82,34 @@ export const ButtonImg = styled.img`
   pointer-events: none;
 `;
 
-// 사이드바 제목에 <h2> 사용
-export const SideBarTitle = styled.h2`
-    text-align: center;
-    padding: 50px 0;
-    font-family: 'OurFont1', sans-serif; /* 원하는 폰트 */
-    font-size: 30px;
-    font-weight: bold;
-    color: black;
-    background-color: #F4A460;   
-`;
-//{/*position: fixed; //top: 0; left: 0; width: 100%;
-//z-index: 100; /* 다른 요소들이 제목 아래로 가도록 설정 */
-//margin: 0; box-sizing: border-box; */}
-
-export const CurrentLocation = styled.p`
-    text-align: center;
-    padding: 15px 0;
-    font-size: 9px;
-    color: black;
-    background-color: #white;
-    border-bottom: 6px double #ddd;
-`;
-
-
 //사이드바의 콘텐츠를 담는 컨테이너 컴포넌트
 export const Content = styled.div`
   position: relative;
-  width: calc(100% - 40px);
-  height: calc(100% - 60px); 
-  padding: 40px 20px 0 20px;
+  width: 100%;
+  height: calc(100% - 180px); //컨테이너 높이 조절. 기존에는 -60px이었으나, -180px로 컨테이너의 높이를 축소하여 -> 사이드바 밖으로 넘치지않도록해줌. 화면 하단에 위치한 버튼이 화면에 가려지는 문제 해결
+  padding: 20px 20px 20px 20px; //top, right, bottom, left
+  //padding: 20px; //상하좌우 20px. 위 속성값과 동일.
   overflow-y: auto; /*스크롤바*/
+  box-sizing: border-box; /*padding값을 포함한 전체 너비를 설정*/
 `;
 
 export const ListItem = styled.li`
   list-style: none;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+
+  transition: 0.2s ease; //hover 효과를 위한 transition
+
+  &:hover {
+    transform: translateY(-10px); // hover 시 위로 살짝 이동효과
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.55); // hover 시 그림자 강조
+  }
 `;
 
 export const ListItemImg = styled.img`
@@ -105,18 +126,20 @@ export const ListItemInfo = styled.div`
 `;
 
 export const ListItemTitle = styled.h5`
-  margin: 0;
-  font-size: 16px;
+  margin: 0 0 5px 0; /* 아래쪽 마진 추가 */
+  font-size: 18px;
   font-weight: bold;
   color: #333;
 `;
 
 export const ListItemAddress = styled.span`
+  margin-top: 1px;
   font-size: 14px;
-  color: #777;
+  color: #666;
 `;
 
 export const ListItemDistance = styled.span`
-  font-size: 12px;
-  color: #999;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #777;
 `;

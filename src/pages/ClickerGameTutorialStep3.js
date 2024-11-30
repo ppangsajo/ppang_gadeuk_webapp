@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
-import { TutorialBackground, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
-import Background1 from '../assets/images/ClickerGameTutorialBGI4.png';
-import Background2 from '../assets/images/ClickerGameTutorialBGI5.png';
-import Image1 from '../assets/images/ClickerGameBreadItem1.png';
-import Image2 from '../assets/images/ClickerGameBreadItem2.png';
-import Image3 from '../assets/images/ClickerGameBreadItem3.png';
-import Image4 from '../assets/images/ClickerGameBreadItem4.png';
+import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../styles/ClickerGameMainStyles';
+import Background1 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI4.png';
+import Background2 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
+import Image1 from '../assets/images/ClickerGameImages/ClickerGameBreadItem1.png';
+import Image2 from '../assets/images/ClickerGameImages/ClickerGameBreadItem2.png';
+import Image3 from '../assets/images/ClickerGameImages/ClickerGameBreadItem3.png';
+import Image4 from '../assets/images/ClickerGameImages/ClickerGameBreadItem4.png';
 const TutorialStep3 = ({ onNext }) => {
 
     const [backgroundImage, setBackgroundImage] = useState(Background1); // 초기 배경 이미지 설정
@@ -43,7 +43,7 @@ const TutorialStep3 = ({ onNext }) => {
     }, []);
 
     return (
-        <TutorialBackground bgImage={backgroundImage}>
+        <ClickerGameBackground bgImage={backgroundImage}>
 
             <div
                 style={{
@@ -69,7 +69,7 @@ const TutorialStep3 = ({ onNext }) => {
                 ))}
             </div>
 
-            <TutorialMessage>
+            <ClickerGameMessage>
                 <ReactTyped
                     strings={[
                         "첫번째 신비의 오븐은 고대 이집트의 피라미드 내부에 위치해 있다는 사실도 적혀있었습니다.",
@@ -78,9 +78,9 @@ const TutorialStep3 = ({ onNext }) => {
                     typeSpeed={40}
                     loop={false}
                 />
-            </TutorialMessage>
+            </ClickerGameMessage>
             <NextButton onClick={onNext}>다음으로</NextButton >
-        </TutorialBackground>
+        </ClickerGameBackground>
     );
 
 }

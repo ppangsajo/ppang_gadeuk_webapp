@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import backgroundImage from '../assets/images/ClickerGameMainScreen.png';
-import tutorial from '../assets/images/ClickerGameTutorialButton.png';
+import backgroundImage from '../assets/images/ClickerGameImages/ClickerGameMainScreen.png';
+import tutorial from '../assets/images/ClickerGameImages/ClickerGameTutorialButton.png';
 
 export const Center = styled.div`
   width: 100%;
@@ -67,7 +67,7 @@ export const ChapterItem = styled.img`
   }
 `;
 
-export const TutorialBackground = styled.div`
+export const ClickerGameBackground = styled.div`
   width: 100%;
   height: 100vh;
   display: flex; /* Flexbox 활성화 */
@@ -82,13 +82,13 @@ export const TutorialBackground = styled.div`
 
 `;
 
-export const TutorialMessage = styled.div`
+export const ClickerGameMessage = styled.div`
   width: 75%;
   height: 12%;
   display: flex; /* Flexbox 활성화 */
   justify-content: center; /* 가로 정렬: 중앙 */
   align-items: center; /* 세로 정렬: 중앙 */
-  background-color: rgba(255, 255, 255, 0.5); /* 반투명 흰색 배경 */
+  background-color: ${(props) => props.bgColor || 'rgba(255, 255, 255, 0.5)'}; /* 매개변수로 배경색 설정, 기본값은 반투명 흰색 */
   border-radius: 50px; /* 끝부분 둥글게 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 살짝 그림자 추가 */
   color: black; /* 텍스트 색상 */
@@ -97,6 +97,7 @@ export const TutorialMessage = styled.div`
   text-align: center; /* 텍스트 중앙 정렬 */
   padding: 10px; /* 내부 여백 */
   margin-bottom: 2%; /* 하단 여백 */
+  z-index: 5;
 `;
 
 export const NextButton = styled.div`

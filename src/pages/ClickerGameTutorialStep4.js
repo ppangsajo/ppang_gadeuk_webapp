@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
-import { TutorialBackground, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameTutorialBGI6.png';
-import Image1 from '../assets/images/ClickerGameChapterIconColor.png';
-import Image2 from '../assets/images/ClickerGameChapterIconBlack.png';
+import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../styles/ClickerGameMainStyles';
+import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI6.png';
+import Image1 from '../assets/images/ClickerGameImages/ClickerGameChapterIconColor.png';
+import Image2 from '../assets/images/ClickerGameImages/ClickerGameChapterIconBlack.png';
 
 const TutorialStep4 = ({ onNext }) => {
     const [imagesToShow, setImagesToShow] = useState([]); // 화면에 표시할 이미지 배열
@@ -28,7 +28,7 @@ const TutorialStep4 = ({ onNext }) => {
     }, []);
 
     return (
-        <TutorialBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={Background}>
             <div
                 style={{
                     position: "absolute",
@@ -53,7 +53,7 @@ const TutorialStep4 = ({ onNext }) => {
                 ))}
             </div>
 
-            <TutorialMessage>
+            <ClickerGameMessage>
                 <ReactTyped
                     strings={[
                         "각 빵에는 그 지역의 역사와 문화가 깃들어 있으며,",
@@ -62,9 +62,9 @@ const TutorialStep4 = ({ onNext }) => {
                     typeSpeed={40}
                     loop={false}
                 />
-            </TutorialMessage>
+            </ClickerGameMessage>
             <NextButton onClick={onNext}>다음으로</NextButton>
-        </TutorialBackground>
+        </ClickerGameBackground>
     );
 };
 
