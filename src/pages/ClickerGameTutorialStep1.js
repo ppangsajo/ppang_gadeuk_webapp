@@ -1,14 +1,14 @@
 import React from 'react';
 import { ReactTyped } from "react-typed";
-import { TutorialBackground, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameTutorialBGI1.png';
+import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../styles/ClickerGameMainStyles';
+import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI1.png';
 
 const TutorialStep1 = ({ onNext }) => {
 
     return (
-        <TutorialBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={Background}>
 
-            <TutorialMessage>
+            <ClickerGameMessage>
                 <ReactTyped
                     strings={[
                         "당신은 세계적인 제빵 대회에서 우승한 유망한 제빵사입니다.",
@@ -17,9 +17,9 @@ const TutorialStep1 = ({ onNext }) => {
                     typeSpeed={40}
                     loop={false}
                 />
-            </TutorialMessage>
+            </ClickerGameMessage>
             <NextButton onClick={onNext}>다음으로</NextButton >
-        </TutorialBackground>
+        </ClickerGameBackground>
     );
 
 }
