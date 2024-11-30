@@ -46,10 +46,8 @@ export const Close = styled.div`
   width: 17px;
   height: 17px;
   background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+  cursor: pointer;
 
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export const Body = styled.div`

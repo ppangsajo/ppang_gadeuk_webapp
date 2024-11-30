@@ -1,8 +1,9 @@
+import ReactDOM from 'react-dom/client';
 import React, { useEffect, useState, useRef } from "react";
 import RoadView from "./RoadView";
 import markerImg from "../../assets/images/BakeryMap/marker2.png";
 import CustomOverlayContent from "./CustomOverlayContent";
-import ReactDOMServer from 'react-dom/server';
+//import ReactDOMServer from 'react-dom/server';
 import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
 //import ZoomControlBtn from './ZoomControlBtn';
 //import MapTypeControlBtn from './MapTypeControlBtn';
@@ -18,6 +19,7 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
     const mapRef = useRef(null); // map 객체를 참조하기 위한 useRef 훅
     const markersRef = useRef([]); // 마커를 관리하기 위한 useRef 훅
     const currentMarker = useRef(null); // 현재 위치 마커
+    const activeOverlayRef = useRef(null); // 현재 활성화된 커스텀 오버레이
 
     //  geocoder객체의 coord2Address 메서드를통해 현재 좌표값을 상세주소로 변환
     const updateAddress = (currentLat, currentLng) => {
@@ -176,45 +178,57 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
             const imageSize = new kakao.maps.Size(34, 45);
             const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             const marker = new kakao.maps.Marker({
-                map: mapRef.current, // map 객체를 useRef 훅에서 가져옴
+                map: mapRef.current,
                 position: new kakao.maps.LatLng(place.y, place.x),
                 image: markerImage,
                 title: place.place_name
             });
 
-            const content = ReactDOMServer.renderToString(
-                <CustomOverlayContent place={place} closeOverlay={closeOverlay} />
-            );
+            function handleCloseOverlay() {
+                console.log('closeOverlay');
+                overlay.setMap(null);
+                activeOverlayRef.current = null;
+            }
+
+            //kakao.maps.CustomOverlay는 HTML 요소나 HTML 문자열로만 내부 content로 사용할 수 있음.
+            // 기존에는 ReactDOMServer.renderToString()을 사용하여 JSX를 문자열로 변환해서 커스텀 오버레이 content로 사용했지만, 이러면 이벤트 핸들러가 동작하지 않음. so, root.render를 통해 React 컴포넌트를 HTML 요소 안에 렌더링한 후, 그 HTML 요소를 content로 설정해줌.
+
+            const overlayContent = document.createElement('div');
+            const root = ReactDOM.createRoot(overlayContent);
+            root.render(<CustomOverlayContent place={place} closeOverlay={handleCloseOverlay} />);
 
             const overlay = new kakao.maps.CustomOverlay({
-                content: content,
-                map: mapRef.current, // map 객체를 useRef 훅에서 가져옴
+                content: overlayContent,
+                map: mapRef.current,
                 position: marker.getPosition()
             });
 
             overlay.setMap(null);
 
             kakao.maps.event.addListener(marker, 'mouseover', function () {
-                overlay.setMap(mapRef.current); // map 객체를 useRef 훅에서 가져옴
+                if (activeOverlayRef.current !== overlay) {
+                    overlay.setMap(mapRef.current);
+                }
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function () {
-                overlay.setMap(null);
+                if (activeOverlayRef.current !== overlay) {
+                    overlay.setMap(null);
+                }
             });
 
-            function closeOverlay() {
-                overlay.setMap(null);
-            }
 
             kakao.maps.event.addListener(marker, "click", function () {
                 setRoadViewPosition({
                     lat: place.y,
                     lng: place.x,
                 });
-                setRoadViewPlace(place); // 로드뷰에 커스텀 오버레이에 표시해줄 장소 정보값 업데이트
+                setRoadViewPlace(place);
+                overlay.setMap(mapRef.current);
+                activeOverlayRef.current = overlay;
             });
 
-            markersRef.current.push(marker); // 마커 배열에 추가
+            markersRef.current.push(marker);
         }
 
         searchPlaces();

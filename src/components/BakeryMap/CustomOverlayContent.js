@@ -2,7 +2,7 @@ import React from 'react';
 import { Wrap, Info, Title, Close, Body, Desc, Ellipsis, Jibun, Img, Link, InfoAfter } from '../../styles/BakeryMap/CustomOverlayStyles';
 
 // 커스텀 오버레이 내부의 컨텐츠들 정의//
-const CustomOverlayContent = ({ place, closeOverlay }) => {
+const CustomOverlayContent = ({ place, closeOverlay, openRoadView }) => {
     return (
         <Wrap>
             <Info>
@@ -18,7 +18,10 @@ const CustomOverlayContent = ({ place, closeOverlay }) => {
                         <Ellipsis>{place.address_name}</Ellipsis>
                         <Jibun>전화번호: {place.phone}</Jibun>
                         <Jibun>{place.distance}m</Jibun>
-                        <Link href="https://www.kakaocorp.com/main" target="_blank">홈페이지</Link>
+                        <div>
+                            <Link href="https://www.kakaocorp.com/main" target="_blank">홈페이지</Link>
+                            <button onClick={openRoadView} style={{ marginLeft: '10px' }}>로드뷰</button>
+                        </div>
                     </Desc>
                 </Body>
             </Info>
