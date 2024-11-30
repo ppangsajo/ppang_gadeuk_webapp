@@ -29,6 +29,7 @@ function BakeryMap() {
     const [places, setPlaces] = useState([]); //장소데이터 상태를 최상단인BakeryMap컴포넌트에서 관리. Map컴포넌트에게는 장소데이터를 전달해주고 Map 컴포넌트에게는 장소테이터 상태변경함수를 전달해줌으로써 장소데이터를 다룰 수 있게 함.
 
     const [currentAddress, setCurrentAddress] = useState(''); // 현재 주소 상태
+    const [selectedItem, setSelectedItem] = useState(null); // 선택된 장소 상태
 
     useEffect(() => {
         document.body.className = 'body-Map';
@@ -41,10 +42,10 @@ function BakeryMap() {
 
         <DIV> {/* DIV는 주변빵집찾기 페이지의 최상위 엘리먼트.body바로 다음 */}
             <PageHeader1 />
-            <SideBar width={450} places={places} currentAddress={currentAddress} />
+            <SideBar width={450} places={places} currentAddress={currentAddress} setSelectedItem={setSelectedItem} />
             {/* StyledH1 컴포넌트를 사용하여 제목을 스타일링 */}
             <StyledH1>가까운 빵집을 만나보세요!</StyledH1>
-            <Map setPlaces={setPlaces} setCurrentAddress={setCurrentAddress} />
+            <Map setPlaces={setPlaces} setCurrentAddress={setCurrentAddress} selectedItem={selectedItem} />
         </DIV>
     );
 }

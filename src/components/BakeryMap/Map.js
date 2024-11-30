@@ -8,7 +8,7 @@ import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.p
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
 
 
-const CustomMap = ({ setPlaces, setCurrentAddress }) => {
+const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
     const [roadViewPlace, setRoadViewPlace] = useState(null); // 로드뷰에 표시할 장소 정보를 위한 상태값 
     const [roadViewPosition, setRoadViewPosition] = useState(null);
     //const [pagination, setPagination] = useState(null); // 페이지네이션을 위한 상태값. 검색결과를 더 불러올 수 있도록 함.
@@ -156,7 +156,9 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
                 setPlaces(placesData.map(place => ({  // placesData를 사용하여 setPlaces 호출
                     place_name: place.place_name,
                     address_name: place.address_name,
-                    distance: place.distance
+                    distance: place.distance,
+                    y: place.y, // 위도 추가
+                    x: place.x  // 경도 추가
                 })));
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]);
@@ -236,6 +238,27 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
 
         searchPlaces();
     }, [currentPosition, setPlaces]);
+
+    useEffect(() => {
+        if (selectedItem && mapRef.current && markersRef.current.length > 0) {
+            console.log('selectedItem:', selectedItem);
+            const { y, x } = selectedItem; // 선택한 장소(item)의 위도와 경도 추출
+            const moveLatLng = new kakao.maps.LatLng(y, x);
+            mapRef.current.panTo(moveLatLng);
+
+            // // 선택된 장소의 마커 위치를 기반으로 마커 찾기
+            // const targetMarker = markersRef.current.find(marker => {
+            //     const markerPosition = marker.getPosition();
+            //     return markerPosition.getLat() === y && markerPosition.getLng() === x;
+            // });
+
+            // if (targetMarker) {
+            //     kakao.maps.event.trigger(targetMarker, 'click');
+            // }
+        } else {
+            console.log("selectedItem is null");
+        }
+    }, [selectedItem]);
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '800px' }}>

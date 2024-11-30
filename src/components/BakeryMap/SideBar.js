@@ -1,12 +1,12 @@
 // src/components/BakeryMap/SideBar.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle, CurrentLocation, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
 import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
 
 //places prop = 사이드바 내부에 표시될 콘텐츠
-const SideBar = ({ width = 280, places, currentAddress }) => {
+const SideBar = ({ width = 280, places, currentAddress, setSelectedItem }) => {
     const [isOpen, setOpen] = useState(false); // 사이드바의 열림/닫힘 여부를 나타내는 상태
     const [xPosition, setX] = useState(width); // 사이드바의 x축 위치를 나타내는 상태 
     const side = useRef(); // 사이드바 DOM 엘리먼트에 대한 참조를 저장하는 side 참조(ref) 객체 
@@ -91,7 +91,7 @@ const SideBar = ({ width = 280, places, currentAddress }) => {
                 <Content>
                     <ul>
                         {places.map((place, index) => (
-                            <ListItem key={index}>
+                            <ListItem key={index} onClick={() => setSelectedItem(place)}>
                                 <ListItemImg src={listItemImg} alt={place.place_name} />
                                 <ListItemInfo>
                                     <ListItemTitle>{place.place_name}</ListItemTitle>
