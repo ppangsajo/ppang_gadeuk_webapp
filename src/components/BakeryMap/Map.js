@@ -240,25 +240,35 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
     }, [currentPosition, setPlaces]);
 
     useEffect(() => {
+        // 선택한 장소&지도객체가 유효한지 + 현재 지도에 마커가 존재하는 경우
         if (selectedItem && mapRef.current && markersRef.current.length > 0) {
             console.log('selectedItem:', selectedItem);
             const { y, x } = selectedItem; // 선택한 장소(item)의 위도와 경도 추출
             const moveLatLng = new kakao.maps.LatLng(y, x);
             mapRef.current.panTo(moveLatLng);
 
-            // // 선택된 장소의 마커 위치를 기반으로 마커 찾기
-            // const targetMarker = markersRef.current.find(marker => {
-            //     const markerPosition = marker.getPosition();
-            //     return markerPosition.getLat() === y && markerPosition.getLng() === x;
-            // });
+            console.log('markersRef:', markersRef.current);
+            // 선택된 장소의 마커 위치를 기반으로 마커 찾기
+            const targetMarker = markersRef.current.find(marker => {
+                const markerPosition = marker.getPosition();
+                console.log('markerPosition:', markerPosition.getLat(), markerPosition.getLng());
+                console.log('selectedItem position:', y, x);
+                const latDiff = Math.abs(markerPosition.getLat() - y);
+                const lngDiff = Math.abs(markerPosition.getLng() - x);
+                const tolerance = 0.00001; // 허용 오차
+                return latDiff < tolerance && lngDiff < tolerance;
+            });
 
-            // if (targetMarker) {
-            //     kakao.maps.event.trigger(targetMarker, 'click');
-            // }
+            if (targetMarker) {
+                kakao.maps.event.trigger(targetMarker, 'click');
+                console.log('targetMarker:', targetMarker);
+            } else {
+                console.log('targetMarker is null');
+            }
         } else {
             console.log("selectedItem is null");
         }
-    }, [selectedItem]);
+    }, [selectedItem]); // 사이드바의 빵집item 선택할 때마다 실행
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '800px' }}>
