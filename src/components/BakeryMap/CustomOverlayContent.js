@@ -23,7 +23,7 @@ const CustomOverlayContent = ({ place, closeOverlay, openRoadView, currentPositi
                         <Distance>{place.distance}m</Distance>
                     </Desc>
                     <ButtonWrapper>
-                        <Button href={detailPlaceUrl} target="_blank">상세정보</Button>
+                        <Button href={detailPlaceUrl} target="_blank">가게정보</Button>
                         <Button onClick={openRoadView}>로드뷰</Button>
                         <Button href={findRoadUrl} target="_blank">길찾기</Button>
                     </ButtonWrapper>

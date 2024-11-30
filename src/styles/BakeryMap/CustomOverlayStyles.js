@@ -72,7 +72,7 @@ export const Img = styled.div`
 
 export const Desc = styled.div`
   position: relative;
-  margin: 8px 0 0 100px;
+  margin: 8px 0 0 95px;
   height: auto; /* height를 auto로 변경하여 내용에 맞게 조정되도록 함 */
 `;
 
@@ -97,7 +97,7 @@ export const Distance = styled.div`
 
 export const ButtonWrapper = styled.div`
   position: relative;
-  margin-top: 20px; 
+  margin-top: 18px; 
   display: flex;
   gap: 25px; /* 버튼 사이의 간격 조정 */
   justify-content: center; /* 버튼들 가운데 정렬 */

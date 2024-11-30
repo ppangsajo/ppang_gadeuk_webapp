@@ -238,7 +238,7 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
     }, [currentPosition, setPlaces]);
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '700px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '800px' }}>
             <div id="customMap" style={{ width: '100%', height: '100%' }}></div>
 
             <button
