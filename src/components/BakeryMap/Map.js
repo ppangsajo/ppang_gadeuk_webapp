@@ -157,8 +157,8 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
                     place_name: place.place_name,
                     address_name: place.address_name,
                     distance: place.distance,
-                    y: place.y, // 위도 추가
-                    x: place.x  // 경도 추가
+                    lat: place.y, // 주번 빵집의 정보를 저장할 때 위도 정보도 추가(사이드바에서 item 선택시 -> 이 위도, 경도 정보를 이용하여 커스텀 오버레이를 표시하기위함)
+                    lng: place.x  // 경도 추가
                 })));
                 for (let i = 0; i < data.length; i++) {
                     displayMarker(data[i]);
@@ -242,23 +242,31 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
     useEffect(() => {
         // 선택한 장소&지도객체가 유효한지 + 현재 지도에 마커가 존재하는 경우
         if (selectedItem && mapRef.current && markersRef.current.length > 0) {
-            console.log('selectedItem:', selectedItem);
-            const { y, x } = selectedItem; // 선택한 장소(item)의 위도와 경도 추출
-            const moveLatLng = new kakao.maps.LatLng(y, x);
-            mapRef.current.panTo(moveLatLng);
+            //console.log('selectedItem:', selectedItem);
+            const { lat, lng } = selectedItem; // 선택한 장소(item)의 위도와 경도 추출
+            const selectedLatLng = new kakao.maps.LatLng(lat, lng);
+            mapRef.current.panTo(selectedLatLng); // 선택한 장소로 지도의 중심을 이동
 
-            console.log('markersRef:', markersRef.current);
-            // 선택된 장소의 마커 위치를 기반으로 마커 찾기
+            //console.log('markersRef:', markersRef.current);
+
+
+
+            // cpu&메모리는, 실수의 세부적인 값까지는 정확하게 표현하지 못하고 근사값으로 저장하기 때문에(부동소수점 오차) 실제 좌표값과는 미세하게 오차(0.0000000...1)가 존재함. 따라서 실제로는 같은 위치를 나타내는 좌표값이라도 부동소수점 오차 때문에 다른 값으로 인식되기때문에, 좌표값을 === 으로 정확히 일치하는지 비교하려고하면 일치하지않아 false -> 조건문 실행x.
+            // so, 이러한 문제를 해결하기 위해 허용 오차(tolerance)를 두어서, 두 좌표값의 위경도 차이가 허용 오차보다 작으면 같은 위치로 간주하도록하여 이 부동소수점 이슈를 해결함. 덕분에 부동소수점 오차를 극복하고 targetMarker를 정확하게 찾을 수 있게 됨.
+
+            //find함수: callback 함수를통해 각 마커의 좌표와 selectedItem의 좌표를 비교하여 좌표값이 일치하는 마커를 찾으면 true를 반환. 이떄, find 함수는 callback 함수가 true를 반환하는 첫 번째 요소를 찾아 반환함. 따라서 find 함수는 selectedItem의 좌표와 일치하는 첫 번째 마커를 찾아 targetMarker 변수에 할당(이를 통해 선택한 장소의 위치와 일치하는 마커를 찾음)
+
+            // 선택한 장소의 좌표값과 일치하는 마커 찾기
             const targetMarker = markersRef.current.find(marker => {
-                const markerPosition = marker.getPosition();
-                console.log('markerPosition:', markerPosition.getLat(), markerPosition.getLng());
-                console.log('selectedItem position:', y, x);
-                const latDiff = Math.abs(markerPosition.getLat() - y);
-                const lngDiff = Math.abs(markerPosition.getLng() - x);
+                const markerPosition = marker.getPosition(); // 마커 배열의 각 마커의 좌표값
+                //console.log('markerPosition:', markerPosition.getLat(), markerPosition.getLng());
+                //console.log('selectedItem position:', lat, lng);
+                const latDiff = Math.abs(markerPosition.getLat() - lat); // 선택한 장소의 위도와 해당 마커의 위도 차이계산
+                const lngDiff = Math.abs(markerPosition.getLng() - lng);
                 const tolerance = 0.00001; // 허용 오차
                 return latDiff < tolerance && lngDiff < tolerance;
             });
-
+            // 선택한 장소의 마커를 발견하면, 마치 마커를 클릭한 것과 동일한 효과를 주기 위해 마커 클릭 이벤트를 발생시킴(-> 커스텀 오버레이를 표시)
             if (targetMarker) {
                 kakao.maps.event.trigger(targetMarker, 'click');
                 console.log('targetMarker:', targetMarker);
