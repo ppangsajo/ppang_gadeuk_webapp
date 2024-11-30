@@ -3,10 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import RoadView from "./RoadView";
 import markerImg from "../../assets/images/BakeryMap/marker2.png";
 import CustomOverlayContent from "./CustomOverlayContent";
-//import ReactDOMServer from 'react-dom/server';
 import currentLocationImg from "../../assets/images/BakeryMap/currentLocation2.png";
-//import ZoomControlBtn from './ZoomControlBtn';
-//import MapTypeControlBtn from './MapTypeControlBtn';
 
 const { kakao } = window; // Kakao API 라이브러리를 사용하기 위해 window 객체에서 kakao를 가져옴.
 
@@ -185,17 +182,24 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
             });
 
             function handleCloseOverlay() {
-                console.log('closeOverlay');
+                //console.log('closeOverlay');
                 overlay.setMap(null);
                 activeOverlayRef.current = null;
             }
 
+            const openRoadView = () => {
+                setRoadViewPosition({
+                    lat: place.y,
+                    lng: place.x
+                });
+                setRoadViewPlace(place);
+            };
             //kakao.maps.CustomOverlay는 HTML 요소나 HTML 문자열로만 내부 content로 사용할 수 있음.
             // 기존에는 ReactDOMServer.renderToString()을 사용하여 JSX를 문자열로 변환해서 커스텀 오버레이 content로 사용했지만, 이러면 이벤트 핸들러가 동작하지 않음. so, root.render를 통해 React 컴포넌트를 HTML 요소 안에 렌더링한 후, 그 HTML 요소를 content로 설정해줌.
 
             const overlayContent = document.createElement('div');
             const root = ReactDOM.createRoot(overlayContent);
-            root.render(<CustomOverlayContent place={place} closeOverlay={handleCloseOverlay} />);
+            root.render(<CustomOverlayContent place={place} closeOverlay={handleCloseOverlay} openRoadView={openRoadView} />);
 
             const overlay = new kakao.maps.CustomOverlay({
                 content: overlayContent,
@@ -219,11 +223,6 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
 
 
             kakao.maps.event.addListener(marker, "click", function () {
-                setRoadViewPosition({
-                    lat: place.y,
-                    lng: place.x,
-                });
-                setRoadViewPlace(place);
                 overlay.setMap(mapRef.current);
                 activeOverlayRef.current = overlay;
             });
@@ -233,30 +232,6 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
 
         searchPlaces();
     }, [currentPosition, setPlaces]);
-
-    /*
-        // 확대/축소 버튼 이벤트 핸들러
-        const handleZoomIn = () => {
-            mapRef.current.setLevel(mapRef.current.getLevel() - 1);
-        };
-    
-        const handleZoomOut = () => {
-            mapRef.current.setLevel(mapRef.current.getLevel() + 1);
-        };
-    
-        // 지도 타입 변경 버튼 이벤트 핸들러
-        const setMapType = (maptype) => {
-            if (maptype === 'roadmap') {
-                //카카오맵 api에서 제공하는 내장 MapTypeId 지도타입 상수값 사용
-                //MapTypeId.ROADMAP: 현재 카카오맵 타입을 일반지도 형태로 표현
-                mapRef.current.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);
-            }
-            //MapTypeId.SKYVIEW: 현재 카카오맵 타입을 스카이뷰 형태로 표현
-            if (maptype === 'skyview') {
-                mapRef.current.setMapTypeId(kakao.maps.MapTypeId.SKYVIEW);
-            }
-        };
-    */
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '700px' }}>
@@ -282,12 +257,6 @@ const CustomMap = ({ setPlaces, setCurrentAddress }) => {
             >
                 <span style={{ display: 'none' }}>현재 위치로 이동</span>
             </button>
-
-            {/* 지도타입 컨트롤 */}
-            {/*<MapTypeControlBtn setMapType={setMapType} />*/}
-
-            {/* 확대/축소 버튼 */}
-            {/* <ZoomControlBtn onZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />*/}
 
             {roadViewPosition && (
                 <div style={{
