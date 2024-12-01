@@ -21,7 +21,7 @@ export const Info = styled.div`
   border-bottom: 2px solid #ccc;
   border-right: 1px solid #ccc;
   overflow: hidden;
-  background: #fff;
+  background: #fff; #242222
 
   &:nth-child(1) {
     border: 0;
@@ -33,7 +33,7 @@ export const Title = styled.div`
   position: relative;
   padding: 5px 30px 0 10px; /* 오른쪽 패딩 추가 */
   height: 30px;
-  background: #eee;
+  background: #FAD6A5; //#f5cd9d ; //#eee #dfe0df; 
   border-bottom: 1px solid #ddd;
   font-size: 19px;
   font-weight: bold;
@@ -106,17 +106,17 @@ export const ButtonWrapper = styled.div`
 export const Button = styled.a`
   display: inline-block;
   padding: 5px 10px;
-  border-radius: 3px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+  border-radius: 5px;
+  background:#white; 
+  border: 1px solid #A9A9A9; //#ddd
   font-size: 12px;
   font-weight: bold;
-  color: #888;
+  color:#343A40; // #888 #343A40
   cursor: pointer;
   text-decoration: none;
   
   &:hover {
-    background: #e9e9e9;
+    background:#FAD6A5; //#f5cd9d #242222 #e9e9e9  #79acf7  #dfe0df
   }
 `;
 

@@ -13,7 +13,7 @@ export const SideBarTitle = styled.h2`
     font-size: 30px;
     font-weight: bold;
     color: black;
-    background-color: #ECAB81;  //F4A460
+    background-color:#F4A460;  //F4A460  #ECAB81 #d67935
 `;
 
 
@@ -25,7 +25,7 @@ export const CurrentLocation = styled.p`
     color: #333;
     
     color: black;
-    background-color: #F5F5DC;
+    background-color:#FFF5EE   //#F5F5DC  #fcfcfc  #fff6eb;
     border-bottom: 6px double #ddd;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 
@@ -35,12 +35,12 @@ export const CurrentLocation = styled.p`
 export const SideBarComponent = styled.div`
   position: fixed;
   z-index: 20;
-  background-color: #FFFDD0; {/* //사이드바 배경색 #베이지 색상: #F5F5DC 크림색상: #FFFDD0 라이트 브라운 색상: #D2B48C 페일 옐로우 색상: #FAFAD2*/}
+  background-color:#FFF5EE; // #fff4eb; ; {/* //사이드바 배경색 #베이지 색상: #F5F5DC 크림색상: #FFFDD0 라이트 브라운 색상: #D2B48C 페일 옐로우 색상: #FAFAD2 화이트 : #fcfcfc*/}
   color: #202020;
   top: 0;
   left: 0;
   bottom: 0;
-  border-right: 4px solid #202020;
+  border-right: 3.5px solid #202020;
   transition: 0.4s ease;
   height: 100%;
   width: ${({ width }) => `${width}px`}; 
@@ -56,7 +56,7 @@ so, SideBarButton의 position을 absolute로 변경. 이렇게 하면 SideBarBut
 export const SideBarButton = styled.button`
   position: absolute; 
   z-index: 20;
-  border: 4px solid #202020;
+  border: 3.5px solid #202020;
   border-radius: 40px;
   height: 50px;
   width: 50px;
