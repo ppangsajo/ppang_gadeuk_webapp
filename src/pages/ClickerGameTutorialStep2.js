@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
-import { TutorialBackground, TutorialMessage, NextButton } from '../styles/ClickerGameMainStyles';
-import Background1 from '../assets/images/ClickerGameTutorialBGI2.png';
-import Background2 from '../assets/images/ClickerGameTutorialBGI3.png';
-import Image1 from '../assets/images/ClickerGameBreadWisdomOne.png';
-import Image2 from '../assets/images/ClickerGameBreadWisdomAll.png';
+import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../styles/ClickerGameMainStyles';
+import Background1 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI2.png';
+import Background2 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI3.png';
+import Image1 from '../assets/images/ClickerGameImages/ClickerGameBreadWisdomOne.png';
+import Image2 from '../assets/images/ClickerGameImages/ClickerGameBreadWisdomAll.png';
 
 
 const TutorialStep2 = ({ onNext }) => {
@@ -40,7 +40,7 @@ const TutorialStep2 = ({ onNext }) => {
     }, []);
 
     return (
-        <TutorialBackground bgImage={backgroundImage}>
+        <ClickerGameBackground bgImage={backgroundImage}>
 
             {isImageVisible && (
                 <img
@@ -56,7 +56,7 @@ const TutorialStep2 = ({ onNext }) => {
                 />
             )}
 
-            <TutorialMessage>
+            <ClickerGameMessage>
                 <ReactTyped
                     strings={[
                         "노트에는 세계 곳곳에 신비의 오븐들이 숨겨져 있으며, 각각의 오븐을 통해 '빵의 지혜'를 얻을 수 있고",
@@ -65,9 +65,9 @@ const TutorialStep2 = ({ onNext }) => {
                     typeSpeed={40}
                     loop={false}
                 />
-            </TutorialMessage>
+            </ClickerGameMessage>
             <NextButton onClick={onNext}>다음으로</NextButton >
-        </TutorialBackground>
+        </ClickerGameBackground>
     );
 
 }

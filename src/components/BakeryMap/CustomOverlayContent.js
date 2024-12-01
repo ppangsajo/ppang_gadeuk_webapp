@@ -1,8 +1,11 @@
-import React from 'react';
-import { Wrap, Info, Title, Close, Body, Desc, Ellipsis, Jibun, Img, Link, InfoAfter } from '../../styles/BakeryMap/CustomOverlayStyles';
 
-// 커스텀 오버레이 내부의 컨텐츠들 정의//
-const CustomOverlayContent = ({ place, closeOverlay }) => {
+import React from 'react';
+import { Wrap, Info, Title, Close, Body, Desc, Address, Tel, Distance, Img, ButtonWrapper, Button, InfoAfter } from '../../styles/BakeryMap/CustomOverlayStyles';
+import thumbnailImg from '../../assets/images/BakeryMap/marker.png';
+
+const CustomOverlayContent = ({ place, closeOverlay, openRoadView, currentPosition }) => {
+    const findRoadUrl = `https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}`;
+    const detailPlaceUrl = `https://place.map.kakao.com/${place.id}`;
     return (
         <Wrap>
             <Info>
@@ -12,14 +15,18 @@ const CustomOverlayContent = ({ place, closeOverlay }) => {
                 </Title>
                 <Body>
                     <Img>
-                        <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70" alt="thumbnail" />
+                        <img src={thumbnailImg} width="73" height="70" alt="thumbnail" />
                     </Img>
                     <Desc>
-                        <Ellipsis>{place.address_name}</Ellipsis>
-                        <Jibun>전화번호: {place.phone}</Jibun>
-                        <Jibun>{place.distance}m</Jibun>
-                        <Link href="https://www.kakaocorp.com/main" target="_blank">홈페이지</Link>
+                        <Address>{place.address_name}</Address>
+                        <Tel>전화번호: {place.phone}</Tel>
+                        <Distance>{place.distance}m</Distance>
                     </Desc>
+                    <ButtonWrapper>
+                        <Button href={detailPlaceUrl} target="_blank">가게정보</Button>
+                        <Button onClick={openRoadView}>로드뷰</Button>
+                        <Button href={findRoadUrl} target="_blank">길찾기</Button>
+                    </ButtonWrapper>
                 </Body>
             </Info>
             <InfoAfter />
