@@ -1,8 +1,9 @@
 {
   "files": {
     "main.css": "/ppang_gadeuk_webapp/static/css/main.e6c13ad2.css",
-    "main.js": "/ppang_gadeuk_webapp/static/js/main.93e2d3b8.js",
+    "main.js": "/ppang_gadeuk_webapp/static/js/main.84efaf2c.js",
     "static/js/453.e05a6b37.chunk.js": "/ppang_gadeuk_webapp/static/js/453.e05a6b37.chunk.js",
+    "static/media/ClickerGameBgm.mp3": "/ppang_gadeuk_webapp/static/media/ClickerGameBgm.1e9aa9f48c935087cab1.mp3",
     "static/media/ClickerGameMainScreen.png": "/ppang_gadeuk_webapp/static/media/ClickerGameMainScreen.58178f7bd79ba831daa1.png",
     "static/media/ClickerGameCh04BGI1.png": "/ppang_gadeuk_webapp/static/media/ClickerGameCh04BGI1.be7c1d6fdeb2e7565155.png",
     "static/media/ClickerGameCh03BGI1.png": "/ppang_gadeuk_webapp/static/media/ClickerGameCh03BGI1.9943db349b80e6fedd15.png",
@@ -148,11 +149,11 @@
     "static/media/parmesan-shortbread-with-fennel-and-sea-salt-394673.jpg": "/ppang_gadeuk_webapp/static/media/parmesan-shortbread-with-fennel-and-sea-salt-394673.9a5a6cc2bdd39508e5b2.jpg",
     "index.html": "/ppang_gadeuk_webapp/index.html",
     "main.e6c13ad2.css.map": "/ppang_gadeuk_webapp/static/css/main.e6c13ad2.css.map",
-    "main.93e2d3b8.js.map": "/ppang_gadeuk_webapp/static/js/main.93e2d3b8.js.map",
+    "main.84efaf2c.js.map": "/ppang_gadeuk_webapp/static/js/main.84efaf2c.js.map",
     "453.e05a6b37.chunk.js.map": "/ppang_gadeuk_webapp/static/js/453.e05a6b37.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.93e2d3b8.js"
+    "static/js/main.84efaf2c.js"
   ]
 }
