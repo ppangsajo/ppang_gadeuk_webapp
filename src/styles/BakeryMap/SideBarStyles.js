@@ -20,7 +20,7 @@ export const SideBarTitle = styled.h2`
 export const CurrentLocation = styled.p`
     text-align: center;
     padding: 20px 0;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     color: #333;
     

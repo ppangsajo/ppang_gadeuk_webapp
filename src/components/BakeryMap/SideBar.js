@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { Container, SideBarComponent, SideBarButton, Content, ButtonImg, SideBarTitle, CurrentLocation, ListItem, ListItemImg, ListItemInfo, ListItemTitle, ListItemAddress, ListItemDistance } from "../../styles/BakeryMap/SideBarStyles";
 import sideBarBtn from "../../assets/images/BakeryMap/sideBarBtn.png";
-import closeBtn from "../../assets/images/BakeryMap/closeBtn.png";
+import close2 from "../../assets/images/BakeryMap/close2.png";
 import listItemImg from "../../assets/images/BakeryMap/marker2.png";
 
 //places prop = 사이드바 내부에 표시될 콘텐츠
@@ -77,7 +77,7 @@ const SideBar = ({ width = 280, places, currentAddress, setSelectedItem }) => {
                 {/* 버튼 클릭 -> toggleMenu() 실행 -> setX,setOpen 상태값 변경-> 재렌더링 -> 사이드바 열기/닫기 수행됨 */}
                 <SideBarButton onClick={toggleMenu} width={width + 10}>
                     {isOpen ?
-                        <ButtonImg src={closeBtn} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
+                        <ButtonImg src={close2} alt="btn" /> : <ButtonImg src={sideBarBtn} alt="btn" />
                     }
                 </SideBarButton>
                 {/* 사이드바 내부에는 places들을 렌더링하여 사이드바의 콘텐츠를 표시 */}
