@@ -1,15 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
-import { ClickerGameBackground, ClickerGameMessage } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
-import Image1 from '../assets/images/ClickerGameImages/ClickerGameBreadWisdomOne.png';
-import Image2 from '../assets/images/ClickerGameImages/ClickerGameStroryBread1.png';
+import { ClickerGameBackground, ClickerGameMessage } from '../../styles/ClickerGameMainStyles';
+import Ch01Background from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
+import Ch02Background from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI2.png'
+import Ch03Background from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI2.png'
+import Ch04Background from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI2.png'
+import Ch05Background from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI2.png'
+import BreadWisdom from '../../assets/images/ClickerGameImages/ClickerGameBreadWisdomOne.png';
+import Ch01StoryBread from '../../assets/images/ClickerGameImages/ClickerGameStoryBread1.png';
+import Ch02StoryBread from '../../assets/images/ClickerGameImages/ClickerGameStoryBread2.png';
+import Ch03StoryBread from '../../assets/images/ClickerGameImages/ClickerGameStoryBread3.png';
+import Ch04StoryBread from '../../assets/images/ClickerGameImages/ClickerGameStoryBread4.png';
+import Ch05StoryBread from '../../assets/images/ClickerGameImages/ClickerGameStoryBread5.png';
 
-const ClickerGameChapter01_5 = ({ onNext }) => {
+const ClickerGameChapterContent5 = ({ index, story, onNext }) => {
+
     const [isIndicateTextVisible, setIsIndicateTextVisible] = useState(false);
-    const [currentImage, setCurrentImage] = useState(Image1); // 초기 이미지는 Image1
+    const [currentImage, setCurrentImage] = useState(BreadWisdom);
     const [imageSize, setImageSize] = useState("20%"); // 초기 크기 설정
     const [transitionEnabled, setTransitionEnabled] = useState(true); // 애니메이션 활성화 상태
+
+    let BackgroundImage;
+    let Image;
+
+    switch (index) {
+        case 1:
+            BackgroundImage = Ch01Background;
+            Image = Ch01StoryBread;
+            break;
+        case 2:
+            BackgroundImage = Ch02Background;
+            Image = Ch02StoryBread;
+
+            break;
+        case 3:
+            BackgroundImage = Ch03Background;
+            Image = Ch03StoryBread;
+
+            break;
+        case 4:
+            BackgroundImage = Ch04Background;
+            Image = Ch04StoryBread;
+
+            break;
+        case 5:
+            BackgroundImage = Ch05Background;
+            Image = Ch05StoryBread;
+
+            break;
+    }
 
     useEffect(() => {
         const timer1 = setTimeout(() => {
@@ -28,13 +67,13 @@ const ClickerGameChapter01_5 = ({ onNext }) => {
         // 3초 후 이미지를 Image2로 변경
         const timer4 = setTimeout(() => {
             setTransitionEnabled(false); // 애니메이션 비활성화
-            setCurrentImage(Image2); // Image2로 변경
+            setCurrentImage(Image); // Image2로 변경
             setImageSize("36%"); // 36% 크기로 설정
         }, 3000);
 
         // 18초 후 이미지를 Image1로 변경
         const timer5 = setTimeout(() => {
-            setCurrentImage(Image1); // Image1로 다시 변경
+            setCurrentImage(BreadWisdom); // Image1로 다시 변경
             setTransitionEnabled(true); // 애니메이션 활성화
         }, 18000);
 
@@ -60,16 +99,11 @@ const ClickerGameChapter01_5 = ({ onNext }) => {
 
 
     return (
-        <ClickerGameBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={BackgroundImage}>
             {isIndicateTextVisible && (
                 <ClickerGameMessage bgColor="rgba(0, 255, 0, 0.5)">
                     <ReactTyped
-                        strings={[
-                            "고대 이집트에서 최초로 발효빵이 만들어졌으며 이는 오늘날 빵의 시초로 여겨집니다.",
-                            "이집트인들은 우연히 발효된 밀가루 반죽이 더 부드럽고 풍미가 좋다는 것을 발견하게 되었고,",
-                            "이후 빵은 이집트인의 중요한 주식이 되었습니다.",
-                            "이 빵은 종종 파라오에게 바치는 공물로 사용되며, 이집트 문화에서 생명과 풍요의 상징으로 여겨졌습니다."
-                        ]}
+                        strings={story}
                         typeSpeed={40}
                         loop={false}
                     />
@@ -77,7 +111,7 @@ const ClickerGameChapter01_5 = ({ onNext }) => {
             )}
 
             <img
-                src={currentImage} // 현재 이미지 (Image1 또는 Image2)
+                src={currentImage}
                 alt="Bread"
                 style={{
                     position: "absolute",
@@ -94,4 +128,4 @@ const ClickerGameChapter01_5 = ({ onNext }) => {
     );
 };
 
-export default ClickerGameChapter01_5;
+export default ClickerGameChapterContent5;

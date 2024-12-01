@@ -1,33 +1,40 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader1 from '../components/PageHeader1';
-import { Main, Center, TutorialButton } from '../styles/ClickerGameMainStyles';
+import { Main, Center, TutorialButton, UltimateBread, ResetButton } from '../styles/ClickerGameMainStyles';
 import Chapters from './ClickerGameManageChapter';
+import UltimateBreadPaperBag from '../assets/images/ClickerGameImages/ClickerGameUltimatePaperBagBlack.png';
+import UltimateBreadShow from '../assets/images/ClickerGameImages/ClickerGameUltimateBread.png';
 
 export const ChapterManageContext = createContext({
     images: [],
-    setImages: () => { }
+    setImages: () => { },
+    allChapterCleared: false,
+    isAllChapterCleared: () => { }
+
+
 });
 
 export const ChapterManageProvider = ({ children }) => {
     const [images, setImages] = useState(Array(5).fill(false)); // 상태 관리
+    const [allChapterCleared, isAllChapterCleared] = useState(false);
 
     return (
-        <ChapterManageContext.Provider value={{ images, setImages }}>
+        <ChapterManageContext.Provider value={{ images, setImages, allChapterCleared, isAllChapterCleared }}>
             {children}
         </ChapterManageContext.Provider>
     );
 };
 
-
 const ClickerGame = () => {
+
     const navigate = useNavigate();
     const [isTutorialClicked, setIsTutorialClicked] = useState(false);
-    const { images, setImages } = useContext(ChapterManageContext); // Context 가져오기
-
+    const { images, setImages, allChapterCleared, isAllChapterCleared } = useContext(ChapterManageContext); // Context 가져오기
 
     // 세션 스토리지에서 데이터 로드
     useEffect(() => {
+
         const storedTutorialState = sessionStorage.getItem('isTutorialClicked');
         setIsTutorialClicked(storedTutorialState === 'true');
 
@@ -35,16 +42,42 @@ const ClickerGame = () => {
         if (storedImagesState) {
             setImages(JSON.parse(storedImagesState));
         }
+
+        const storedAllClearState = sessionStorage.getItem('allChapterCleared');
+        isAllChapterCleared(storedAllClearState === 'true')
+
+
     }, []);
 
     useEffect(() => {
         sessionStorage.setItem('images', JSON.stringify(images));
     }, [images]);
 
+    useEffect(() => {
+        sessionStorage.setItem('allChapterCleared', (allChapterCleared));
+    }, [allChapterCleared]);
+
+
     const handleTutorialClick = () => {
         setIsTutorialClicked(true);
         sessionStorage.setItem('isTutorialClicked', 'true'); // 상태 저장
         navigate('/ClickerGameTutorial/1'); // 게임 튜토리얼 페이지로 이동
+    };
+
+    const CheckCompleteChapters = () => {
+
+        if (!allChapterCleared) {
+            alert("모든 챕터를 완료하면 궁극의 빵을 얻을 수 있습니다!");
+        }
+    }
+
+    const handleReset = () => {
+        // 세션 스토리지 초기화
+        sessionStorage.clear();
+        setImages(Array(5).fill(false)); // 이미지 상태 초기화
+        isAllChapterCleared(false)  // 마지막 챕터 완료 여부 초기화
+        setIsTutorialClicked(false) // 튜토리얼 완료 여부 초기화
+        alert('게임이 초기화되었습니다.');
     };
 
     return (
@@ -56,6 +89,14 @@ const ClickerGame = () => {
                 <Chapters isTutorialClicked={isTutorialClicked} />
 
             </Center>
+
+            <UltimateBread
+                src={allChapterCleared ? UltimateBreadShow : UltimateBreadPaperBag}
+                alt={`궁극의 빵`}
+                onClick={() => CheckCompleteChapters()} // 클릭 이벤트 추가
+            />
+            <ResetButton onClick={handleReset}>초기화</ResetButton>
+
         </Main>
     );
 };

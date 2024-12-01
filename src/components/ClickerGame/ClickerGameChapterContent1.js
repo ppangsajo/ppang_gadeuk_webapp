@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
-import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI4.png';
+import { ClickerGameBackground, ClickerGameMessage, NextButton } from '../../styles/ClickerGameMainStyles';
+import Ch01Background from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI4.png';
+import Ch02Background from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI1.png';
+import Ch03Background from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI1.png';
+import Ch04Background from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI1.png';
+import Ch05Background from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI1.png';
 
-const ClickerGameChapter01_1 = ({ onNext }) => {
+
+const ClickerGameChapterContent1 = ({ index, title, story, onNext }) => {
 
     const [isCenteredTextVisible, setIsCenteredTextVisible] = useState(true);
+
+    let BackgroundImage;
+
+    switch (index) {
+        case 1: BackgroundImage = Ch01Background;
+            break;
+        case 2: BackgroundImage = Ch02Background;
+            break;
+        case 3: BackgroundImage = Ch03Background;
+            break;
+        case 4: BackgroundImage = Ch04Background;
+            break;
+        case 5: BackgroundImage = Ch05Background;
+            break;
+
+    }
 
     useEffect(() => {
         // 2.5초 후 텍스트 숨기기
@@ -18,7 +39,7 @@ const ClickerGameChapter01_1 = ({ onNext }) => {
 
 
     return (
-        <ClickerGameBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={BackgroundImage}>
             {isCenteredTextVisible && (
                 <div
                     style={{
@@ -39,9 +60,7 @@ const ClickerGameChapter01_1 = ({ onNext }) => {
                     }}
                 >
                     <ReactTyped
-                        strings={[
-                            "Chapter 1<br />고대 이집트의 피라미드 내부",
-                        ]}
+                        strings={title}
                         typeSpeed={40}
                         loop={false}
                     />
@@ -49,10 +68,7 @@ const ClickerGameChapter01_1 = ({ onNext }) => {
             )}
             <ClickerGameMessage>
                 <ReactTyped
-                    strings={[
-                        "당신은 이제 고대 이집트의 피라미드 내부에 도착하였습니다.",
-                        "어두운 통로를 따라 한참을 헤매던 중, 빛 한줄기를 따라가다 신비로운 오븐을 발견합니다."
-                    ]}
+                    strings={story}
                     typeSpeed={40}
                     loop={false}
                 />
@@ -63,4 +79,4 @@ const ClickerGameChapter01_1 = ({ onNext }) => {
 
 }
 
-export default ClickerGameChapter01_1;
+export default ClickerGameChapterContent1;
