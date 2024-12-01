@@ -306,7 +306,7 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
             {roadViewPosition && (
                 <div style={{
                     position: 'absolute',
-                    top: '50%',
+                    top: '30%',
                     left: '50%',
                     width: '50%',
                     height: '50%',
