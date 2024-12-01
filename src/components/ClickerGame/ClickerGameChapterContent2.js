@@ -1,18 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
 import MouseTrail from "@scorder/react-mouse-trail";
-import { ClickerGameBackground, ClickerGameMessage } from '../styles/ClickerGameMainStyles';
-import Background1 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI4.png';
-import Background2 from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
-import Image1 from '../assets/images/ClickerGameImages/ClickerGameCh01Oven.png';
+import { ClickerGameBackground, ClickerGameMessage } from '../../styles/ClickerGameMainStyles';
+import Ch01Background1 from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI4.png';
+import Ch01Background2 from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
+import Ch01Oven from '../../assets/images/ClickerGameImages/ClickerGameCh01Oven.png';
+import Ch02Background1 from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI1.png';
+import Ch02Background2 from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI2.png';
+import Ch02Oven from '../../assets/images/ClickerGameImages/ClickerGameCh02Oven.png';
+import Ch03Background1 from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI1.png';
+import Ch03Background2 from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI2.png';
+import Ch03Oven from '../../assets/images/ClickerGameImages/ClickerGameCh03Oven.png';
+import Ch04Background1 from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI1.png';
+import Ch04Background2 from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI2.png';
+import Ch04Oven from '../../assets/images/ClickerGameImages/ClickerGameCh04Oven.png';
+import Ch05Background1 from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI1.png';
+import Ch05Background2 from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI2.png';
+import Ch05Oven from '../../assets/images/ClickerGameImages/ClickerGameCh05Oven.png';
 
-const ClickerGameChapter01_2 = ({ onNext }) => {
+
+const ClickerGameChapterContent2 = ({ index, onNext }) => {
+
+    let BackgroundImage1;
+    let BackgroundImage2;
+    let Image;
+
+    switch (index) {
+        case 1:
+            BackgroundImage1 = Ch01Background1;
+            BackgroundImage2 = Ch01Background2;
+            Image = Ch01Oven;
+            break;
+
+        case 2: BackgroundImage1 = Ch02Background1;
+            BackgroundImage2 = Ch02Background2;
+            Image = Ch02Oven;
+            break;
+
+        case 3: BackgroundImage1 = Ch03Background1;
+            BackgroundImage2 = Ch03Background2;
+            Image = Ch03Oven;
+            break;
+
+        case 4: BackgroundImage1 = Ch04Background1;
+            BackgroundImage2 = Ch04Background2;
+            Image = Ch04Oven;
+            break;
+
+        case 5: BackgroundImage1 = Ch05Background1;
+            BackgroundImage2 = Ch05Background2;
+            Image = Ch05Oven;
+            break;
+
+    }
+
 
     const [isIndicateTextVisible, setIsIndicateTextVisible] = useState(true);
-    const [backgroundImage, setBackgroundImage] = useState(Background1); // 초기 배경 이미지 설정
+    const [backgroundImage, setBackgroundImage] = useState(BackgroundImage1); // 초기 배경 이미지 설정
     const [imagesToShow, setImagesToShow] = useState(null); // 표시할 이미지를 관리
     const [showTrail, setShowTrail] = useState(false); // MouseTrail 활성화 여부
     const [clickCount, setClickCount] = useState(0); // 클릭 횟수
+
 
     const config = {
         color: "#0000000",
@@ -32,12 +80,12 @@ const ClickerGameChapter01_2 = ({ onNext }) => {
 
         // 2초 후 배경 이미지 변경
         const timer2 = setTimeout(() => {
-            setBackgroundImage(Background2); // 배경 이미지 변경
+            setBackgroundImage(BackgroundImage2); // 배경 이미지 변경
         }, 2000);
 
         // 2.5초 후 오븐 이미지 보이기
         const timer3 = setTimeout(() => {
-            setImagesToShow(Image1);
+            setImagesToShow(Image);
         }, 2500);
 
         // 3초 후 MouseTrail 활성화
@@ -105,4 +153,4 @@ const ClickerGameChapter01_2 = ({ onNext }) => {
 
 }
 
-export default ClickerGameChapter01_2;
+export default ClickerGameChapterContent2;

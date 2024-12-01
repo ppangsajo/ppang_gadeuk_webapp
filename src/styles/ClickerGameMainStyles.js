@@ -18,6 +18,7 @@ export const Center = styled.div`
 export const Main = styled.main`
   width: 100%;
   height: 100%;
+  position: relative;
 `;
 
 export const TutorialButton = styled.div`
@@ -115,4 +116,37 @@ export const NextButton = styled.div`
   padding: 10px; /* 내부 여백 */
 
   margin-bottom: 2%; /* 하단 여백 */
+`;
+
+
+export const UltimateBread = styled.img`
+ position: absolute; // 위치를 지정할 수 있도록 절대 위치 설정
+  width: 20%;
+  height: auto;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%); // 중앙 정렬
+`;
+
+export const ResetButton = styled.div`
+  position: absolute;
+  bottom: 5%; /* 화면 하단에 위치 */
+  right: 5%; /* 화면 오른쪽에 위치 */
+  width: 100px; /* 버튼 크기 설정 */
+  height: 40px;
+  background-color: rgba(255, 0, 0, 0.7); /* 반투명 빨간색 배경 */
+  color: white; /* 텍스트 색상 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px; /* 둥근 모서리 */
+  font-size: 14px; /* 텍스트 크기 */
+  cursor: pointer; /* 클릭 가능 표시 */
+  font-family: 'OurFont2'; /* 글꼴 설정 */
+  z-index: 100; /* 위로 표시 */
+  transition: background-color 0.3s; /* 배경색 전환 효과 */
+
+  &:hover {
+    background-color: rgba(255, 0, 0, 0.9); /* 호버 시 더 진한 색상 */
+  }
 `;
