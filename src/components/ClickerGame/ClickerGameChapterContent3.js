@@ -118,7 +118,7 @@ const ClickerGameChapterContent3 = ({ index, story, onNext }) => {
                     transform: "translate(-50%, -50%)", // 요소 중심점 이동
                     width: "50%", // 이미지 크기 조정
                     height: "auto", // 비율 유지
-                    zIndex: 10,
+                    zIndex: 3,
                 }}
             />
 
