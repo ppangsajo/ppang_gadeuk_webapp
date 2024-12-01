@@ -67,7 +67,7 @@ const ClickerGame = () => {
     const CheckCompleteChapters = () => {
 
         if (!allChapterCleared) {
-            alert("모든 챕터를 완료하면 궁극의 빵을 얻을 수 있습니다!");
+            alert("모든 챕터를 완료하면, 궁극의 빵을 완성할 수 있습니다!");
         }
     }
 
