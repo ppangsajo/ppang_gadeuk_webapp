@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import PageHeader1 from '../components/PageHeader1.js';
 
 const DIV = styled.div`
-  max-width: 1600px;
+  max-width: 85%;
   margin: 0 auto;
-  margin-top: 3.5em; //지도의 상단 여백
+  margin-top: 2.5em; //지도의 상단 여백
   padding-top: 80px; /* PageHeader의 높이에 맞는 여백 추가 */
   padding: 30px;
   background-color: #ffffff;
