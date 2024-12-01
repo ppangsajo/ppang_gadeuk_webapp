@@ -142,6 +142,7 @@ export const ResetButton = styled.div`
   border-radius: 10px; /* 둥근 모서리 */
   font-size: 14px; /* 텍스트 크기 */
   cursor: pointer; /* 클릭 가능 표시 */
+  font-family: 'OurFont2'; /* 글꼴 설정 */
   z-index: 100; /* 위로 표시 */
   transition: background-color 0.3s; /* 배경색 전환 효과 */
 
