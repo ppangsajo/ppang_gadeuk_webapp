@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'; import { ReactTyped } from "react-typed";
 import MouseTrail from "@scorder/react-mouse-trail";
-import { ClickerGameBackground, ClickerGameMessage } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
-import Image1 from '../assets/images/ClickerGameImages/ClickerGameBreadWisdomOne.png';
-import Image2 from '../assets/images/ClickerGameImages/ClickerGamePaper.png';
+import { ClickerGameBackground, ClickerGameMessage } from '../../styles/ClickerGameMainStyles';
+import Ch01Background from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
+import Ch02Background from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI2.png'
+import Ch03Background from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI2.png'
+import Ch04Background from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI2.png'
+import Ch05Background from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI2.png'
+import BreadWisdom from '../../assets/images/ClickerGameImages/ClickerGameBreadWisdomOne.png';
+import Paper from '../../assets/images/ClickerGameImages/ClickerGamePaper.png';
 
-const ClickerGameChapter01_6 = ({ onNext }) => {
+const ClickerGameChapterContent6 = ({ index, onNext }) => {
 
     const [isIndicateTextVisible, setIsIndicateTextVisible] = useState(true);
     const [showTrail, setShowTrail] = useState(false);
@@ -19,6 +23,26 @@ const ClickerGameChapter01_6 = ({ onNext }) => {
         size: 50,
         trailCount: 20,
     };
+
+    let BackgroundImage;
+
+    switch (index) {
+        case 1:
+            BackgroundImage = Ch01Background;
+            break;
+        case 2:
+            BackgroundImage = Ch02Background;
+            break;
+        case 3:
+            BackgroundImage = Ch03Background;
+            break;
+        case 4:
+            BackgroundImage = Ch04Background;
+            break;
+        case 5:
+            BackgroundImage = Ch05Background;
+            break;
+    }
 
     useEffect(() => {
         const timer1 = setTimeout(() => {
@@ -47,7 +71,7 @@ const ClickerGameChapter01_6 = ({ onNext }) => {
     };
 
     return (
-        <ClickerGameBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={BackgroundImage}>
             {showTrail && <MouseTrail {...config} />}
             {isIndicateTextVisible && (
                 <ClickerGameMessage>
@@ -62,7 +86,7 @@ const ClickerGameChapter01_6 = ({ onNext }) => {
             )}
 
             <img
-                src={Image1}
+                src={BreadWisdom}
 
                 alt="Paper"
                 style={{
@@ -77,7 +101,7 @@ const ClickerGameChapter01_6 = ({ onNext }) => {
             />
 
             <img
-                src={Image2}
+                src={Paper}
                 onClick={handleImageClick}
                 alt="Paper"
                 style={{
@@ -94,4 +118,4 @@ const ClickerGameChapter01_6 = ({ onNext }) => {
     );
 };
 
-export default ClickerGameChapter01_6;
+export default ClickerGameChapterContent6;

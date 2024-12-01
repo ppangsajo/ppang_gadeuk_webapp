@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { ReactTyped } from "react-typed";
 import MouseTrail from "@scorder/react-mouse-trail";
-import { ClickerGameBackground, ClickerGameMessage } from '../styles/ClickerGameMainStyles';
-import Background from '../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
-import Image1 from '../assets/images/ClickerGameImages/ClickerGameCh01Bread.png';
+import { ClickerGameBackground, ClickerGameMessage } from '../../styles/ClickerGameMainStyles';
+import Ch01Background from '../../assets/images/ClickerGameImages/ClickerGameTutorialBGI5.png';
+import Ch01Bread from '../../assets/images/ClickerGameImages/ClickerGameCh01Bread.png';
+import Ch02Background from '../../assets/images/ClickerGameImages/ClickerGameCh02BGI2.png'
+import Ch02Bread from '../../assets/images/ClickerGameImages/ClickerGameCh02Bread.png';
+import Ch03Background from '../../assets/images/ClickerGameImages/ClickerGameCh03BGI2.png'
+import Ch03Bread from '../../assets/images/ClickerGameImages/ClickerGameCh03Bread.png';
+import Ch04Background from '../../assets/images/ClickerGameImages/ClickerGameCh04BGI2.png'
+import Ch04Bread from '../../assets/images/ClickerGameImages/ClickerGameCh04Bread.png';
+import Ch05Background from '../../assets/images/ClickerGameImages/ClickerGameCh05BGI2.png'
+import Ch05Bread from '../../assets/images/ClickerGameImages/ClickerGameCh05Bread.png';
 
-const ClickerGameChapter01_3 = ({ onNext }) => {
+const ClickerGameChapterContent3 = ({ index, story, onNext }) => {
 
     const [isIndicateTextVisible, setIsIndicateTextVisible] = useState(true);
     const [showTrail, setShowTrail] = useState(false); // MouseTrail 활성화 여부
@@ -19,6 +27,37 @@ const ClickerGameChapter01_3 = ({ onNext }) => {
         size: 50,
         trailCount: 20,
     };
+
+    let BackgroundImage;
+    let Image;
+
+    switch (index) {
+        case 1:
+            BackgroundImage = Ch01Background;
+            Image = Ch01Bread;
+            break;
+
+        case 2:
+            BackgroundImage = Ch02Background;
+            Image = Ch02Bread;
+            break;
+
+        case 3:
+            BackgroundImage = Ch03Background;
+            Image = Ch03Bread;
+            break;
+
+        case 4:
+            BackgroundImage = Ch04Background;
+            Image = Ch04Bread;
+            break;
+
+        case 5:
+            BackgroundImage = Ch05Background;
+            Image = Ch05Bread;
+            break;
+    }
+
 
     useEffect(() => {
 
@@ -51,7 +90,7 @@ const ClickerGameChapter01_3 = ({ onNext }) => {
     };
 
     return (
-        <ClickerGameBackground bgImage={Background}>
+        <ClickerGameBackground bgImage={BackgroundImage}>
 
 
             {showTrail && (
@@ -61,11 +100,7 @@ const ClickerGameChapter01_3 = ({ onNext }) => {
             )}
             {isIndicateTextVisible && <ClickerGameMessage>
                 <ReactTyped
-                    strings={[
-                        "오븐이 작동하여 고대 이집트의 플랫브레드를 구워내었습니다.",
-                        "빵을 세번 클릭하여 반으로 쪼개세요.",
-
-                    ]}
+                    strings={story}
                     typeSpeed={40}
                     loop={false}
                 />
@@ -73,7 +108,7 @@ const ClickerGameChapter01_3 = ({ onNext }) => {
 
 
             <img
-                src={Image1}
+                src={Image}
                 onClick={handleImageClick}
                 alt="Bread"
                 style={{
@@ -92,4 +127,4 @@ const ClickerGameChapter01_3 = ({ onNext }) => {
 
 }
 
-export default ClickerGameChapter01_3;
+export default ClickerGameChapterContent3;
