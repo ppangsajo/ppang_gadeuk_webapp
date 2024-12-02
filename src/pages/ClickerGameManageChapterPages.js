@@ -18,6 +18,7 @@ import bgm4 from '../assets/bgms/Chapter4_france.mp3';
 import bgm5 from '../assets/bgms/Chapter5_japan.mp3';
 
 const ClickerGameChapter = () => {
+    
     const { chapter, id } = useParams();
     const navigate = useNavigate();
 
@@ -142,8 +143,8 @@ const ClickerGameChapter = () => {
         "처음으로 이동하세요!"
     ];
 
-    let bgmPath;
-
+    let bgmPath=null;
+    
     switch (chapter) { // chapter에 따라 bgm경로 변경하여 챕터마다 브금 다르게 설정
         case '1':
             bgmPath = bgm1;
@@ -165,7 +166,7 @@ const ClickerGameChapter = () => {
             break;
     }
 
-    //useBgm(bgmPath, 1, 2000);
+    useBgm(bgmPath, 1, 2000);
 
     const handleNextClick = () => {
         const nextId = parseInt(id, 10) + 1;
@@ -177,7 +178,7 @@ const ClickerGameChapter = () => {
         }
     };
 
-    useBgm(bgm1, 1, 2000);
+    //useBgm(bgm1, 1, 2000);
     const renderContent = () => {
         switch (chapter) {
             case '1':
