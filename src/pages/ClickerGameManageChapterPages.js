@@ -165,7 +165,7 @@ const ClickerGameChapter = () => {
             break;
     }
 
-    useBgm(bgmPath, 1, 2000);
+    //useBgm(bgmPath, 1, 2000);
 
     const handleNextClick = () => {
         const nextId = parseInt(id, 10) + 1;
