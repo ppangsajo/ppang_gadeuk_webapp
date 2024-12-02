@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import {
-  BakingClassContainer,
-  StyledTable,
-} from './styles/BakingRecipe/BakingClassStyle.js';
+import { BakingClassContainer, StyledTable, TopToolBar, RecordingContainer, StartButton, Button, SearchInput, DifficultyButton } from './styles/BakingRecipe/BakingClassStyle.js';
 import Card from './components/Card.js';
 import PageHeader1 from './components/PageHeader1';
 import dataSet from './static/translated_recipe.json';
@@ -25,7 +22,10 @@ function BakingClass() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredDataSet, setFilteredDataSet] = useState(dataSet);
-  const [difficulty, setDifficulty] = useState('전체'); // 난이도 상태 추가
+  const [difficulty, setDifficulty] = useState('전체');
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef(null);
+  const inputRef = useRef(null); // 검색 입력창 참조
 
   const closeModal = () => {
     setModalOpen(false);
@@ -38,6 +38,67 @@ function BakingClass() {
 
   const enableScroll = () => {
     document.body.style.overflow = 'unset'; // 스크롤 복원
+  };
+
+
+  // 음성인식 초기화
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("현재 브라우저는 음성 인식을 지원하지 않습니다.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "ko-KR"; // 한국어로 설정
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      console.log("Recognized text:", transcript);
+      setSearchTerm((prevTerm) => prevTerm + transcript); // 상태 업데이트
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error:", event.error);
+      alert("음성 인식 중 오류가 발생했습니다.");
+    };
+
+    recognition.onend = () => {
+      console.log("Speech recognition ended.");
+      setIsRecording(false); // 녹음 상태 종료
+    };
+
+    recognitionRef.current = recognition;
+  }, []);
+
+  // 녹음 시작
+  const startRecording = () => {
+    if (!inputRef.current) {
+      alert("검색창을 선택한 후 녹음을 시작해주세요.");
+      return;
+    }
+
+    if (recognitionRef.current) {
+      setIsRecording(true);
+      recognitionRef.current.start();
+    } else {
+      alert("음성 인식을 초기화하지 못했습니다.");
+    }
+  };
+
+  // 녹음 중지
+  const stopRecording = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  // 녹음 취소
+  const cancelRecording = () => {
+    stopRecording();
+    setSearchTerm(''); // 검색어 초기화
   };
 
   // useEffect로 상태 변화 감지 및 필터링 처리
@@ -109,59 +170,43 @@ function BakingClass() {
     <div>
       <PageHeader1 />
       <BakingClassContainer>
-        <div
-          style={{
-            position: 'absolute',
-            top: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 2,
-            display: 'flex',
-            gap: '10px',
-          }}
-        >
+        <TopToolBar>
+          {/* 음성 검색 버튼 */}
+          {!isRecording ? (
+            <StartButton onClick={startRecording} backgroundColor="#ff6f61" color="#fff">
+              음성 검색
+            </StartButton>
+          ) : (
+            <RecordingContainer>
+              <Button onClick={cancelRecording} backgroundColor="#ffd3b6">
+                취소
+              </Button>
+              <Button onClick={stopRecording} backgroundColor="#a8e6cf">
+                중지
+              </Button>
+            </RecordingContainer>
+          )}
+
           {/* 검색 필드 */}
-          <input
+          <SearchInput
             type="text"
             placeholder="레시피 제목을 검색하세요"
+            ref={inputRef}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              marginTop: '20px',
-              padding: '10px',
-              width: '20vw',
-              fontSize: '16px',
-              fontFamily: 'ourFont2',
-              borderRadius: '5px',
-              border: '1px solid #ccc',
-              background: 'rgba(255, 255, 255, 0.8)',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
           />
 
           {/* 난이도 버튼 */}
           {['전체', '초급', '중급', '고급'].map((level) => (
-            <button
+            <DifficultyButton
               key={level}
               onClick={() => setDifficulty(level)}
-              style={{
-                marginTop: '20px',
-                width: '7vw',
-                padding: '10px 15px',
-                fontSize: '16px',
-                fontFamily: 'ourFont2',
-                borderRadius: '5px',
-                border: 'none',
-                backgroundColor:
-                  level === difficulty ? '#ff6f61' : '#ccc', // 선택된 버튼 강조
-                color: '#333',
-                cursor: 'pointer',
-              }}
+              isSelected={level === difficulty} // 현재 선택된 버튼인지 확인
             >
               {level}
-            </button>
+            </DifficultyButton>
           ))}
-        </div>
+        </TopToolBar>
 
         <StyledTable>
           <tbody>{renderTableContent()}</tbody>
