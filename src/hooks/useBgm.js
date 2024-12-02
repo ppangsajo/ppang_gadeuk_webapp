@@ -42,7 +42,7 @@ function useBgm(path, volume, fadeoutTime) {
 
         return bgmStop; // 이 훅 컴포넌트 언마운트될 때 bgm 정지.
 
-    }, []);
+    }, [path]);
 }
 
 export default useBgm;

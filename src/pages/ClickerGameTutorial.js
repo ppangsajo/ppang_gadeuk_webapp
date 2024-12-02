@@ -7,9 +7,13 @@ import TutorialStep2 from './ClickerGameTutorialStep2';
 import TutorialStep3 from './ClickerGameTutorialStep3';
 import TutorialStep4 from './ClickerGameTutorialStep4';
 import TutorialStep5 from './ClickerGameTutorialStep5';
+import useBgm from '../hooks/useBgm';
 
+import bgm from '../assets/bgms/turorial.mp3'; // bgm 경로
 
 const ClickerGameTutorial = () => {
+    useBgm(bgm, 1, 2000);
+
     const { id } = useParams(); // URL의 id 파라미터 가져오기
     const navigate = useNavigate();
 

@@ -72,7 +72,12 @@ const ClickerGame = () => {
 
     const CheckCompleteChapters = () => {
 
-        if (!allChapterCleared) {
+        if (allChapterCleared) {
+
+            alert("궁극의 빵을 완성하였습니다!\n초기화 버튼을 눌러 처음부터 다시 진행할 수 있습니다!");
+        }
+        else {
+
             alert("모든 챕터를 완료하면, 궁극의 빵을 완성할 수 있습니다!");
         }
     }
