@@ -4,7 +4,7 @@ import PulseButton from './buttonStyles';
 export const RoadViewContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 450px;
+  height: 60vh;
   border-radius: 8px; /* 컨테이너에 둥근 모서리 추가 */
   overflow: hidden; /* 컨테이너 내부 요소가 밖으로 나가지 않도록 */
 `;

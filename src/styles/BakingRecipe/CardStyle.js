@@ -35,7 +35,7 @@ export const CardBottom = styled.div`
   align-items: center;
 `;
 
-export const Difficulty = styled.span`
+export const Level = styled.span`
   font-size: 16px;
   font-family: 'CookieRun-Regular';
 `;

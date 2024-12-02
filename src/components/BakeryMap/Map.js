@@ -279,8 +279,8 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
     }, [selectedItem]); // 사이드바의 빵집item 선택할 때마다 실행
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '700px' }}>
-            <div id="customMap" style={{ width: '100%', height: '100%' }}></div>
+        <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 220px)' }}>
+            <div id="customMap" style={{ width: '100%', height: 'calc(100vh - 220px)' }}></div>
 
             <button
                 onClick={currentLocationHandler}
@@ -306,7 +306,7 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
             {roadViewPosition && (
                 <div style={{
                     position: 'absolute',
-                    top: '50%',
+                    top: '30%',
                     left: '50%',
                     width: '50%',
                     height: '50%',
