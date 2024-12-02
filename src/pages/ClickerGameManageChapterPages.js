@@ -12,10 +12,10 @@ import ClickerGameChapterContent7 from '../components/ClickerGame/ClickerGameCha
 
 import useBgm from '../hooks/useBgm';
 import bgm1 from '../assets/bgms/Chapter1_egypt.mp3';
-import bgm2 from '../assets/bgms/Chapter1_egypt.mp3';
-import bgm1 from '../assets/bgms/Chapter1_egypt.mp3';
-import bgm1 from '../assets/bgms/Chapter1_egypt.mp3';
-import bgm1 from '../assets/bgms/Chapter1_egypt.mp3';
+import bgm2 from '../assets/bgms/Chapter2_greece.mp3';
+import bgm3 from '../assets/bgms/Chapter3_italia.mp3';
+import bgm4 from '../assets/bgms/Chapter4_france.mp3';
+import bgm5 from '../assets/bgms/Chapter5_japan.mp3';
 
 const ClickerGameChapter = () => {
     const { chapter, id } = useParams();
@@ -144,7 +144,7 @@ const ClickerGameChapter = () => {
 
     let bgmPath;
 
-    switch (chapter) {
+    switch (chapter) { // chapter에 따라 bgm경로 변경하여 챕터마다 브금 다르게 설정
         case '1':
             bgmPath = bgm1;
             break;
