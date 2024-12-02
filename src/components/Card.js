@@ -3,12 +3,12 @@ import {
   RecipeTitle,
   RecipeThumbNail,
   CardBottom,
-  Difficulty,
+  Level,
   CookingTime,
 } from '../styles/BakingRecipe/CardStyle.js';
 
 function Card({ props, onClick }) {
-  const { Title, Ingredients, Instructions, Image_Name } = props;
+  const { Title, Difficulty, Baking_Time, Image_Name } = props;
   const imgPath = require(`../assets/images/BakingRecipeImages/${Image_Name}`);
 
   return (
@@ -17,8 +17,10 @@ function Card({ props, onClick }) {
         <RecipeTitle>{Title}</RecipeTitle>
         <RecipeThumbNail src={imgPath} />
         <CardBottom>
-          <Difficulty>난이도: 초급</Difficulty>
-          <CookingTime>조리시간: 30분</CookingTime>
+          <Level>난이도: {Difficulty}</Level>
+          <CookingTime>
+            조리시간: {Baking_Time}
+          </CookingTime>
         </CardBottom>
       </CardStyle>
     </>
