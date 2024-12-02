@@ -10,6 +10,12 @@ import ClickerGameChapterContent5 from '../components/ClickerGame/ClickerGameCha
 import ClickerGameChapterContent6 from '../components/ClickerGame/ClickerGameChapterContent6';
 import ClickerGameChapterContent7 from '../components/ClickerGame/ClickerGameChapterContent7';
 
+import useBgm from '../hooks/useBgm';
+import bgm1 from '../assets/bgms/Chapter1_egypt.mp3';
+import bgm2 from '../assets/bgms/Chapter2_greece.mp3';
+import bgm3 from '../assets/bgms/Chapter3_italia.mp3';
+import bgm4 from '../assets/bgms/Chapter4_france.mp3';
+import bgm5 from '../assets/bgms/Chapter5_japan.mp3';
 
 const ClickerGameChapter = () => {
     const { chapter, id } = useParams();
@@ -136,6 +142,31 @@ const ClickerGameChapter = () => {
         "처음으로 이동하세요!"
     ];
 
+    let bgmPath;
+
+    switch (chapter) { // chapter에 따라 bgm경로 변경하여 챕터마다 브금 다르게 설정
+        case '1':
+            bgmPath = bgm1;
+            break;
+        case '2':
+            bgmPath = bgm2;
+            break;
+        case '3':
+            bgmPath = bgm3;
+            break;
+        case '4':
+            bgmPath = bgm4;
+            break;
+        case '5':
+            bgmPath = bgm5;
+            break;
+        default:
+            bgmPath = bgm1; 
+            break;
+    }
+
+    useBgm(bgmPath, 1, 2000);
+
     const handleNextClick = () => {
         const nextId = parseInt(id, 10) + 1;
 
@@ -146,6 +177,7 @@ const ClickerGameChapter = () => {
         }
     };
 
+    useBgm(bgm1, 1, 2000);
     const renderContent = () => {
         switch (chapter) {
             case '1':
