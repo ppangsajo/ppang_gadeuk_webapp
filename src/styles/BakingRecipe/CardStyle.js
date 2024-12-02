@@ -17,7 +17,7 @@ export const RecipeTitle = styled.div`
   font-size: 17px;
   height: 20px;
   margin-bottom: 5px;
-  font-family: 'CookieRun-Bold';
+  font-family: 'OurFont2';
 `;
 
 export const RecipeThumbNail = styled.img`
@@ -37,10 +37,10 @@ export const CardBottom = styled.div`
 
 export const Level = styled.span`
   font-size: 16px;
-  font-family: 'CookieRun-Regular';
+  font-family: 'OurFont3';
 `;
 
 export const CookingTime = styled.span`
   font-size: 16px;
-  font-family: 'CookieRun-Regular';
+  font-family: 'OurFont3';
 `;

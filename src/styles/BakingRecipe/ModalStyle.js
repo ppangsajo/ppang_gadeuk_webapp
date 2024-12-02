@@ -72,4 +72,5 @@ export const CloseButton = styled.button`
 
 export const RecipeLine = styled.li`
   margin: 0 0 10px 7px;
+  font-family: 'OurFont6';
 `;
