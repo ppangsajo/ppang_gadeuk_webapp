@@ -8,7 +8,7 @@ import UltimateBreadShow from '../assets/images/ClickerGameImages/ClickerGameUlt
 
 import useBgm from '../hooks/useBgm';
 
-import bgm from '../assets/bgms/ClickerGameBgm.mp3'; // bgm 경로
+import mainBGM from '../assets/bgms/ClickerGameMainBgm.mp3'; // bgm 경로
 
 export const ChapterManageContext = createContext({
     images: [],
@@ -36,7 +36,7 @@ const ClickerGame = () => {
     const [isTutorialClicked, setIsTutorialClicked] = useState(false);
     const { images, setImages, allChapterCleared, isAllChapterCleared } = useContext(ChapterManageContext); // Context 가져오기
 
-    useBgm(bgm, 1, 2000); /// 배경음악 재생시점!! 수정해주세요
+    useBgm(mainBGM, 1, 2000); /// 배경음악 재생시점!! 수정해주세요
 
     // 세션 스토리지에서 데이터 로드
     useEffect(() => {

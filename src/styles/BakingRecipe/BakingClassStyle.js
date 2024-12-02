@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const BakingClassContainer = styled.div`
   width: 100%;
-  margin: 0 auto;
-  padding: 90px 30px;
+  padding: 170px 30px;
   background-image: url('/baking-class-background.png');
   background-attachment: fixed;
 
@@ -25,12 +24,13 @@ export const StyledTable = styled.table`
 export const TopToolBar = styled.div`
 
   position: absolute;
-  top: 20px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
   zIndex: 2;
   display: flex;
   gap: 10px;
+  margin : 20, 20, 20, 20;
 `;
 
 export const RecordingContainer = styled.div`
@@ -39,7 +39,7 @@ export const RecordingContainer = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-top: 20px;
+
 `;
 
 export const Button = styled.button`
@@ -55,11 +55,10 @@ export const Button = styled.button`
 
 export const StartButton = styled(Button)`
   width: 10vw;
-  margin-top: 20px;
 `;
 
 export const SearchInput = styled.input`
-  margin-top: 20px;
+
   padding: 10px;
   width: 20vw;
   font-size: 16px;
@@ -71,7 +70,7 @@ export const SearchInput = styled.input`
 `;
 
 export const DifficultyButton = styled.button`
-  margin-top: 20px;
+
   width: 7vw;
   padding: 10px 15px;
   font-size: 16px;
