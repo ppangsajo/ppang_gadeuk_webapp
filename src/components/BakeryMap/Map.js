@@ -36,10 +36,10 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
             const currentLng = position.coords.longitude;
 
             //현 위치 버튼 클릭시 현재 위치로 이동, 이지만 현재 위치를 한성대로 설정해둠(이동되는지 테스트용)!!! 시연시, 변경 필수
-            const currentCoordinate = new kakao.maps.LatLng(37.58284829999999, 127.0105811);
+            //const currentCoordinate = new kakao.maps.LatLng(37.58284829999999, 127.0105811);
 
             //현 위치 버튼 클릭시 현재 위치로 이동
-            //const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng);
+            const currentCoordinate = new kakao.maps.LatLng(currentLat, currentLng);
 
             // 이전 마커 제거
             if (currentMarker.current) {
@@ -61,8 +61,8 @@ const CustomMap = ({ setPlaces, setCurrentAddress, selectedItem }) => {
 
             // 현재 위치에 대한 주소값 update이지만, 한성대로 설정해둠(테스트용)
             //!!! 시연시, 변경 필수
-            updateAddress(37.58284829999999, 127.0105811);
-            //updateAddress(currentLat, currentLng);
+            //updateAddress(37.58284829999999, 127.0105811);
+            updateAddress(currentLat, currentLng);
 
         }, showErrorMsg, {
             enableHighAccuracy: true, // 위치 정확도 향상 요청
