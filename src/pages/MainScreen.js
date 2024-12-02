@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Main, Center, P } from '../styles/MainScreenStyles';
-import Card from '../components/MainScreen/MainScreenCards';
+import Card from '../components/MainScreenCards';
 import PageHeader from '../components/PageHeader';
 
 function MainScreen() {
