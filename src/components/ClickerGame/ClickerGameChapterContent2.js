@@ -141,8 +141,8 @@ const ClickerGameChapterContent2 = ({ index, onNext }) => {
                         top: "50%", // 화면 중앙
                         left: "50%",
                         transform: "translate(-50%, -50%)", // 요소 중심점 이동
-                        width: "70%", // 이미지 크기 조정
-                        height: "auto", // 비율 유지
+                        width: "auto",
+                        height: "85vh",
                         zIndex: 10,
                     }}
                 />

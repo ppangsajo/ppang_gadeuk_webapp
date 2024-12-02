@@ -63,7 +63,7 @@ const ClickerGameChapterContent7 = ({ index, story, onNext }) => {
 
         // 3초 동안 이미지 크기를 점진적으로 증가
         const timer2 = setTimeout(() => {
-            setImageSize("60%");
+            setImageSize("50%");
         }, 0);
 
         const timer3 = setTimeout(() => {
